@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">一个简洁版</string>
+
+    <string name="toolbar_btn_home">首页</string>
+    <string name="toolbar_btn_article">文章</string>
+    <string name="toolbar_btn_question">问题</string>
+    <string name="toolbar_btn_settings">设置</string>
+</resources>

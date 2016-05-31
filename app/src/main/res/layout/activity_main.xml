@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/toolbar"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/toolbar_bg_scale"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/btn_home"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textColor="@color/toolbar_text"
+            android:text="@string/toolbar_btn_home"/>
+
+        <TextView
+            android:id="@+id/btn_article"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textColor="@color/toolbar_text"
+            android:text="@string/toolbar_btn_article"/>
+
+        <TextView
+            android:id="@+id/btn_question"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textColor="@color/toolbar_text"
+            android:text="@string/toolbar_btn_question"/>
+
+        <TextView
+            android:id="@+id/btn_settings"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:textSize="17sp"
+            android:textColor="@color/toolbar_text"
+            android:text="@string/toolbar_btn_settings"/>
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/toolbar"/>
+</RelativeLayout>
