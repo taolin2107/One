@@ -69,7 +69,7 @@ public class QuestionContentFragment extends BaseContentFragment {
 
             @Override
             public void onFailure(Call<Question> call, Throwable t) {
-                Log.e("QuestionContentFragment", t.getMessage());
+                Log.e("QuestionContentFragment", t + "");
             }
         });
     }

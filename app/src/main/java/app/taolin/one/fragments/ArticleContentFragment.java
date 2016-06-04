@@ -72,7 +72,7 @@ public class ArticleContentFragment extends BaseContentFragment {
 
             @Override
             public void onFailure(Call<Article> call, Throwable t) {
-                Log.e("ArticleContentFragment", t.getMessage());
+                Log.e("ArticleContentFragment", t + "");
             }
         });
     }

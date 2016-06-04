@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="17sp"
+            android:textSize="?attr/settingTextSize"
             android:textColor="@color/toolbar_text"
             android:text="@string/toolbar_btn_home"/>
 
@@ -26,7 +26,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="17sp"
+            android:textSize="?attr/settingTextSize"
             android:textColor="@color/toolbar_text"
             android:text="@string/toolbar_btn_article"/>
 
@@ -36,7 +36,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="17sp"
+            android:textSize="?attr/settingTextSize"
             android:textColor="@color/toolbar_text"
             android:text="@string/toolbar_btn_question"/>
 
@@ -46,7 +46,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:textSize="17sp"
+            android:textSize="?attr/settingTextSize"
             android:textColor="@color/toolbar_text"
             android:text="@string/toolbar_btn_settings"/>
     </LinearLayout>

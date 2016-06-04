@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
-                android:textSize="@dimen/primary_text_size"
+                android:textSize="?attr/contentTextSize"
                 android:textColor="@color/textColorPrimary"/>
 
             <View
@@ -35,7 +35,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
-                android:textSize="@dimen/primary_large_text_size"
+                android:textSize="?attr/settingTextSize"
                 android:textColor="@color/textColorPrimary"/>
 
             <TextView
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:lineSpacingExtra="6dp"
-                android:textSize="@dimen/content_text_size"
+                android:textSize="?attr/contentTextSize"
                 android:textColor="@color/contentTextColor"/>
 
             <View
@@ -59,7 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
-                android:textSize="@dimen/primary_large_text_size"
+                android:textSize="?attr/settingTextSize"
                 android:textColor="@color/textColorPrimary"/>
 
             <TextView
@@ -68,7 +68,7 @@
                 android:layout_height="wrap_content"
                 android:lineSpacingExtra="6dp"
                 android:layout_marginTop="15dp"
-                android:textSize="@dimen/content_text_size"
+                android:textSize="?attr/contentTextSize"
                 android:textColor="@color/contentTextColor"/>
 
             <TextView
@@ -77,7 +77,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
-                android:textSize="@dimen/primary_text_size"
+                android:textSize="?attr/contentTextSize"
                 android:textColor="@color/textColorPrimary"/>
         </LinearLayout>
     </ScrollView>

@@ -20,7 +20,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
-                android:textSize="@dimen/primary_text_size"
+                android:textSize="?attr/contentTextSize"
                 android:textColor="@color/textColorPrimary"/>
 
             <View
@@ -43,7 +43,7 @@
                 android:lineSpacingExtra="6dp"
                 android:gravity="end"
                 android:maxLines="2"
-                android:textSize="@dimen/primary_text_size"
+                android:textSize="?attr/contentTextSize"
                 android:textColor="@color/textColorPrimary"/>
 
             <LinearLayout
@@ -68,7 +68,7 @@
                         android:maxLines="1"
                         android:textStyle="bold"
                         android:textSize="40sp"
-                        android:textColor="@color/colorPrimary"/>
+                        android:textColor="?attr/primaryColor"/>
 
                     <TextView
                         android:id="@+id/month_year"
@@ -76,7 +76,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
                         android:maxLines="1"
-                        android:textSize="@dimen/primary_text_size"
+                        android:textSize="?attr/contentTextSize"
                         android:textColor="@color/textColorSecondary"/>
                 </LinearLayout>
 
@@ -88,7 +88,7 @@
                     android:lineSpacingExtra="6dp"
                     android:background="@drawable/bg_home_content"
                     android:maxLines="8"
-                    android:textSize="@dimen/primary_text_size"
+                    android:textSize="?attr/contentTextSize"
                     android:textColor="#ffffff"/>
             </LinearLayout>
         </LinearLayout>

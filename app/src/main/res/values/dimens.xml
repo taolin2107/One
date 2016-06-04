@@ -1,5 +1,11 @@
 <resources>
-    <dimen name="primary_text_size">14sp</dimen>
-    <dimen name="primary_large_text_size">18sp</dimen>
-    <dimen name="content_text_size">15sp</dimen>
+    <dimen name="content_text_size_small">14sp</dimen>
+    <dimen name="content_text_size_normal">15sp</dimen>
+    <dimen name="content_text_size_large">16sp</dimen>
+    <dimen name="content_text_size_extra">17sp</dimen>
+
+    <dimen name="settings_text_size_small">16sp</dimen>
+    <dimen name="settings_text_size_normal">17sp</dimen>
+    <dimen name="settings_text_size_large">18sp</dimen>
+    <dimen name="settings_text_size_extra">19sp</dimen>
 </resources>

@@ -74,7 +74,7 @@ public class HomeContentFragment extends BaseContentFragment {
 
             @Override
             public void onFailure(Call<Home> call, Throwable t) {
-                Log.e("HomeContentFragment", t.getMessage());
+                Log.e("HomeContentFragment", t + "");
             }
         });
     }

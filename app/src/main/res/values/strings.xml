@@ -1,8 +1,15 @@
 <resources>
-    <string name="app_name">一个简洁版</string>
+    <string name="app_name">一个</string>
 
     <string name="toolbar_btn_home">首页</string>
     <string name="toolbar_btn_article">文章</string>
     <string name="toolbar_btn_question">问题</string>
     <string name="toolbar_btn_settings">设置</string>
+
+    <string name="font_size_settings">字体大小</string>
+    <string name="sample_text">测试文本</string>
+    <string name="night_mode">夜间模式</string>
+    <string name="version_code">版本号</string>
+    <string name="copyright">版权声明</string>
+    <string name="copyright_desc">内容属[一个]官方所有</string>
 </resources>

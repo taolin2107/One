@@ -1,3 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <attr name="primaryColor" format="color"/>
+    <attr name="contentTextSize" format="dimension"/>
+    <attr name="settingTextSize" format="dimension"/>
 </resources>

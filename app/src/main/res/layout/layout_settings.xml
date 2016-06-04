@@ -1,13 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="#990000"
-        android:textSize="30sp"
-        android:text="@string/toolbar_btn_settings"/>
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"
+            android:text="@string/font_size_settings"/>
+
+        <Spinner
+            android:id="@+id/font_size"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:layout_alignParentRight="true"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"/>
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"
+            android:text="@string/night_mode"/>
+
+        <Switch
+            android:id="@+id/night_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"/>
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"
+            android:text="@string/copyright"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"/>
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/divider_color"/>
+
+    <RelativeLayout
+        android:gravity="center_vertical"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"
+            android:text="@string/version_code"/>
+
+        <TextView
+            android:id="@+id/version_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:textColor="@color/textColorPrimary"
+            android:textSize="?attr/settingTextSize"/>
+    </RelativeLayout>
 </LinearLayout>
