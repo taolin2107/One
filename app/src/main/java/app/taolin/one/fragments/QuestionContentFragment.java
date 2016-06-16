@@ -10,9 +10,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import app.taolin.one.R;
+import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.models.Question;
 import app.taolin.one.utils.DateUtil;
 import app.taolin.one.utils.OneServiceSingleton;
+import app.taolin.one.widgets.ScrollViewExt;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -47,6 +49,11 @@ public class QuestionContentFragment extends BaseContentFragment {
         mEditor = (TextView) root.findViewById(R.id.editor);
         mAnswerTitle = (TextView) root.findViewById(R.id.answer_title);
         setDoubleClickListener(root);
+
+        // for scroll down to hide toolbar, scroll up to show toolbar
+        setOnContentScrollListener((OnContentScrollListener) getActivity());
+        ScrollViewExt contentScroller = (ScrollViewExt) root.findViewById(R.id.scroll_view);
+        contentScroller.setOnScrollChangeListener(mScrollChangeListener);
         return root;
     }
 

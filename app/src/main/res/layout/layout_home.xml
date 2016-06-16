@@ -50,6 +50,7 @@
                 android:id="@+id/date_content"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/toolbar_height"
                 android:layout_marginTop="15dp">
 
                 <LinearLayout

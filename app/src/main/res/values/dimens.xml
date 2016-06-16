@@ -8,4 +8,7 @@
     <dimen name="settings_text_size_normal">17sp</dimen>
     <dimen name="settings_text_size_large">18sp</dimen>
     <dimen name="settings_text_size_extra">19sp</dimen>
+
+    <dimen name="toolbar_height">50dp</dimen>
+    <dimen name="effective_scroll_distance">50dp</dimen>
 </resources>

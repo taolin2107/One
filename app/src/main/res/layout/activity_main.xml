@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
     <LinearLayout
         android:id="@+id/toolbar"
-        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
         android:background="@drawable/toolbar_bg_scale"
         android:layout_width="match_parent"
-        android:layout_height="50dp">
+        android:layout_height="@dimen/toolbar_height">
 
         <TextView
             android:id="@+id/btn_home"
@@ -50,10 +55,4 @@
             android:textColor="@color/toolbar_text"
             android:text="@string/toolbar_btn_settings"/>
     </LinearLayout>
-
-    <FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/toolbar"/>
-</RelativeLayout>
+</FrameLayout>

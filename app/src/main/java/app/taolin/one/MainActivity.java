@@ -13,10 +13,11 @@ import app.taolin.one.fragments.ArticleFragment;
 import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
 import app.taolin.one.fragments.SettingsFragment;
+import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.ViewClickListener;
 import app.taolin.one.utils.SharedPreferenceUtil;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements OnContentScrollListener {
 
     private static final String TAG_FRAGMENT_HOME = "fragment_home";
     private static final String TAG_FRAGMENT_ARTICLE = "fragment_article";
@@ -24,7 +25,9 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG_FRAGMENT_SETTINGS = "fragment_settings";
 
     private static final String KEY_CURRENT_INDEX = "current_index";
+    private static final int ANIM_DURATION = 200;
 
+    private View mToolbar;
     private TextView mBtnHome;
     private TextView mBtnArticle;
     private TextView mBtnQuestion;
@@ -37,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
     private FragmentManager mFragmentManager;
     private int mCurrentIndex;
+
+    private int mToolbarHeight;
+    private boolean mIsToolbarHide;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,10 +109,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
+        mToolbar = findViewById(R.id.toolbar);
         mBtnHome = (TextView) findViewById(R.id.btn_home);
         mBtnArticle = (TextView) findViewById(R.id.btn_article);
         mBtnQuestion = (TextView) findViewById(R.id.btn_question);
         mBtnSettings = (TextView) findViewById(R.id.btn_settings);
+        mToolbarHeight = getResources().getDimensionPixelSize(R.dimen.toolbar_height);
+        mIsToolbarHide = false;
     }
 
     private void initListener() {
@@ -233,4 +242,22 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     };
+
+    @Override
+    public void scrollUp(View v) {
+        if (mIsToolbarHide) {
+            mToolbar.animate().cancel();
+            mToolbar.animate().translationY(0).setDuration(ANIM_DURATION);
+            mIsToolbarHide = false;
+        }
+    }
+
+    @Override
+    public void scrollDown(View v) {
+        if (!mIsToolbarHide) {
+            mToolbar.animate().cancel();
+            mToolbar.animate().translationY(mToolbarHeight).setDuration(ANIM_DURATION);
+            mIsToolbarHide = true;
+        }
+    }
 }
