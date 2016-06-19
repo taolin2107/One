@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import app.taolin.one.App;
@@ -18,6 +17,7 @@ import app.taolin.one.BuildConfig;
 import app.taolin.one.R;
 import app.taolin.one.common.Constants;
 import app.taolin.one.utils.SharedPreferenceUtil;
+import app.taolin.one.widgets.SmoothSwitch;
 
 /**
  * @author taolin
@@ -29,18 +29,20 @@ import app.taolin.one.utils.SharedPreferenceUtil;
 public class SettingsFragment extends Fragment {
 
     private Spinner mTextSize;
-    private Switch mNightMode;
+    private SmoothSwitch mNightMode;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.layout_settings, container, false);
         mTextSize = (Spinner) root.findViewById(R.id.font_size);
-        mNightMode = (Switch) root.findViewById(R.id.night_mode);
+        mNightMode = (SmoothSwitch) root.findViewById(R.id.night_mode);
         final TextView versionCode = (TextView) root.findViewById(R.id.version_code);
         versionCode.setText(BuildConfig.VERSION_NAME);
-        mTextSize.setAdapter(new ArrayAdapter<>(App.getInstance(), R.layout.drop_down_item_layout,
-                android.R.id.text1, App.getInstance().getResources().getStringArray(R.array.text_size_items)));
+        mTextSize.setAdapter(new ArrayAdapter<>(App.getInstance(), SharedPreferenceUtil
+                .readBoolean(Constants.KEY_NIGHT_MODE) ? R.layout.drop_down_item_layout_dark:
+                R.layout.drop_down_item_layout, android.R.id.text1,
+                App.getInstance().getResources().getStringArray(R.array.text_size_items)));
         mTextSize.setSelection(SharedPreferenceUtil.readInt(Constants.KEY_FONT_SIZE, 1));
         mNightMode.setChecked(SharedPreferenceUtil.readBoolean(Constants.KEY_NIGHT_MODE));
         return root;

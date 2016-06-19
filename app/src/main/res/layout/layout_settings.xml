@@ -1,60 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:padding="20dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"
+            android:layout_centerVertical="true"
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/secondTextSize"
             android:text="@string/font_size_settings"/>
 
         <Spinner
             android:id="@+id/font_size"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
             android:background="@null"
-            android:layout_alignParentRight="true"/>
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"/>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/divider_color"/>
+        android:background="?attr/dividerColor"/>
 
     <RelativeLayout
-        android:gravity="center_vertical"
         android:layout_width="match_parent"
         android:layout_height="50dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"
+            android:layout_centerVertical="true"
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/secondTextSize"
             android:text="@string/night_mode"/>
 
-        <Switch
+        <app.taolin.one.widgets.SmoothSwitch
             android:id="@+id/night_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"/>
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            custom:drawableThumb="@drawable/switch_thumb"
+            custom:drawableTrack="@drawable/switch_track_selector"/>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/divider_color"/>
+        android:background="?attr/dividerColor"/>
 
     <RelativeLayout
         android:gravity="center_vertical"
@@ -64,22 +69,23 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/secondTextSize"
             android:text="@string/copyright"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"/>
+            android:layout_alignParentEnd="true"
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/secondTextSize"/>
     </RelativeLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@color/divider_color"/>
+        android:background="?attr/dividerColor"/>
 
     <RelativeLayout
         android:gravity="center_vertical"
@@ -89,16 +95,17 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/secondTextSize"
             android:text="@string/version_code"/>
 
         <TextView
             android:id="@+id/version_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:textColor="@color/textColorPrimary"
-            android:textSize="?attr/settingTextSize"/>
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/secondTextSize"/>
     </RelativeLayout>
 </LinearLayout>

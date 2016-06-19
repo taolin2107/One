@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primaryColor">#37c3f2</color>
-    <color name="primaryColorDark">#303F9F</color>
+    <color name="primaryColorDark">#175070</color>
+    <color name="primaryColorLight">#37c3f2</color>
 
-    <color name="textColorPrimary">#666666</color>
-    <color name="textColorSecondary">#bbbbbb</color>
-    <color name="contentTextColor">#555555</color>
-    <color name="divider_color">#dddddd</color>
+    <color name="dividerColorDark">#444444</color>
+    <color name="dividerColorLight">#dddddd</color>
+
+    <color name="bgColorDark">#2c2c2d</color>
+    <color name="bgColorLight">#ffffff</color>
+
+    <color name="contentTextColorDark">#666666</color>
+    <color name="contentTextColorLight">#555555</color>
+
+    <color name="secondTextColorDark">#666666</color>
+    <color name="secondTextColorLight">#777777</color>
+
+    <color name="thirdTextColorDark">#555555</color>
+    <color name="thirdTextColorLight">#bbbbbb</color>
+
+    <color name="quoteTextColorDark">#88000000</color>
+    <color name="quoteTextColorLight">#ffffff</color>
 </resources>

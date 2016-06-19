@@ -21,13 +21,13 @@
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textColor="?attr/secondTextColor"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/divider_color"/>
+                android:background="?attr/dividerColor"/>
 
             <TextView
                 android:id="@+id/title"
@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
-                android:textSize="?attr/settingTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textSize="?attr/secondTextSize"
+                android:textColor="?attr/secondTextColor"/>
 
             <TextView
                 android:id="@+id/author"
@@ -44,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/textColorSecondary"/>
+                android:textColor="?attr/thirdTextColor"/>
 
             <TextView
                 android:id="@+id/content"
@@ -53,7 +53,7 @@
                 android:lineSpacingExtra="6dp"
                 android:layout_marginTop="15dp"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/contentTextColor"/>
+                android:textColor="?attr/contentTextColor"/>
 
             <TextView
                 android:id="@+id/editor"
@@ -61,21 +61,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textColor="?attr/secondTextColor"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/divider_color"/>
+                android:background="?attr/dividerColor"/>
 
             <TextView
                 android:id="@+id/author2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:textSize="?attr/settingTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textSize="?attr/secondTextSize"
+                android:textColor="?attr/secondTextColor"/>
 
             <TextView
                 android:id="@+id/author_intro"
@@ -85,7 +85,7 @@
                 android:layout_marginBottom="@dimen/toolbar_height"
                 android:lineSpacingExtra="6dp"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textColor="?attr/secondTextColor"/>
         </LinearLayout>
     </app.taolin.one.widgets.ScrollViewExt>
 

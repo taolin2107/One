@@ -2,5 +2,20 @@
 <resources>
     <attr name="primaryColor" format="color"/>
     <attr name="contentTextSize" format="dimension"/>
-    <attr name="settingTextSize" format="dimension"/>
+    <attr name="secondTextSize" format="dimension"/>
+    <attr name="bgColor" format="color"/>
+    <attr name="toolbarTextColor" format="color"/>
+    <attr name="toolbarAlpha" format="float"/>
+    <attr name="toolbarBg" format="reference"/>
+    <attr name="contentTextColor" format="color"/>
+    <attr name="secondTextColor" format="color"/>
+    <attr name="thirdTextColor" format="color"/>
+    <attr name="quoteTextColor" format="color"/>
+    <attr name="dividerColor" format="color"/>
+    <attr name="homeContentBg" format="reference"/>
+
+    <declare-styleable name="SmoothSwitch">
+        <attr name="drawableTrack" format="reference"/>
+        <attr name="drawableThumb" format="reference"/>
+    </declare-styleable>
 </resources>

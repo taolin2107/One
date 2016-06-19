@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:background="@drawable/bg_dropdown_item"
-    android:textColor="@color/secondTextColorLight"
+    android:background="@drawable/bg_dropdown_item_dark"
+    android:textColor="@color/secondTextColorDark"
     android:textSize="16sp"
     android:ellipsize="marquee"
     android:textAlignment="inherit"/>

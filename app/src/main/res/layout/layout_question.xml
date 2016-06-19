@@ -21,13 +21,13 @@
                 android:layout_marginTop="5dp"
                 android:maxLines="1"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textColor="?attr/secondTextColor"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="5dp"
-                android:background="@color/divider_color"/>
+                android:background="?attr/dividerColor"/>
 
             <TextView
                 android:id="@+id/question"
@@ -35,8 +35,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
-                android:textSize="?attr/settingTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textSize="?attr/secondTextSize"
+                android:textColor="?attr/secondTextColor"/>
 
             <TextView
                 android:id="@+id/question_desc"
@@ -45,13 +45,13 @@
                 android:layout_marginTop="15dp"
                 android:lineSpacingExtra="6dp"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/contentTextColor"/>
+                android:textColor="?attr/contentTextColor"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_marginTop="15dp"
-                android:background="@color/divider_color"/>
+                android:background="?attr/dividerColor"/>
 
             <TextView
                 android:id="@+id/answer_title"
@@ -59,8 +59,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
                 android:textStyle="bold"
-                android:textSize="?attr/settingTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textSize="?attr/secondTextSize"
+                android:textColor="?attr/secondTextColor"/>
 
             <TextView
                 android:id="@+id/answer"
@@ -69,7 +69,7 @@
                 android:lineSpacingExtra="6dp"
                 android:layout_marginTop="15dp"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/contentTextColor"/>
+                android:textColor="?attr/contentTextColor"/>
 
             <TextView
                 android:id="@+id/editor"
@@ -78,7 +78,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="@dimen/toolbar_height"
                 android:textSize="?attr/contentTextSize"
-                android:textColor="@color/textColorPrimary"/>
+                android:textColor="?attr/secondTextColor"/>
         </LinearLayout>
     </app.taolin.one.widgets.ScrollViewExt>
 
