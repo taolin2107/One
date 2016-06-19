@@ -1,5 +1,6 @@
 package app.taolin.one.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import app.taolin.one.App;
 import app.taolin.one.BuildConfig;
+import app.taolin.one.CopyrightActivity;
 import app.taolin.one.R;
 import app.taolin.one.common.Constants;
 import app.taolin.one.utils.SharedPreferenceUtil;
@@ -30,6 +32,7 @@ public class SettingsFragment extends Fragment {
 
     private Spinner mTextSize;
     private SmoothSwitch mNightMode;
+    private View mCopyright;
 
     @Nullable
     @Override
@@ -45,6 +48,7 @@ public class SettingsFragment extends Fragment {
                 App.getInstance().getResources().getStringArray(R.array.text_size_items)));
         mTextSize.setSelection(SharedPreferenceUtil.readInt(Constants.KEY_FONT_SIZE, 1));
         mNightMode.setChecked(SharedPreferenceUtil.readBoolean(Constants.KEY_NIGHT_MODE));
+        mCopyright = root.findViewById(R.id.copyright);
         return root;
     }
 
@@ -72,6 +76,12 @@ public class SettingsFragment extends Fragment {
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 SharedPreferenceUtil.writeBoolean(Constants.KEY_NIGHT_MODE, isChecked);
                 getActivity().recreate();
+            }
+        });
+        mCopyright.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getActivity(), CopyrightActivity.class));
             }
         });
     }

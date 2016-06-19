@@ -13,6 +13,7 @@
         <item name="quoteTextColor">@color/quoteTextColorDark</item>
         <item name="dividerColor">@color/dividerColorDark</item>
         <item name="homeContentBg">@drawable/bg_home_content_dark</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left_dark</item>
     </style>
 
     <style name="NightNormalTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -29,6 +30,7 @@
         <item name="quoteTextColor">@color/quoteTextColorDark</item>
         <item name="dividerColor">@color/dividerColorDark</item>
         <item name="homeContentBg">@drawable/bg_home_content_dark</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left_dark</item>
     </style>
 
     <style name="NightLargeTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -45,6 +47,7 @@
         <item name="quoteTextColor">@color/quoteTextColorDark</item>
         <item name="dividerColor">@color/dividerColorDark</item>
         <item name="homeContentBg">@drawable/bg_home_content_dark</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left_dark</item>
     </style>
 
     <style name="NightExtraTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -61,6 +64,7 @@
         <item name="quoteTextColor">@color/quoteTextColorDark</item>
         <item name="dividerColor">@color/dividerColorDark</item>
         <item name="homeContentBg">@drawable/bg_home_content_dark</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left_dark</item>
     </style>
 
     <style name="LightSmallTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -77,6 +81,7 @@
         <item name="quoteTextColor">@color/quoteTextColorLight</item>
         <item name="dividerColor">@color/dividerColorLight</item>
         <item name="homeContentBg">@drawable/bg_home_content</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left</item>
     </style>
 
     <style name="LightNormalTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -93,6 +98,7 @@
         <item name="quoteTextColor">@color/quoteTextColorLight</item>
         <item name="dividerColor">@color/dividerColorLight</item>
         <item name="homeContentBg">@drawable/bg_home_content</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left</item>
     </style>
 
     <style name="LightLargeTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -109,6 +115,7 @@
         <item name="quoteTextColor">@color/quoteTextColorLight</item>
         <item name="dividerColor">@color/dividerColorLight</item>
         <item name="homeContentBg">@drawable/bg_home_content</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left</item>
     </style>
 
     <style name="LightExtraTextTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -125,5 +132,6 @@
         <item name="quoteTextColor">@color/quoteTextColorLight</item>
         <item name="dividerColor">@color/dividerColorLight</item>
         <item name="homeContentBg">@drawable/bg_home_content</item>
+        <item name="bgBackBtn">@drawable/ic_arrow_left</item>
     </style>
 </resources>

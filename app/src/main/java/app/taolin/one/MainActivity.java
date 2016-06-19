@@ -8,14 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-import app.taolin.one.common.Constants;
 import app.taolin.one.fragments.ArticleFragment;
 import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
 import app.taolin.one.fragments.SettingsFragment;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.ViewClickListener;
-import app.taolin.one.utils.SharedPreferenceUtil;
+import app.taolin.one.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements OnContentScrollListener {
 
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTheme();
+        Utils.setTheme(this);
         setContentView(R.layout.activity_main);
         mFragmentManager = getSupportFragmentManager();
         mCurrentIndex = 0;
@@ -71,40 +70,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
             case 3:
                 clickButton(mBtnSettings);
                 break;
-        }
-    }
-
-    private void setTheme() {
-        if (SharedPreferenceUtil.readBoolean(Constants.KEY_NIGHT_MODE)) {
-            switch (SharedPreferenceUtil.readInt(Constants.KEY_FONT_SIZE, 1)) {
-                case 0:
-                    setTheme(R.style.NightSmallTextTheme);
-                    break;
-                case 1:
-                    setTheme(R.style.NightNormalTextTheme);
-                    break;
-                case 2:
-                    setTheme(R.style.NightLargeTextTheme);
-                    break;
-                case 3:
-                    setTheme(R.style.NightExtraTextTheme);
-                    break;
-            }
-        } else {
-            switch (SharedPreferenceUtil.readInt(Constants.KEY_FONT_SIZE, 1)) {
-                case 0:
-                    setTheme(R.style.LightSmallTextTheme);
-                    break;
-                case 1:
-                    setTheme(R.style.LightNormalTextTheme);
-                    break;
-                case 2:
-                    setTheme(R.style.LightLargeTextTheme);
-                    break;
-                case 3:
-                    setTheme(R.style.LightExtraTextTheme);
-                    break;
-            }
         }
     }
 
