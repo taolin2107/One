@@ -56,10 +56,10 @@
 
                 <LinearLayout
                     android:id="@+id/date"
-                    android:layout_width="0dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
-                    android:layout_weight="2"
+                    android:layout_marginStart="5dp"
                     android:orientation="vertical">
 
                     <TextView
@@ -85,12 +85,12 @@
 
                 <TextView
                     android:id="@+id/content"
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="7"
                     android:lineSpacingExtra="6dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginStart="5dp"
                     android:background="?attr/homeContentBg"
-                    android:maxLines="8"
                     android:textSize="?attr/contentTextSize"
                     android:textColor="?attr/quoteTextColor"/>
             </LinearLayout>

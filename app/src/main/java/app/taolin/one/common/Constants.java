@@ -13,5 +13,5 @@ public class Constants {
     public static final String KEY_FONT_SIZE = "font_size";
     public static final String KEY_NIGHT_MODE = "night_mode";
 
-    public static final int MAX_PAGE_NUM = 20;
+    public static final int MAX_PAGE_NUM = 10;
 }

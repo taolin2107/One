@@ -68,7 +68,7 @@ public class HomeContentFragment extends BaseContentFragment {
                     Date date = DateUtil.getDate(photo.hpEntity.strMarketTime);
                     mDay.setText(DateUtil.getDay(date));
                     mMonthYear.setText(DateUtil.getMonthYear(date));
-                    mContent.setText(photo.hpEntity.strContent);
+                    mContent.setText(photo.hpEntity.strContent.trim());
                 }
             }
 
