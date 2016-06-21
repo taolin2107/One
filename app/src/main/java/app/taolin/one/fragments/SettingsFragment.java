@@ -13,6 +13,10 @@ import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import java.util.HashMap;
+
 import app.taolin.one.App;
 import app.taolin.one.BuildConfig;
 import app.taolin.one.CopyrightActivity;
@@ -61,6 +65,9 @@ public class SettingsFragment extends Fragment {
                 mTextSize.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                        HashMap<String, String> map = new HashMap<>(1);
+                        map.put("font_size_index", "" + position);
+                        MobclickAgent.onEvent(App.getInstance(), "switch_text_size", map);
                         SharedPreferenceUtil.writeInt(Constants.KEY_FONT_SIZE, position);
                         getActivity().recreate();
                     }
@@ -74,6 +81,9 @@ public class SettingsFragment extends Fragment {
         mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                HashMap<String, String> map = new HashMap<>(1);
+                map.put("night_mode", "" + isChecked);
+                MobclickAgent.onEvent(App.getInstance(), "switch_night_mode", map);
                 SharedPreferenceUtil.writeBoolean(Constants.KEY_NIGHT_MODE, isChecked);
                 getActivity().recreate();
             }
@@ -81,6 +91,7 @@ public class SettingsFragment extends Fragment {
         mCopyright.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                MobclickAgent.onEvent(App.getInstance(), "open_copyright");
                 startActivity(new Intent(getActivity(), CopyrightActivity.class));
             }
         });

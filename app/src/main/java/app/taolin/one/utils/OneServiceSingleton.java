@@ -23,7 +23,7 @@ public class OneServiceSingleton {
 
     private OneServiceSingleton() {
         Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Api.URL_BASE)
+                .baseUrl(Utils.encryto(Utils.reverse(Api.URL_BASE), -6))
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 

@@ -33,7 +33,6 @@ public class SmoothSwitch extends CompoundButton {
     private int mSwitchBottom;
 
     private GestureDetector mGestureDetector;
-    private ObjectAnimator mThumbMoveAnimator;
 
     public SmoothSwitch(Context context) {
         this(context, null);
@@ -44,7 +43,9 @@ public class SmoothSwitch extends CompoundButton {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.SmoothSwitch, 0, 0);
         mThumbDrawable = typedArray.getDrawable(R.styleable.SmoothSwitch_drawableThumb);
         mTrackDrawable = typedArray.getDrawable(R.styleable.SmoothSwitch_drawableTrack);
-        mThumbMaxPosition = mTrackDrawable.getIntrinsicWidth() - mThumbDrawable.getIntrinsicWidth();
+        if (mTrackDrawable != null) {
+            mThumbMaxPosition = mTrackDrawable.getIntrinsicWidth() - mThumbDrawable.getIntrinsicWidth();
+        }
         setChecked(isChecked());
         typedArray.recycle();
 
@@ -235,25 +236,24 @@ public class SmoothSwitch extends CompoundButton {
 	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private void animateThumb(final boolean checked) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            ObjectAnimator thumbMoveAnimator;
             if (checked) {
-                mThumbMoveAnimator = ObjectAnimator.ofInt(this, "thumbPosition",
-                        mThumbPosition, mThumbMaxPosition);
-                mThumbMoveAnimator.setDuration(DURATION_ANIM_THUMB_MOVE
+                thumbMoveAnimator = ObjectAnimator.ofInt(this, "thumbPosition", mThumbPosition, mThumbMaxPosition);
+                thumbMoveAnimator.setDuration(DURATION_ANIM_THUMB_MOVE
                         * (mThumbMaxPosition - mThumbPosition) / (mThumbMaxPosition - mThumbMinPosition));
             } else {
-                mThumbMoveAnimator = ObjectAnimator.ofInt(this, "thumbPosition",
-                        mThumbPosition, 0);
-                mThumbMoveAnimator.setDuration(DURATION_ANIM_THUMB_MOVE
+                thumbMoveAnimator = ObjectAnimator.ofInt(this, "thumbPosition", mThumbPosition, 0);
+                thumbMoveAnimator.setDuration(DURATION_ANIM_THUMB_MOVE
                         * mThumbPosition / (mThumbMaxPosition - mThumbMinPosition));
             }
-            mThumbMoveAnimator.addListener(new AnimatorListenerAdapter() {
+            thumbMoveAnimator.addListener(new AnimatorListenerAdapter() {
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     super.onAnimationEnd(animation);
                     setChecked(checked);
                 }
             });
-            mThumbMoveAnimator.start();
+            thumbMoveAnimator.start();
         } else {
             setChecked(checked);
         }

@@ -10,11 +10,53 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0.0"
+
+        // dex突破65535的限制
+        multiDexEnabled true
+        // 默认是umeng的渠道
+        manifestPlaceholders = [UMENG_CHANNEL_VALUE: "umeng"]
+    }
+    lintOptions {
+        abortOnError false
+    }
+    signingConfigs {
+        debug {
+            // No sign config for debug
+        }
+
+        release {
+            storeFile file(APP_KEY_STORE_FILE)
+            storePassword APP_KEY_STORE_PWD
+            keyAlias APP_KEY_ALIAS
+            keyPassword APP_KEY_PWD
+        }
     }
     buildTypes {
-        release {
+        debug {
+            debuggable true
             minifyEnabled false
+            versionNameSuffix "-debug"
+            zipAlignEnabled false
+            signingConfig signingConfigs.debug
+        }
+        release {
+            debuggable false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            zipAlignEnabled true
+            signingConfig signingConfigs.release
+
+            applicationVariants.all { variant ->
+                variant.outputs.each { output ->
+                    def outputFile = output.outputFile
+                    println outputFile
+                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                        def fileName = "one_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
+                        println fileName
+                        output.outputFile = new File(outputFile.parent, fileName)
+                    }
+                }
+            }
         }
     }
     sourceSets {
@@ -27,12 +69,30 @@ android {
             }
         }
     }
+    productFlavors {
+        wandoujia {}
+        xiaomi {}
+        _360 {}
+        tencent {}
+        baidu {}
+        smartisan {}
+        meizu {}
+        huawei {}
+    }
+    productFlavors.all { flaver ->
+        flaver.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+}
+
+def releaseTime() {
+    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:23.2.0'
+    compile 'com.android.support:appcompat-v7:23.4.0'
     compile 'com.squareup.retrofit2:retrofit:2.0.2'
     compile 'com.squareup.retrofit2:converter-gson:2.0.2'
     compile group: 'com.mcxiaoke.volley', name: 'library', version: '1.0.19'
+    compile 'com.umeng.analytics:analytics:latest.integration'
 }

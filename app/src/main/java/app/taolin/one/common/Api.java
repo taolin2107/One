@@ -6,9 +6,9 @@ package app.taolin.one.common;
 
 public class Api {
     /**
-     * 主URL
+     * 主URL: "http://rest.wufazhuce.com/OneForWeb/one/";
      */
-    public static final String URL_BASE = "http://rest.wufazhuce.com/OneForWeb/one/";
+    public static final String URL_BASE = "5ktu5hk]xuLktU5sui4ki{n\u0080gl{}4zykx55@vzzn";
     /**
      * 首页
      * Method: post

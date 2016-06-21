@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
+
 import app.taolin.one.fragments.ArticleFragment;
 import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
@@ -57,6 +59,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     @Override
     protected void onResume() {
         super.onResume();
+        MobclickAgent.onResume(this);
         switch (mCurrentIndex) {
             case 0:
                 clickButton(mBtnHome);
@@ -71,6 +74,12 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
                 clickButton(mBtnSettings);
                 break;
         }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     private void initView() {
@@ -195,14 +204,17 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
             switch (id) {
                 case R.id.btn_home:
                     mHomeFragment.setToFirstPage();
+                    MobclickAgent.onEvent(App.getInstance(), "double_click_home");
                     break;
 
                 case R.id.btn_article:
                     mArticleFragment.setToFirstPage();
+                    MobclickAgent.onEvent(App.getInstance(), "double_click_article");
                     break;
 
                 case R.id.btn_question:
                     mQuestionFragment.setToFirstPage();
+                    MobclickAgent.onEvent(App.getInstance(), "double_click_question");
                     break;
             }
         }

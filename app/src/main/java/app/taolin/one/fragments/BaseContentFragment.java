@@ -5,6 +5,9 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ScrollView;
 
+import com.umeng.analytics.MobclickAgent;
+
+import app.taolin.one.App;
 import app.taolin.one.R;
 import app.taolin.one.common.Constants;
 import app.taolin.one.listener.OnContentScrollListener;
@@ -56,6 +59,7 @@ public abstract class BaseContentFragment extends Fragment {
             @Override
             public void onDoubleClick(View v) {
                 contentScroll.fullScroll(ScrollView.FOCUS_UP);
+                MobclickAgent.onEvent(App.getInstance(), "scroll_to_top");
             }
         });
     }

@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
+
 import app.taolin.one.utils.Utils;
 
 /**
@@ -26,5 +28,17 @@ public class CopyrightActivity extends Activity {
                 finish();
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
