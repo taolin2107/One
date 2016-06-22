@@ -21,8 +21,7 @@ import app.taolin.one.adapter.ViewPagerAdapter;
 public class BaseFragment extends Fragment {
 
     private ViewPager mViewPager;
-    private ViewPagerAdapter mViewPagerAdapter;
-    public int mAdapterType = ViewPagerAdapter.TYPE_HOME;
+    int mAdapterType = ViewPagerAdapter.TYPE_HOME;
 
     @Nullable
     @Override
@@ -35,8 +34,8 @@ public class BaseFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mViewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mAdapterType);
-        mViewPager.setAdapter(mViewPagerAdapter);
+        ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mAdapterType);
+        mViewPager.setAdapter(viewPagerAdapter);
     }
 
     public void setToFirstPage() {
