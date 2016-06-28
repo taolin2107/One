@@ -1,6 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.view.ViewPager
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/viewpager"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"/>
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:id="@+id/refresh_layout"
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="@dimen/toolbar_height"
+        android:translationX="@dimen/refresh_layout_translation"
+        android:background="?attr/dividerColor">
+
+        <TextView
+            android:id="@+id/tv_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="?attr/secondTextSize"
+            android:textColor="?attr/secondTextColor"
+            android:text="@string/refresh_text_prepare"/>
+
+        <ProgressBar
+            android:id="@+id/pb_refresh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="gone"
+            style="@style/Widget.AppCompat.ProgressBar"/>
+    </FrameLayout>
+
+    <app.taolin.one.widgets.ExtViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</FrameLayout>

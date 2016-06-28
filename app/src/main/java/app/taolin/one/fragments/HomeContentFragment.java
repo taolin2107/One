@@ -57,6 +57,7 @@ public class HomeContentFragment extends BaseContentFragment {
     @Override
     public void loadDate(final String date, final int row, final int ms) {
         Call<Home> getPhoto = OneServiceSingleton.getInstance().mOneService.getPhoto(date, row);
+        final long startTime = System.currentTimeMillis();
         getPhoto.enqueue(new Callback<Home>() {
             @Override
             public void onResponse(Call<Home> call, Response<Home> response) {
@@ -70,11 +71,13 @@ public class HomeContentFragment extends BaseContentFragment {
                     mMonthYear.setText(DateUtil.getMonthYear(date));
                     mContent.setText(photo.hpEntity.strContent.trim());
                 }
+                loadDone(startTime);
             }
 
             @Override
             public void onFailure(Call<Home> call, Throwable t) {
                 Log.e("HomeContentFragment", t + "");
+                loadDone(startTime);
             }
         });
     }

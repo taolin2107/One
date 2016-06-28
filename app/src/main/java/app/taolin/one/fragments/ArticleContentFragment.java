@@ -62,6 +62,7 @@ public class ArticleContentFragment extends BaseContentFragment {
     @Override
     public void loadDate(final String date, final int row, final int ms) {
         Call<Article> getArticle = OneServiceSingleton.getInstance().mOneService.getArticle(date, row, ms);
+        final long startTime = System.currentTimeMillis();
         getArticle.enqueue(new Callback<Article>() {
             @Override
             public void onResponse(Call<Article> call, Response<Article> response) {
@@ -75,11 +76,13 @@ public class ArticleContentFragment extends BaseContentFragment {
                     mAuthor2.setText(article.contentEntity.strContAuthor);
                     mAuthorIntro.setText(article.contentEntity.sAuth);
                 }
+                loadDone(startTime);
             }
 
             @Override
             public void onFailure(Call<Article> call, Throwable t) {
                 Log.e("ArticleContentFragment", t + "");
+                loadDone(startTime);
             }
         });
     }

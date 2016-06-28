@@ -1,6 +1,7 @@
 package app.taolin.one.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ScrollView;
@@ -11,6 +12,7 @@ import app.taolin.one.App;
 import app.taolin.one.R;
 import app.taolin.one.common.Constants;
 import app.taolin.one.listener.OnContentScrollListener;
+import app.taolin.one.listener.OnDataLoadListener;
 import app.taolin.one.listener.ViewClickListener;
 import app.taolin.one.utils.DateUtil;
 import app.taolin.one.widgets.ScrollViewExt.OnScrollChangeListener;
@@ -19,11 +21,13 @@ import app.taolin.one.widgets.ScrollViewExt.OnScrollChangeListener;
  * Created by Taolin on 16/5/27.
  */
 
-public abstract class BaseContentFragment extends Fragment {
+abstract class BaseContentFragment extends Fragment {
 
     private OnContentScrollListener mScrollListener;
+    private OnDataLoadListener mDataLoadListener;
     private int mStartScrollY;
     private int mEffectiveDist;
+    private Handler mHandler;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -34,9 +38,17 @@ public abstract class BaseContentFragment extends Fragment {
         int ms = bundle.getInt(Constants.PARAMS_MS);
         loadDate(date, index, ms);
         initData();
+        mDataLoadListener = (OnDataLoadListener) getActivity();
+        mHandler = new Handler();
     }
 
-    protected static Bundle getArguments(int index) {
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mHandler.removeCallbacksAndMessages(null);
+    }
+
+    static Bundle getArguments(int index) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PARAMS_DATE, DateUtil.getDateString());
         bundle.putInt(Constants.PARAMS_INDEX, index + 1);   //index从1开始
@@ -49,7 +61,7 @@ public abstract class BaseContentFragment extends Fragment {
         mStartScrollY = -1;
     }
 
-    public void setDoubleClickListener(View root) {
+    void setDoubleClickListener(View root) {
         final ScrollView contentScroll = (ScrollView) root.findViewById(R.id.scroll_view);
         root.findViewById(R.id.double_click_area).setOnClickListener(new ViewClickListener() {
             @Override
@@ -64,11 +76,11 @@ public abstract class BaseContentFragment extends Fragment {
         });
     }
 
-    protected void setOnContentScrollListener(OnContentScrollListener listener) {
+    void setOnContentScrollListener(OnContentScrollListener listener) {
         mScrollListener = listener;
     }
 
-    protected OnScrollChangeListener mScrollChangeListener = new OnScrollChangeListener() {
+    OnScrollChangeListener mScrollChangeListener = new OnScrollChangeListener() {
         @Override
         public void onScrollChange(View v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
             if (mScrollListener != null) {
@@ -86,6 +98,23 @@ public abstract class BaseContentFragment extends Fragment {
             }
         }
     };
+
+    void loadDone(long startTime) {
+        // 最低要刷新2秒钟
+        long delay = 2000 - System.currentTimeMillis() + startTime;
+        if (delay < 0) {
+            delay = 0;
+        }
+        mHandler.removeCallbacksAndMessages(null);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (mDataLoadListener != null) {
+                    mDataLoadListener.onLoadDone();
+                }
+            }
+        }, delay);
+    }
 
     public abstract void loadDate(String date, int row, int ms);
 }

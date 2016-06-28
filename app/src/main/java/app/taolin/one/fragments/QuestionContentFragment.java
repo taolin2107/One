@@ -60,6 +60,7 @@ public class QuestionContentFragment extends BaseContentFragment {
     @Override
     public void loadDate(final String date, final int row, final int ms) {
         Call<Question> getArticle = OneServiceSingleton.getInstance().mOneService.getQuestion(date, row);
+        final long startTime = System.currentTimeMillis();
         getArticle.enqueue(new Callback<Question>() {
             @Override
             public void onResponse(Call<Question> call, Response<Question> response) {
@@ -72,11 +73,13 @@ public class QuestionContentFragment extends BaseContentFragment {
                     mAnswer.setText(Html.fromHtml(question.questionAdEntity.strAnswerContent));
                     mEditor.setText(question.questionAdEntity.sEditor);
                 }
+                loadDone(startTime);
             }
 
             @Override
             public void onFailure(Call<Question> call, Throwable t) {
                 Log.e("QuestionContentFragment", t + "");
+                loadDone(startTime);
             }
         });
     }
