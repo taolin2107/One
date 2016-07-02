@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
+import app.taolin.one.common.Constants;
 import app.taolin.one.fragments.ArticleFragment;
 import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
@@ -17,6 +18,7 @@ import app.taolin.one.fragments.SettingsFragment;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.OnDataLoadListener;
 import app.taolin.one.listener.ViewClickListener;
+import app.taolin.one.utils.SharedPreferenceUtil;
 import app.taolin.one.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements OnContentScrollListener, OnDataLoadListener {
@@ -45,6 +47,9 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
 
     private int mToolbarHeight;
     private boolean mIsToolbarHide;
+
+    private View mUserGuideContainer;
+    private TextView mUserGuideBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +94,11 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnArticle = (TextView) findViewById(R.id.btn_article);
         mBtnQuestion = (TextView) findViewById(R.id.btn_question);
         mBtnSettings = (TextView) findViewById(R.id.btn_settings);
+        mUserGuideContainer = findViewById(R.id.user_guide);
+        mUserGuideBtn = (TextView) findViewById(R.id.user_guide_done);
+        if (!SharedPreferenceUtil.readBoolean(Constants.KEY_IS_FIRST_OPEN, true)) {
+            mUserGuideContainer.setVisibility(View.GONE);
+        }
         mToolbarHeight = getResources().getDimensionPixelSize(R.dimen.toolbar_height);
         mIsToolbarHide = false;
     }
@@ -98,6 +108,13 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnArticle.setOnClickListener(mClickListener);
         mBtnQuestion.setOnClickListener(mClickListener);
         mBtnSettings.setOnClickListener(mClickListener);
+        mUserGuideBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mUserGuideContainer.setVisibility(View.GONE);
+                SharedPreferenceUtil.writeBoolean(Constants.KEY_IS_FIRST_OPEN, false);
+            }
+        });
     }
 
     private void clickButton(View btn) {

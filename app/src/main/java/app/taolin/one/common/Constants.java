@@ -14,4 +14,6 @@ public class Constants {
     public static final String KEY_NIGHT_MODE = "night_mode";
 
     public static final int MAX_PAGE_NUM = 10;
+
+    public static final String KEY_IS_FIRST_OPEN = "first_open";
 }

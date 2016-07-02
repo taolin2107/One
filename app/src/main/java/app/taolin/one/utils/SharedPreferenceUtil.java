@@ -38,6 +38,10 @@ public class SharedPreferenceUtil {
         return getSharedPreference().getBoolean(key, false);
     }
 
+    public static boolean readBoolean(String key, boolean defVal) {
+        return getSharedPreference().getBoolean(key, defVal);
+    }
+
     public static void writeString(String key, String value) {
         getSharedPreference().edit().putString(key, value).apply();
     }

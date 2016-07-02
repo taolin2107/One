@@ -14,4 +14,7 @@
 
     <string name="refresh_text_prepare">右\n滑\n刷\n新</string>
     <string name="refresh_text_start">松\n开\n刷\n新</string>
+    <string name="user_guide_text_top">双击此区域滑动到顶部</string>
+    <string name="user_guide_text_bottom">双击此区域回到第一页</string>
+    <string name="user_guide_text_done">知道了</string>
 </resources>

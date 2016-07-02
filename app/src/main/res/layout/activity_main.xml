@@ -63,4 +63,45 @@
                 android:text="@string/toolbar_btn_settings"/>
         </LinearLayout>
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/user_guide"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusableInTouchMode="true"
+        android:clickable="true"
+        android:background="#99ffffff">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_gravity="top"
+            android:gravity="center"
+            android:background="@drawable/bg_guide_text"
+            android:textSize="@dimen/second_text_size_normal"
+            android:textColor="@color/secondTextColorLight"
+            android:text="@string/user_guide_text_top"/>
+
+        <TextView
+            android:id="@+id/user_guide_done"
+            android:layout_width="150dp"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="200dp"
+            android:gravity="center"
+            android:background="@drawable/bg_guide_text"
+            android:textSize="@dimen/second_text_size_normal"
+            android:textColor="@color/secondTextColorLight"
+            android:text="@string/user_guide_text_done"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_gravity="bottom"
+            android:gravity="center"
+            android:background="@drawable/bg_guide_text"
+            android:textSize="@dimen/second_text_size_normal"
+            android:textColor="@color/secondTextColorLight"
+            android:text="@string/user_guide_text_bottom"/>
+    </FrameLayout>
 </FrameLayout>
