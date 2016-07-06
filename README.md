@@ -1,5 +1,5 @@
 # One
-One·一个的非官方版本，比官方版本简洁、好用。
+一个·One的非官方版本，比官方版本简洁、好用。
 
 ## 特点
  * 支持快速滚动到文章顶部。
@@ -13,7 +13,7 @@ One·一个的非官方版本，比官方版本简洁、好用。
  * 安装包1M。
 
 ## 界面
-![IMAGE1](./images/1.png)
-![IMAGE2](./images/2.png)
-![IMAGE3](./images/3.png)
-![IMAGE4](./images/4.png)
+![Guide](./images/1.png)
+![Home](./images/2.png)
+![Article](./images/3.png)
+![Settings](./images/4.png)
