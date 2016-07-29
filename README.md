@@ -12,6 +12,9 @@
  * 支持代码混淆。
  * 安装包1M。
 
+## apk下载地址
+[One.apk](./apk/one.apk)
+
 ## 界面
 ![Guide](./images/1.png)
 ![Home](./images/2.png)
