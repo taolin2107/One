@@ -1,5 +1,6 @@
 package app.taolin.one.fragments;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,8 +9,12 @@ import android.widget.ScrollView;
 
 import com.umeng.analytics.MobclickAgent;
 
+import java.util.Calendar;
+
 import app.taolin.one.App;
 import app.taolin.one.R;
+import app.taolin.one.dao.DaoMaster;
+import app.taolin.one.dao.DaoSession;
 import app.taolin.one.utils.Constants;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.OnDataLoadListener;
@@ -50,6 +55,31 @@ abstract class BaseContentFragment extends Fragment {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PARAMS_DATE, DateUtil.getDateString(index));
         return bundle;
+    }
+
+    DaoSession getDaoSession() {
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(App.getInstance(), Constants.DATABASE_NAME, null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        return daoMaster.newSession();
+    }
+
+    /**
+     * indicate month will changed soon
+     * @param date format must be yyyy-MM-dd
+     */
+    String getPreloadMonth(String date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(DateUtil.getDate(date).getTime());
+        int day = calendar.get(Calendar.DATE);
+        if (day < 4) {
+            calendar.add(Calendar.MONTH, -1);
+            return DateUtil.getRequestDate(calendar.getTime());
+        } else if (day > 25) {
+            calendar.add(Calendar.MONTH, 1);
+            return DateUtil.getRequestDate(calendar.getTime());
+        }
+        return null;
     }
 
     private void initData() {

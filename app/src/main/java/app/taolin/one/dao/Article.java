@@ -18,39 +18,23 @@ public class Article {
 
     @NotNull
     private String title;
-
-    @NotNull
     private String subtitle;
-
-    @NotNull
     private String author;
-
-    @NotNull
     private String authit;
-
-    @NotNull
     private String authorintro;
-
-    @NotNull
     private String content;
 
     @NotNull
     private String makettime;
-
-    @NotNull
     private String updatedate;
-
-    @NotNull
     private String weburl;
 
     @NotNull
     private String guideword;
-
-    @NotNull
     private String audio;
-    private int praisenum;
-    private int sharenum;
-    private int commentnum;
+    private Integer praisenum;
+    private Integer sharenum;
+    private Integer commentnum;
     private boolean isloaded;
 
     // KEEP FIELDS - put your custom fields here
@@ -65,7 +49,7 @@ public class Article {
     }
 
     @Generated
-    public Article(String id, String title, String subtitle, String author, String authit, String authorintro, String content, String makettime, String updatedate, String weburl, String guideword, String audio, int praisenum, int sharenum, int commentnum, boolean isloaded) {
+    public Article(String id, String title, String subtitle, String author, String authit, String authorintro, String content, String makettime, String updatedate, String weburl, String guideword, String audio, Integer praisenum, Integer sharenum, Integer commentnum, boolean isloaded) {
         this.id = id;
         this.title = title;
         this.subtitle = subtitle;
@@ -104,53 +88,43 @@ public class Article {
         this.title = title;
     }
 
-    @NotNull
     public String getSubtitle() {
         return subtitle;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setSubtitle(@NotNull String subtitle) {
+    public void setSubtitle(String subtitle) {
         this.subtitle = subtitle;
     }
 
-    @NotNull
     public String getAuthor() {
         return author;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setAuthor(@NotNull String author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    @NotNull
     public String getAuthit() {
         return authit;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setAuthit(@NotNull String authit) {
+    public void setAuthit(String authit) {
         this.authit = authit;
     }
 
-    @NotNull
     public String getAuthorintro() {
         return authorintro;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setAuthorintro(@NotNull String authorintro) {
+    public void setAuthorintro(String authorintro) {
         this.authorintro = authorintro;
     }
 
-    @NotNull
     public String getContent() {
         return content;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setContent(@NotNull String content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -164,23 +138,19 @@ public class Article {
         this.makettime = makettime;
     }
 
-    @NotNull
     public String getUpdatedate() {
         return updatedate;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setUpdatedate(@NotNull String updatedate) {
+    public void setUpdatedate(String updatedate) {
         this.updatedate = updatedate;
     }
 
-    @NotNull
     public String getWeburl() {
         return weburl;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setWeburl(@NotNull String weburl) {
+    public void setWeburl(String weburl) {
         this.weburl = weburl;
     }
 
@@ -194,37 +164,35 @@ public class Article {
         this.guideword = guideword;
     }
 
-    @NotNull
     public String getAudio() {
         return audio;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setAudio(@NotNull String audio) {
+    public void setAudio(String audio) {
         this.audio = audio;
     }
 
-    public int getPraisenum() {
+    public Integer getPraisenum() {
         return praisenum;
     }
 
-    public void setPraisenum(int praisenum) {
+    public void setPraisenum(Integer praisenum) {
         this.praisenum = praisenum;
     }
 
-    public int getSharenum() {
+    public Integer getSharenum() {
         return sharenum;
     }
 
-    public void setSharenum(int sharenum) {
+    public void setSharenum(Integer sharenum) {
         this.sharenum = sharenum;
     }
 
-    public int getCommentnum() {
+    public Integer getCommentnum() {
         return commentnum;
     }
 
-    public void setCommentnum(int commentnum) {
+    public void setCommentnum(Integer commentnum) {
         this.commentnum = commentnum;
     }
 

@@ -31,12 +31,12 @@ public class QuestionDao extends AbstractDao<Question, String> {
         public final static Property Editor = new Property(6, String.class, "editor", false, "EDITOR");
         public final static Property Updatedate = new Property(7, String.class, "updatedate", false, "UPDATEDATE");
         public final static Property Weburl = new Property(8, String.class, "weburl", false, "WEBURL");
-        public final static Property Readnum = new Property(9, int.class, "readnum", false, "READNUM");
+        public final static Property Readnum = new Property(9, Integer.class, "readnum", false, "READNUM");
         public final static Property Guideword = new Property(10, String.class, "guideword", false, "GUIDEWORD");
-        public final static Property Praisenum = new Property(11, int.class, "praisenum", false, "PRAISENUM");
-        public final static Property Sharenum = new Property(12, int.class, "sharenum", false, "SHARENUM");
-        public final static Property Commentnum = new Property(13, int.class, "commentnum", false, "COMMENTNUM");
-        public final static Property Isloaded = new Property(14, boolean.class, "isloaded", false, "ISLOADED");
+        public final static Property Praisenum = new Property(11, Integer.class, "praisenum", false, "PRAISENUM");
+        public final static Property Sharenum = new Property(12, Integer.class, "sharenum", false, "SHARENUM");
+        public final static Property Commentnum = new Property(13, Integer.class, "commentnum", false, "COMMENTNUM");
+        public final static Property Isloaded = new Property(14, Boolean.class, "isloaded", false, "ISLOADED");
     };
 
 
@@ -54,19 +54,19 @@ public class QuestionDao extends AbstractDao<Question, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"QUESTION\" (" + //
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"QUESTIONTITLE\" TEXT NOT NULL ," + // 1: questiontitle
-                "\"QUESTIONCONTENT\" TEXT NOT NULL ," + // 2: questioncontent
+                "\"QUESTIONCONTENT\" TEXT," + // 2: questioncontent
                 "\"ANSWERTITLE\" TEXT NOT NULL ," + // 3: answertitle
                 "\"ANSWERCONTENT\" TEXT NOT NULL ," + // 4: answercontent
                 "\"MAKETTIME\" TEXT NOT NULL ," + // 5: makettime
-                "\"EDITOR\" TEXT NOT NULL ," + // 6: editor
-                "\"UPDATEDATE\" TEXT NOT NULL ," + // 7: updatedate
-                "\"WEBURL\" TEXT NOT NULL ," + // 8: weburl
-                "\"READNUM\" INTEGER NOT NULL ," + // 9: readnum
-                "\"GUIDEWORD\" TEXT NOT NULL ," + // 10: guideword
-                "\"PRAISENUM\" INTEGER NOT NULL ," + // 11: praisenum
-                "\"SHARENUM\" INTEGER NOT NULL ," + // 12: sharenum
-                "\"COMMENTNUM\" INTEGER NOT NULL ," + // 13: commentnum
-                "\"ISLOADED\" INTEGER NOT NULL );"); // 14: isloaded
+                "\"EDITOR\" TEXT," + // 6: editor
+                "\"UPDATEDATE\" TEXT," + // 7: updatedate
+                "\"WEBURL\" TEXT," + // 8: weburl
+                "\"READNUM\" INTEGER," + // 9: readnum
+                "\"GUIDEWORD\" TEXT," + // 10: guideword
+                "\"PRAISENUM\" INTEGER," + // 11: praisenum
+                "\"SHARENUM\" INTEGER," + // 12: sharenum
+                "\"COMMENTNUM\" INTEGER," + // 13: commentnum
+                "\"ISLOADED\" INTEGER);"); // 14: isloaded
     }
 
     /** Drops the underlying database table. */
@@ -80,19 +80,59 @@ public class QuestionDao extends AbstractDao<Question, String> {
         stmt.clearBindings();
         stmt.bindString(1, entity.getId());
         stmt.bindString(2, entity.getQuestiontitle());
-        stmt.bindString(3, entity.getQuestioncontent());
+ 
+        String questioncontent = entity.getQuestioncontent();
+        if (questioncontent != null) {
+            stmt.bindString(3, questioncontent);
+        }
         stmt.bindString(4, entity.getAnswertitle());
         stmt.bindString(5, entity.getAnswercontent());
         stmt.bindString(6, entity.getMakettime());
-        stmt.bindString(7, entity.getEditor());
-        stmt.bindString(8, entity.getUpdatedate());
-        stmt.bindString(9, entity.getWeburl());
-        stmt.bindLong(10, entity.getReadnum());
-        stmt.bindString(11, entity.getGuideword());
-        stmt.bindLong(12, entity.getPraisenum());
-        stmt.bindLong(13, entity.getSharenum());
-        stmt.bindLong(14, entity.getCommentnum());
-        stmt.bindLong(15, entity.getIsloaded() ? 1L: 0L);
+ 
+        String editor = entity.getEditor();
+        if (editor != null) {
+            stmt.bindString(7, editor);
+        }
+ 
+        String updatedate = entity.getUpdatedate();
+        if (updatedate != null) {
+            stmt.bindString(8, updatedate);
+        }
+ 
+        String weburl = entity.getWeburl();
+        if (weburl != null) {
+            stmt.bindString(9, weburl);
+        }
+ 
+        Integer readnum = entity.getReadnum();
+        if (readnum != null) {
+            stmt.bindLong(10, readnum);
+        }
+ 
+        String guideword = entity.getGuideword();
+        if (guideword != null) {
+            stmt.bindString(11, guideword);
+        }
+ 
+        Integer praisenum = entity.getPraisenum();
+        if (praisenum != null) {
+            stmt.bindLong(12, praisenum);
+        }
+ 
+        Integer sharenum = entity.getSharenum();
+        if (sharenum != null) {
+            stmt.bindLong(13, sharenum);
+        }
+ 
+        Integer commentnum = entity.getCommentnum();
+        if (commentnum != null) {
+            stmt.bindLong(14, commentnum);
+        }
+ 
+        Boolean isloaded = entity.getIsloaded();
+        if (isloaded != null) {
+            stmt.bindLong(15, isloaded ? 1L: 0L);
+        }
     }
 
     @Override
@@ -100,19 +140,59 @@ public class QuestionDao extends AbstractDao<Question, String> {
         stmt.clearBindings();
         stmt.bindString(1, entity.getId());
         stmt.bindString(2, entity.getQuestiontitle());
-        stmt.bindString(3, entity.getQuestioncontent());
+ 
+        String questioncontent = entity.getQuestioncontent();
+        if (questioncontent != null) {
+            stmt.bindString(3, questioncontent);
+        }
         stmt.bindString(4, entity.getAnswertitle());
         stmt.bindString(5, entity.getAnswercontent());
         stmt.bindString(6, entity.getMakettime());
-        stmt.bindString(7, entity.getEditor());
-        stmt.bindString(8, entity.getUpdatedate());
-        stmt.bindString(9, entity.getWeburl());
-        stmt.bindLong(10, entity.getReadnum());
-        stmt.bindString(11, entity.getGuideword());
-        stmt.bindLong(12, entity.getPraisenum());
-        stmt.bindLong(13, entity.getSharenum());
-        stmt.bindLong(14, entity.getCommentnum());
-        stmt.bindLong(15, entity.getIsloaded() ? 1L: 0L);
+ 
+        String editor = entity.getEditor();
+        if (editor != null) {
+            stmt.bindString(7, editor);
+        }
+ 
+        String updatedate = entity.getUpdatedate();
+        if (updatedate != null) {
+            stmt.bindString(8, updatedate);
+        }
+ 
+        String weburl = entity.getWeburl();
+        if (weburl != null) {
+            stmt.bindString(9, weburl);
+        }
+ 
+        Integer readnum = entity.getReadnum();
+        if (readnum != null) {
+            stmt.bindLong(10, readnum);
+        }
+ 
+        String guideword = entity.getGuideword();
+        if (guideword != null) {
+            stmt.bindString(11, guideword);
+        }
+ 
+        Integer praisenum = entity.getPraisenum();
+        if (praisenum != null) {
+            stmt.bindLong(12, praisenum);
+        }
+ 
+        Integer sharenum = entity.getSharenum();
+        if (sharenum != null) {
+            stmt.bindLong(13, sharenum);
+        }
+ 
+        Integer commentnum = entity.getCommentnum();
+        if (commentnum != null) {
+            stmt.bindLong(14, commentnum);
+        }
+ 
+        Boolean isloaded = entity.getIsloaded();
+        if (isloaded != null) {
+            stmt.bindLong(15, isloaded ? 1L: 0L);
+        }
     }
 
     @Override
@@ -125,19 +205,19 @@ public class QuestionDao extends AbstractDao<Question, String> {
         Question entity = new Question( //
             cursor.getString(offset + 0), // id
             cursor.getString(offset + 1), // questiontitle
-            cursor.getString(offset + 2), // questioncontent
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // questioncontent
             cursor.getString(offset + 3), // answertitle
             cursor.getString(offset + 4), // answercontent
             cursor.getString(offset + 5), // makettime
-            cursor.getString(offset + 6), // editor
-            cursor.getString(offset + 7), // updatedate
-            cursor.getString(offset + 8), // weburl
-            cursor.getInt(offset + 9), // readnum
-            cursor.getString(offset + 10), // guideword
-            cursor.getInt(offset + 11), // praisenum
-            cursor.getInt(offset + 12), // sharenum
-            cursor.getInt(offset + 13), // commentnum
-            cursor.getShort(offset + 14) != 0 // isloaded
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // editor
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // updatedate
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // weburl
+            cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9), // readnum
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // guideword
+            cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11), // praisenum
+            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // sharenum
+            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // commentnum
+            cursor.isNull(offset + 14) ? null : cursor.getShort(offset + 14) != 0 // isloaded
         );
         return entity;
     }
@@ -146,19 +226,19 @@ public class QuestionDao extends AbstractDao<Question, String> {
     public void readEntity(Cursor cursor, Question entity, int offset) {
         entity.setId(cursor.getString(offset + 0));
         entity.setQuestiontitle(cursor.getString(offset + 1));
-        entity.setQuestioncontent(cursor.getString(offset + 2));
+        entity.setQuestioncontent(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setAnswertitle(cursor.getString(offset + 3));
         entity.setAnswercontent(cursor.getString(offset + 4));
         entity.setMakettime(cursor.getString(offset + 5));
-        entity.setEditor(cursor.getString(offset + 6));
-        entity.setUpdatedate(cursor.getString(offset + 7));
-        entity.setWeburl(cursor.getString(offset + 8));
-        entity.setReadnum(cursor.getInt(offset + 9));
-        entity.setGuideword(cursor.getString(offset + 10));
-        entity.setPraisenum(cursor.getInt(offset + 11));
-        entity.setSharenum(cursor.getInt(offset + 12));
-        entity.setCommentnum(cursor.getInt(offset + 13));
-        entity.setIsloaded(cursor.getShort(offset + 14) != 0);
+        entity.setEditor(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setUpdatedate(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setWeburl(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setReadnum(cursor.isNull(offset + 9) ? null : cursor.getInt(offset + 9));
+        entity.setGuideword(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setPraisenum(cursor.isNull(offset + 11) ? null : cursor.getInt(offset + 11));
+        entity.setSharenum(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
+        entity.setCommentnum(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
+        entity.setIsloaded(cursor.isNull(offset + 14) ? null : cursor.getShort(offset + 14) != 0);
      }
     
     @Override

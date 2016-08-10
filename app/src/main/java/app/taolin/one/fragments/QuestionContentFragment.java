@@ -1,6 +1,5 @@
 package app.taolin.one.fragments;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -13,16 +12,12 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import app.taolin.one.App;
 import app.taolin.one.R;
-import app.taolin.one.dao.DaoMaster;
-import app.taolin.one.dao.DaoSession;
 import app.taolin.one.dao.Question;
 import app.taolin.one.dao.QuestionDao;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.models.QuestionModel;
 import app.taolin.one.utils.Api;
-import app.taolin.one.utils.Constants;
 import app.taolin.one.utils.DateUtil;
 import app.taolin.one.utils.GsonRequest;
 import app.taolin.one.utils.VolleySingleton;
@@ -66,23 +61,23 @@ public class QuestionContentFragment extends BaseContentFragment {
         return root;
     }
 
+    private void updateViews(Question question) {
+        mDate.setText(DateUtil.getDisplayDate(question.getMakettime()));
+        mQuestion.setText(question.getQuestiontitle());
+        mQuestionDesc.setText(question.getQuestioncontent());
+        mAnswerTitle.setText(question.getAnswertitle());
+        mAnswer.setText(Html.fromHtml(question.getAnswercontent()));
+        mEditor.setText(question.getEditor());
+    }
+
     @Override
     public void loadDate(final String date) {
         final long startTime = System.currentTimeMillis();
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(App.getInstance(), Constants.DATABASE_NAME, null);
-        SQLiteDatabase database = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(database);
-        DaoSession daoSession = daoMaster.newSession();
-        final QuestionDao questionDao = daoSession.getQuestionDao();
+        final QuestionDao questionDao = getDaoSession().getQuestionDao();
         Question question = questionDao.queryBuilder().where(QuestionDao.Properties.Makettime.eq(date)).unique();
         if (question != null) {
             if (question.getIsloaded()) {
-                mDate.setText(DateUtil.getDisplayDate(question.getMakettime()));
-                mQuestion.setText(question.getQuestiontitle());
-                mQuestionDesc.setText(question.getQuestioncontent());
-                mAnswerTitle.setText(question.getAnswertitle());
-                mAnswer.setText(Html.fromHtml(question.getAnswercontent()));
-                mEditor.setText(question.getEditor());
+                updateViews(question);
                 loadDone(startTime);
             } else {
                 GsonRequest questionItemReq = new GsonRequest<>(Api.URL_QUESTION + question.getId(), QuestionModel.QuestionItem.class, null,
@@ -112,13 +107,7 @@ public class QuestionContentFragment extends BaseContentFragment {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-
-                                    mDate.setText(DateUtil.getDisplayDate(question.getMakettime()));
-                                    mQuestion.setText(question.getQuestiontitle());
-                                    mQuestionDesc.setText(question.getQuestioncontent());
-                                    mAnswerTitle.setText(question.getAnswertitle());
-                                    mAnswer.setText(Html.fromHtml(question.getAnswercontent()));
-                                    mEditor.setText(question.getEditor());
+                                    updateViews(question);
                                 }
                                 loadDone(startTime);
                             }
@@ -132,6 +121,10 @@ public class QuestionContentFragment extends BaseContentFragment {
                         });
                 VolleySingleton.getInstance().addToRequestQueue(questionItemReq);
             }
+        }
+        final String preloadDate = getPreloadMonth(date);
+        if (preloadDate != null) {
+            Api.requestQuestionData(preloadDate, questionDao);
         }
     }
 }

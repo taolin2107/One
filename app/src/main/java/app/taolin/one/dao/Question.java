@@ -18,8 +18,6 @@ public class Question {
 
     @NotNull
     private String questiontitle;
-
-    @NotNull
     private String questioncontent;
 
     @NotNull
@@ -30,23 +28,15 @@ public class Question {
 
     @NotNull
     private String makettime;
-
-    @NotNull
     private String editor;
-
-    @NotNull
     private String updatedate;
-
-    @NotNull
     private String weburl;
-    private int readnum;
-
-    @NotNull
+    private Integer readnum;
     private String guideword;
-    private int praisenum;
-    private int sharenum;
-    private int commentnum;
-    private boolean isloaded;
+    private Integer praisenum;
+    private Integer sharenum;
+    private Integer commentnum;
+    private Boolean isloaded;
 
     // KEEP FIELDS - put your custom fields here
     // KEEP FIELDS END
@@ -60,7 +50,7 @@ public class Question {
     }
 
     @Generated
-    public Question(String id, String questiontitle, String questioncontent, String answertitle, String answercontent, String makettime, String editor, String updatedate, String weburl, int readnum, String guideword, int praisenum, int sharenum, int commentnum, boolean isloaded) {
+    public Question(String id, String questiontitle, String questioncontent, String answertitle, String answercontent, String makettime, String editor, String updatedate, String weburl, Integer readnum, String guideword, Integer praisenum, Integer sharenum, Integer commentnum, Boolean isloaded) {
         this.id = id;
         this.questiontitle = questiontitle;
         this.questioncontent = questioncontent;
@@ -98,13 +88,11 @@ public class Question {
         this.questiontitle = questiontitle;
     }
 
-    @NotNull
     public String getQuestioncontent() {
         return questioncontent;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setQuestioncontent(@NotNull String questioncontent) {
+    public void setQuestioncontent(String questioncontent) {
         this.questioncontent = questioncontent;
     }
 
@@ -138,83 +126,75 @@ public class Question {
         this.makettime = makettime;
     }
 
-    @NotNull
     public String getEditor() {
         return editor;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setEditor(@NotNull String editor) {
+    public void setEditor(String editor) {
         this.editor = editor;
     }
 
-    @NotNull
     public String getUpdatedate() {
         return updatedate;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setUpdatedate(@NotNull String updatedate) {
+    public void setUpdatedate(String updatedate) {
         this.updatedate = updatedate;
     }
 
-    @NotNull
     public String getWeburl() {
         return weburl;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setWeburl(@NotNull String weburl) {
+    public void setWeburl(String weburl) {
         this.weburl = weburl;
     }
 
-    public int getReadnum() {
+    public Integer getReadnum() {
         return readnum;
     }
 
-    public void setReadnum(int readnum) {
+    public void setReadnum(Integer readnum) {
         this.readnum = readnum;
     }
 
-    @NotNull
     public String getGuideword() {
         return guideword;
     }
 
-    /** Not-null value; ensure this value is available before it is saved to the database. */
-    public void setGuideword(@NotNull String guideword) {
+    public void setGuideword(String guideword) {
         this.guideword = guideword;
     }
 
-    public int getPraisenum() {
+    public Integer getPraisenum() {
         return praisenum;
     }
 
-    public void setPraisenum(int praisenum) {
+    public void setPraisenum(Integer praisenum) {
         this.praisenum = praisenum;
     }
 
-    public int getSharenum() {
+    public Integer getSharenum() {
         return sharenum;
     }
 
-    public void setSharenum(int sharenum) {
+    public void setSharenum(Integer sharenum) {
         this.sharenum = sharenum;
     }
 
-    public int getCommentnum() {
+    public Integer getCommentnum() {
         return commentnum;
     }
 
-    public void setCommentnum(int commentnum) {
+    public void setCommentnum(Integer commentnum) {
         this.commentnum = commentnum;
     }
 
-    public boolean getIsloaded() {
+    public Boolean getIsloaded() {
         return isloaded;
     }
 
-    public void setIsloaded(boolean isloaded) {
+    public void setIsloaded(Boolean isloaded) {
         this.isloaded = isloaded;
     }
 

@@ -1,6 +1,5 @@
 package app.taolin.one.fragments;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -13,14 +12,10 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
-import app.taolin.one.App;
 import app.taolin.one.R;
 import app.taolin.one.utils.Api;
-import app.taolin.one.utils.Constants;
 import app.taolin.one.dao.Article;
 import app.taolin.one.dao.ArticleDao;
-import app.taolin.one.dao.DaoMaster;
-import app.taolin.one.dao.DaoSession;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.models.ArticleModel;
 import app.taolin.one.utils.DateUtil;
@@ -68,24 +63,24 @@ public class ArticleContentFragment extends BaseContentFragment {
         return root;
     }
 
+    private void updateViews(Article article) {
+        mDate.setText(DateUtil.getDisplayDate(article.getMakettime()));
+        mTitle.setText(article.getTitle());
+        mAuthor.setText(article.getAuthor());
+        mContent.setText(Html.fromHtml(article.getContent()));
+        mEditor.setText(article.getAuthorintro());
+        mAuthor2.setText(article.getAuthor());
+        mAuthorIntro.setText(article.getAuthit());
+    }
+
     @Override
     public void loadDate(final String date) {
         final long startTime = System.currentTimeMillis();
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(App.getInstance(), Constants.DATABASE_NAME, null);
-        SQLiteDatabase database = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(database);
-        DaoSession daoSession = daoMaster.newSession();
-        final ArticleDao articleDao = daoSession.getArticleDao();
+        final ArticleDao articleDao = getDaoSession().getArticleDao();
         Article article = articleDao.queryBuilder().where(ArticleDao.Properties.Makettime.eq(date)).unique();
         if (article != null) {
             if (article.getIsloaded()) {
-                mDate.setText(DateUtil.getDisplayDate(article.getMakettime()));
-                mTitle.setText(article.getTitle());
-                mAuthor.setText(article.getAuthor());
-                mContent.setText(Html.fromHtml(article.getContent()));
-                mEditor.setText(article.getAuthorintro());
-                mAuthor2.setText(article.getAuthor());
-                mAuthorIntro.setText(article.getAuthit());
+                updateViews(article);
                 loadDone(startTime);
             } else {
                 GsonRequest articleItemReq = new GsonRequest<>(Api.URL_ARTICLE + article.getId(), ArticleModel.ArticleItem.class, null,
@@ -116,14 +111,7 @@ public class ArticleContentFragment extends BaseContentFragment {
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-
-                                    mDate.setText(DateUtil.getDisplayDate(article.getMakettime()));
-                                    mTitle.setText(article.getTitle());
-                                    mAuthor.setText(article.getAuthor());
-                                    mContent.setText(Html.fromHtml(article.getContent()));
-                                    mEditor.setText(article.getAuthorintro());
-                                    mAuthor2.setText(article.getAuthor());
-                                    mAuthorIntro.setText(article.getAuthit());
+                                    updateViews(article);
                                 }
                                 loadDone(startTime);
                             }
@@ -137,7 +125,10 @@ public class ArticleContentFragment extends BaseContentFragment {
                         });
                 VolleySingleton.getInstance().addToRequestQueue(articleItemReq);
             }
-        } else {
+        }
+        final String preloadDate = getPreloadMonth(date);
+        if (preloadDate != null) {
+            Api.requestArticleData(preloadDate, articleDao);
         }
     }
 }

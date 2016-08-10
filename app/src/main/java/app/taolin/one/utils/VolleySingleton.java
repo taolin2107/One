@@ -26,7 +26,7 @@ public class VolleySingleton {
 
     private VolleySingleton(Context context) {
         initDiskCache(context);
-        mRequestQueue = getRequestQueue();
+        mRequestQueue = Volley.newRequestQueue(context);
         final int maxCacheSize = (int) Runtime.getRuntime().maxMemory() / (1024 * 8);
         mImageLoader = new ImageLoader(mRequestQueue, new LruImageCache(maxCacheSize));
     }
@@ -38,19 +38,9 @@ public class VolleySingleton {
         return mInstance;
     }
 
-    public RequestQueue getRequestQueue() {
-        if (mRequestQueue == null) {
-            // getApplicationContext() is key, it keeps you from leaking the
-            // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(App.getInstance());
-        }
-        return mRequestQueue;
-    }
-
     public <T> void addToRequestQueue(Request<T> req) {
-        req.setShouldCache(false);
-        getRequestQueue().getCache().clear();
-        getRequestQueue().add(req);
+        req.setShouldCache(true);
+        mRequestQueue.add(req);
     }
 
     public ImageLoader getImageLoader() {
