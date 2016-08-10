@@ -10,7 +10,7 @@ import com.umeng.analytics.MobclickAgent;
 
 import app.taolin.one.App;
 import app.taolin.one.R;
-import app.taolin.one.common.Constants;
+import app.taolin.one.utils.Constants;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.OnDataLoadListener;
 import app.taolin.one.listener.ViewClickListener;
@@ -32,14 +32,12 @@ abstract class BaseContentFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Bundle bundle = getArguments();
-        String date = bundle.getString(Constants.PARAMS_DATE);
-        int index = bundle.getInt(Constants.PARAMS_INDEX);
-        int ms = bundle.getInt(Constants.PARAMS_MS);
-        loadDate(date, index, ms);
-        initData();
         mDataLoadListener = (OnDataLoadListener) getActivity();
         mHandler = new Handler();
+        initData();
+        Bundle bundle = getArguments();
+        String date = bundle.getString(Constants.PARAMS_DATE);
+        loadDate(date);
     }
 
     @Override
@@ -50,9 +48,7 @@ abstract class BaseContentFragment extends Fragment {
 
     static Bundle getArguments(int index) {
         Bundle bundle = new Bundle();
-        bundle.putString(Constants.PARAMS_DATE, DateUtil.getDateString());
-        bundle.putInt(Constants.PARAMS_INDEX, index + 1);   //index从1开始
-        bundle.putInt(Constants.PARAMS_MS, 1);
+        bundle.putString(Constants.PARAMS_DATE, DateUtil.getDateString(index));
         return bundle;
     }
 
@@ -116,5 +112,5 @@ abstract class BaseContentFragment extends Fragment {
         }, delay);
     }
 
-    public abstract void loadDate(String date, int row, int ms);
+    public abstract void loadDate(String date);
 }

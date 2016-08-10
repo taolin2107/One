@@ -21,7 +21,7 @@ import app.taolin.one.App;
 import app.taolin.one.BuildConfig;
 import app.taolin.one.CopyrightActivity;
 import app.taolin.one.R;
-import app.taolin.one.common.Constants;
+import app.taolin.one.utils.Constants;
 import app.taolin.one.utils.SharedPreferenceUtil;
 import app.taolin.one.widgets.SmoothSwitch;
 

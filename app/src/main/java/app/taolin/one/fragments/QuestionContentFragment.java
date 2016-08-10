@@ -1,5 +1,6 @@
 package app.taolin.one.fragments;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -9,15 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import app.taolin.one.App;
 import app.taolin.one.R;
+import app.taolin.one.dao.DaoMaster;
+import app.taolin.one.dao.DaoSession;
+import app.taolin.one.dao.Question;
+import app.taolin.one.dao.QuestionDao;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.models.Question;
+import app.taolin.one.models.QuestionModel;
+import app.taolin.one.utils.Api;
+import app.taolin.one.utils.Constants;
 import app.taolin.one.utils.DateUtil;
-import app.taolin.one.utils.OneServiceSingleton;
+import app.taolin.one.utils.GsonRequest;
+import app.taolin.one.utils.VolleySingleton;
 import app.taolin.one.widgets.ScrollViewExt;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Taolin on 16/5/28.
@@ -58,29 +67,71 @@ public class QuestionContentFragment extends BaseContentFragment {
     }
 
     @Override
-    public void loadDate(final String date, final int row, final int ms) {
-        Call<Question> getArticle = OneServiceSingleton.getInstance().mOneService.getQuestion(date, row);
+    public void loadDate(final String date) {
         final long startTime = System.currentTimeMillis();
-        getArticle.enqueue(new Callback<Question>() {
-            @Override
-            public void onResponse(Call<Question> call, Response<Question> response) {
-                Question question = response.body();
-                if ("SUCCESS".equals(question.result)) {
-                    mDate.setText(DateUtil.getDisplayDate(question.questionAdEntity.strQuestionMarketTime));
-                    mQuestion.setText(question.questionAdEntity.strQuestionTitle);
-                    mQuestionDesc.setText(question.questionAdEntity.strQuestionContent);
-                    mAnswerTitle.setText(question.questionAdEntity.strAnswerTitle);
-                    mAnswer.setText(Html.fromHtml(question.questionAdEntity.strAnswerContent));
-                    mEditor.setText(question.questionAdEntity.sEditor);
-                }
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(App.getInstance(), Constants.DATABASE_NAME, null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        DaoSession daoSession = daoMaster.newSession();
+        final QuestionDao questionDao = daoSession.getQuestionDao();
+        Question question = questionDao.queryBuilder().where(QuestionDao.Properties.Makettime.eq(date)).unique();
+        if (question != null) {
+            if (question.getIsloaded()) {
+                mDate.setText(DateUtil.getDisplayDate(question.getMakettime()));
+                mQuestion.setText(question.getQuestiontitle());
+                mQuestionDesc.setText(question.getQuestioncontent());
+                mAnswerTitle.setText(question.getAnswertitle());
+                mAnswer.setText(Html.fromHtml(question.getAnswercontent()));
+                mEditor.setText(question.getEditor());
                 loadDone(startTime);
-            }
+            } else {
+                GsonRequest questionItemReq = new GsonRequest<>(Api.URL_QUESTION + question.getId(), QuestionModel.QuestionItem.class, null,
+                        new Response.Listener<QuestionModel.QuestionItem>() {
+                            @Override
+                            public void onResponse(QuestionModel.QuestionItem response) {
+                                if ("0".equals(response.res)) {
+                                    QuestionModel.Data q = response.data;
+                                    Question question = new Question();
+                                    question.setId(q.question_id);
+                                    question.setQuestiontitle(q.question_title);
+                                    question.setQuestioncontent(q.question_content);
+                                    question.setAnswertitle(q.answer_title);
+                                    question.setAnswercontent(q.answer_content);
+                                    question.setMakettime(q.question_makettime.substring(0, 10));
+                                    question.setEditor(q.charge_edt);
+                                    question.setUpdatedate(q.last_update_date);
+                                    question.setWeburl(q.web_url);
+                                    question.setReadnum(q.read_num);
+                                    question.setGuideword(q.guide_word);
+                                    question.setPraisenum(q.praisenum);
+                                    question.setSharenum(q.sharenum);
+                                    question.setCommentnum(q.commentnum);
+                                    question.setIsloaded(true);
+                                    try {
+                                        questionDao.insertOrReplace(question);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
-            @Override
-            public void onFailure(Call<Question> call, Throwable t) {
-                Log.e("QuestionContentFragment", t + "");
-                loadDone(startTime);
+                                    mDate.setText(DateUtil.getDisplayDate(question.getMakettime()));
+                                    mQuestion.setText(question.getQuestiontitle());
+                                    mQuestionDesc.setText(question.getQuestioncontent());
+                                    mAnswerTitle.setText(question.getAnswertitle());
+                                    mAnswer.setText(Html.fromHtml(question.getAnswercontent()));
+                                    mEditor.setText(question.getEditor());
+                                }
+                                loadDone(startTime);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("Taolin", error.getLocalizedMessage());
+                                loadDone(startTime);
+                            }
+                        });
+                VolleySingleton.getInstance().addToRequestQueue(questionItemReq);
             }
-        });
+        }
     }
 }

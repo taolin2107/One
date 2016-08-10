@@ -52,6 +52,7 @@ public class BaseFragment extends Fragment {
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         mViewPagerAdapter = new ViewPagerAdapter(getChildFragmentManager(), mAdapterType);
+        mViewPager.setOffscreenPageLimit(3);
         mViewPager.setAdapter(mViewPagerAdapter);
         mViewPager.setOnTouchListener(mTouchListener);
     }

@@ -3,7 +3,6 @@ package app.taolin.one.utils;
 import android.app.Activity;
 
 import app.taolin.one.R;
-import app.taolin.one.common.Constants;
 
 /**
  * @author taolin

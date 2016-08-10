@@ -1,5 +1,6 @@
 package app.taolin.one.fragments;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.Html;
@@ -9,15 +10,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+
+import app.taolin.one.App;
 import app.taolin.one.R;
+import app.taolin.one.utils.Api;
+import app.taolin.one.utils.Constants;
+import app.taolin.one.dao.Article;
+import app.taolin.one.dao.ArticleDao;
+import app.taolin.one.dao.DaoMaster;
+import app.taolin.one.dao.DaoSession;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.models.Article;
+import app.taolin.one.models.ArticleModel;
 import app.taolin.one.utils.DateUtil;
-import app.taolin.one.utils.OneServiceSingleton;
+import app.taolin.one.utils.GsonRequest;
+import app.taolin.one.utils.VolleySingleton;
 import app.taolin.one.widgets.ScrollViewExt;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 /**
  * Created by Taolin on 16/5/28.
@@ -60,30 +69,75 @@ public class ArticleContentFragment extends BaseContentFragment {
     }
 
     @Override
-    public void loadDate(final String date, final int row, final int ms) {
-        Call<Article> getArticle = OneServiceSingleton.getInstance().mOneService.getArticle(date, row, ms);
+    public void loadDate(final String date) {
         final long startTime = System.currentTimeMillis();
-        getArticle.enqueue(new Callback<Article>() {
-            @Override
-            public void onResponse(Call<Article> call, Response<Article> response) {
-                Article article = response.body();
-                if ("SUCCESS".equals(article.result)) {
-                    mDate.setText(DateUtil.getDisplayDate(article.contentEntity.strContMarketTime));
-                    mTitle.setText(article.contentEntity.strContTitle);
-                    mAuthor.setText(article.contentEntity.strContAuthor);
-                    mContent.setText(Html.fromHtml(article.contentEntity.strContent));
-                    mEditor.setText(article.contentEntity.strContAuthorIntroduce);
-                    mAuthor2.setText(article.contentEntity.strContAuthor);
-                    mAuthorIntro.setText(article.contentEntity.sAuth);
-                }
+        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(App.getInstance(), Constants.DATABASE_NAME, null);
+        SQLiteDatabase database = helper.getWritableDatabase();
+        DaoMaster daoMaster = new DaoMaster(database);
+        DaoSession daoSession = daoMaster.newSession();
+        final ArticleDao articleDao = daoSession.getArticleDao();
+        Article article = articleDao.queryBuilder().where(ArticleDao.Properties.Makettime.eq(date)).unique();
+        if (article != null) {
+            if (article.getIsloaded()) {
+                mDate.setText(DateUtil.getDisplayDate(article.getMakettime()));
+                mTitle.setText(article.getTitle());
+                mAuthor.setText(article.getAuthor());
+                mContent.setText(Html.fromHtml(article.getContent()));
+                mEditor.setText(article.getAuthorintro());
+                mAuthor2.setText(article.getAuthor());
+                mAuthorIntro.setText(article.getAuthit());
                 loadDone(startTime);
-            }
+            } else {
+                GsonRequest articleItemReq = new GsonRequest<>(Api.URL_ARTICLE + article.getId(), ArticleModel.ArticleItem.class, null,
+                        new Response.Listener<ArticleModel.ArticleItem>() {
+                            @Override
+                            public void onResponse(ArticleModel.ArticleItem response) {
+                                if ("0".equals(response.res)) {
+                                    ArticleModel.Data a = response.data;
+                                    Article article = new Article();
+                                    article.setId(a.content_id);
+                                    article.setTitle(a.hp_title);
+                                    article.setSubtitle(a.sub_title);
+                                    article.setAuthor(a.hp_author);
+                                    article.setAuthit(a.auth_it);
+                                    article.setAuthorintro(a.hp_author_introduce);
+                                    article.setContent(a.hp_content);
+                                    article.setMakettime(a.hp_makettime.substring(0, 10));
+                                    article.setUpdatedate(a.last_update_date);
+                                    article.setWeburl(a.web_url);
+                                    article.setGuideword(a.guide_word);
+                                    article.setAudio(a.audio);
+                                    article.setPraisenum(a.praisenum);
+                                    article.setSharenum(a.sharenum);
+                                    article.setCommentnum(a.commentnum);
+                                    article.setIsloaded(true);
+                                    try {
+                                        articleDao.insertOrReplace(article);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
 
-            @Override
-            public void onFailure(Call<Article> call, Throwable t) {
-                Log.e("ArticleContentFragment", t + "");
-                loadDone(startTime);
+                                    mDate.setText(DateUtil.getDisplayDate(article.getMakettime()));
+                                    mTitle.setText(article.getTitle());
+                                    mAuthor.setText(article.getAuthor());
+                                    mContent.setText(Html.fromHtml(article.getContent()));
+                                    mEditor.setText(article.getAuthorintro());
+                                    mAuthor2.setText(article.getAuthor());
+                                    mAuthorIntro.setText(article.getAuthit());
+                                }
+                                loadDone(startTime);
+                            }
+                        },
+                        new Response.ErrorListener() {
+                            @Override
+                            public void onErrorResponse(VolleyError error) {
+                                Log.e("Taolin", error.getLocalizedMessage());
+                                loadDone(startTime);
+                            }
+                        });
+                VolleySingleton.getInstance().addToRequestQueue(articleItemReq);
             }
-        });
+        } else {
+        }
     }
 }

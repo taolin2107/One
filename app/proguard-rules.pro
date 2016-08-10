@@ -71,11 +71,6 @@
    public <init> (org.json.JSONObject);
 }
 
-# for retrofit2
--dontwarn retrofit2.**
--keepnames class retrofit2.** { *; }
--keepattributes Exceptions
-
 -dontwarn java.nio.file.**
 -keepnames class java.nio.file.** { *; }
 
@@ -85,3 +80,12 @@
 # resolve the gson data, cannot be changed
 -dontwarn app.taolin.one.models.**
 -keepclassmembernames class app.taolin.one.models.** { *; }
+
+-dontwarn org.greenrobot.greendao.**
+-keepnames class org.greenrobot.greendao.** { *; }
+
+-dontwarn app.taolin.one.dao.**
+-keep class app.taolin.one.dao.** { *; }
+
+-dontwarn org.greenrobot.greendao.**
+-keepnames class org.greenrobot.greendao.** { *; }

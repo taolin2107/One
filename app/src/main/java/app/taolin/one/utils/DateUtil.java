@@ -16,6 +16,13 @@ public class DateUtil {
     private static final SimpleDateFormat dayFormat = new SimpleDateFormat("dd", Locale.US);
     private static final SimpleDateFormat monthYearFormat = new SimpleDateFormat("MMM, yyyy", Locale.US);
 
+    private static final long DAY = 24 * 3600 * 1000;
+
+    public static String getDateString(int diffDays) {
+        final long milliseconds = System.currentTimeMillis() - diffDays * DAY;
+        return dateFormat.format(new Date(milliseconds));
+    }
+
     public static String getDateString() {
         return dateFormat.format(new Date());
     }
