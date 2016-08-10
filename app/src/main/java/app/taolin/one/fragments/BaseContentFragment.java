@@ -2,7 +2,6 @@ package app.taolin.one.fragments;
 
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.ScrollView;
@@ -17,7 +16,6 @@ import app.taolin.one.dao.DaoMaster;
 import app.taolin.one.dao.DaoSession;
 import app.taolin.one.utils.Constants;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.listener.OnDataLoadListener;
 import app.taolin.one.listener.ViewClickListener;
 import app.taolin.one.utils.DateUtil;
 import app.taolin.one.widgets.ScrollViewExt.OnScrollChangeListener;
@@ -29,26 +27,16 @@ import app.taolin.one.widgets.ScrollViewExt.OnScrollChangeListener;
 abstract class BaseContentFragment extends Fragment {
 
     private OnContentScrollListener mScrollListener;
-    private OnDataLoadListener mDataLoadListener;
     private int mStartScrollY;
     private int mEffectiveDist;
-    private Handler mHandler;
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        mDataLoadListener = (OnDataLoadListener) getActivity();
-        mHandler = new Handler();
         initData();
         Bundle bundle = getArguments();
         String date = bundle.getString(Constants.PARAMS_DATE);
         loadDate(date);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        mHandler.removeCallbacksAndMessages(null);
     }
 
     static Bundle getArguments(int index) {
@@ -124,23 +112,6 @@ abstract class BaseContentFragment extends Fragment {
             }
         }
     };
-
-    void loadDone(long startTime) {
-        // 最低要刷新2秒钟
-        long delay = 2000 - System.currentTimeMillis() + startTime;
-        if (delay < 0) {
-            delay = 0;
-        }
-        mHandler.removeCallbacksAndMessages(null);
-        mHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (mDataLoadListener != null) {
-                    mDataLoadListener.onLoadDone();
-                }
-            }
-        }, delay);
-    }
 
     public abstract void loadDate(String date);
 }

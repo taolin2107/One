@@ -27,12 +27,11 @@ import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
 import app.taolin.one.fragments.SettingsFragment;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.listener.OnDataLoadListener;
 import app.taolin.one.listener.ViewClickListener;
 import app.taolin.one.utils.SharedPreferenceUtil;
 import app.taolin.one.utils.Utils;
 
-public class MainActivity extends AppCompatActivity implements OnContentScrollListener, OnDataLoadListener {
+public class MainActivity extends AppCompatActivity implements OnContentScrollListener {
 
     private static final String TAG_FRAGMENT_HOME = "fragment_home";
     private static final String TAG_FRAGMENT_ARTICLE = "fragment_article";
@@ -289,21 +288,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
             mToolbar.animate().cancel();
             mToolbar.animate().translationY(mToolbarHeight).setDuration(ANIM_DURATION);
             mIsToolbarHide = true;
-        }
-    }
-
-    @Override
-    public void onLoadDone() {
-        switch (mCurrentIndex) {
-            case 0:
-                mHomeFragment.onRefreshDone();
-                break;
-            case 1:
-                mArticleFragment.onRefreshDone();
-                break;
-            case 2:
-                mQuestionFragment.onRefreshDone();
-                break;
         }
     }
 }

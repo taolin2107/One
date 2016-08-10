@@ -53,7 +53,6 @@ public class HomeContentFragment extends BaseContentFragment {
 
     @Override
     public void loadDate(final String date) {
-        final long startTime = System.currentTimeMillis();
         final HomeDao homeDao = getDaoSession().getHomeDao();
         Home home = homeDao.queryBuilder().where(HomeDao.Properties.Makettime.eq(date)).unique();
         if (home != null) {
@@ -65,7 +64,6 @@ public class HomeContentFragment extends BaseContentFragment {
             mMonthYear.setText(DateUtil.getMonthYear(maketDate));
             mContent.setText(home.getContent().trim());
         }
-        loadDone(startTime);
         final String preloadDate = getPreloadMonth(date);
         if (preloadDate != null) {
             Api.requestHomeData(preloadDate, homeDao);

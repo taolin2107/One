@@ -11,5 +11,4 @@
 
     <dimen name="toolbar_height">50dp</dimen>
     <dimen name="effective_scroll_distance">50dp</dimen>
-    <dimen name="refresh_layout_translation">-100dp</dimen>
 </resources>

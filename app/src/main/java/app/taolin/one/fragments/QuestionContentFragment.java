@@ -72,13 +72,11 @@ public class QuestionContentFragment extends BaseContentFragment {
 
     @Override
     public void loadDate(final String date) {
-        final long startTime = System.currentTimeMillis();
         final QuestionDao questionDao = getDaoSession().getQuestionDao();
         Question question = questionDao.queryBuilder().where(QuestionDao.Properties.Makettime.eq(date)).unique();
         if (question != null) {
             if (question.getIsloaded()) {
                 updateViews(question);
-                loadDone(startTime);
             } else {
                 GsonRequest questionItemReq = new GsonRequest<>(Api.URL_QUESTION + question.getId(), QuestionModel.QuestionItem.class, null,
                         new Response.Listener<QuestionModel.QuestionItem>() {
@@ -109,14 +107,12 @@ public class QuestionContentFragment extends BaseContentFragment {
                                     }
                                     updateViews(question);
                                 }
-                                loadDone(startTime);
                             }
                         },
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.e("Taolin", error.getLocalizedMessage());
-                                loadDone(startTime);
                             }
                         });
                 VolleySingleton.getInstance().addToRequestQueue(questionItemReq);
