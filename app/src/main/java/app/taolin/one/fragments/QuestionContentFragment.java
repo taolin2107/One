@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 
+import java.util.Calendar;
+
 import app.taolin.one.R;
 import app.taolin.one.dao.Question;
 import app.taolin.one.dao.QuestionDao;
@@ -118,7 +120,7 @@ public class QuestionContentFragment extends BaseContentFragment {
                 VolleySingleton.getInstance().addToRequestQueue(questionItemReq);
             }
         }
-        final String preloadDate = getPreloadMonth(date);
+        final Calendar preloadDate = getPreloadDate(date);
         if (preloadDate != null) {
             Api.requestQuestionData(preloadDate, questionDao);
         }

@@ -11,9 +11,7 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
+import java.util.Calendar;
 
 import app.taolin.one.utils.Api;
 import app.taolin.one.utils.Constants;
@@ -161,11 +159,10 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     }
 
     private void requestData() {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM", Locale.US);
-        final String month = dateFormat.format(new Date());
-        Api.requestHomeData(month, mHomeDao);
-        Api.requestArticleData(month, mArticleDao);
-        Api.requestQuestionData(month, mQuestionDao);
+        Calendar calendar = Calendar.getInstance();
+        Api.requestHomeData(calendar, mHomeDao);
+        Api.requestArticleData(calendar, mArticleDao);
+        Api.requestQuestionData(calendar, mQuestionDao);
     }
 
     @Override

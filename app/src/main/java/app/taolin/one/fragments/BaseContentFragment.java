@@ -56,16 +56,16 @@ abstract class BaseContentFragment extends Fragment {
      * indicate month will changed soon
      * @param date format must be yyyy-MM-dd
      */
-    String getPreloadMonth(String date) {
+    Calendar getPreloadDate(String date) {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTimeInMillis(DateUtil.getDate(date).getTime());
+        calendar.setTime(DateUtil.getDate(date));
         int day = calendar.get(Calendar.DATE);
-        if (day < 4) {
+        if (day == 3) {
             calendar.add(Calendar.MONTH, -1);
-            return DateUtil.getRequestDate(calendar.getTime());
-        } else if (day > 25) {
+            return calendar;
+        } else if (day == 26) {
             calendar.add(Calendar.MONTH, 1);
-            return DateUtil.getRequestDate(calendar.getTime());
+            return calendar;
         }
         return null;
     }

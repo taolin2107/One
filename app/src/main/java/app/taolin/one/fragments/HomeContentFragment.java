@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
+import java.util.Calendar;
 import java.util.Date;
 
 import app.taolin.one.R;
@@ -64,7 +65,7 @@ public class HomeContentFragment extends BaseContentFragment {
             mMonthYear.setText(DateUtil.getMonthYear(maketDate));
             mContent.setText(home.getContent().trim());
         }
-        final String preloadDate = getPreloadMonth(date);
+        final Calendar preloadDate = getPreloadDate(date);
         if (preloadDate != null) {
             Api.requestHomeData(preloadDate, homeDao);
         }

@@ -16,10 +16,9 @@ public class DateUtil {
     private static final DateFormat displayDateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
     private static final DateFormat dayFormat = new SimpleDateFormat("dd", Locale.US);
     private static final DateFormat monthYearFormat = new SimpleDateFormat("MMM, yyyy", Locale.US);
-    private static final DateFormat requestDateFormat = new SimpleDateFormat("yyyy-MM", Locale.US);
 
     private static final DateFormat shortTime = new SimpleDateFormat("HH:mm", Locale.US);
-    private static final String UPDATE_TIME_EVERYDAY = "21:30";
+    private static final String UPDATE_TIME_EVERYDAY = "21:30";  //每天 21:30更新当天的内容
     private static final long DAY = 24 * 3600 * 1000;
 
     public static String getDateString(int diffDays) {
@@ -57,7 +56,7 @@ public class DateUtil {
         return monthYearFormat.format(date);
     }
 
-    public static String getRequestDate(Date date) {
-        return requestDateFormat.format(date);
+    public static String getRequestDateString(Date date) {
+        return dateFormat.format(date);
     }
 }
