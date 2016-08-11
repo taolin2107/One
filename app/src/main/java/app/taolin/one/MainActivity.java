@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     private static final String TAG_FRAGMENT_QUESTION = "fragment_question";
     private static final String TAG_FRAGMENT_SETTINGS = "fragment_settings";
 
-    private static final String KEY_CURRENT_INDEX = "current_index";
+    private static final String KEY_SELECTED_BTN_ID = "selected_btn_id";
     private static final int ANIM_DURATION = 200;
 
     private View mToolbar;
@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     private SettingsFragment mSettingsFragment;
 
     private FragmentManager mFragmentManager;
-    private int mCurrentIndex;
+    private int mSelectedBtnId;
 
     private int mToolbarHeight;
     private boolean mIsToolbarHide;
@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         Utils.setTheme(this);
         setContentView(R.layout.activity_main);
         mFragmentManager = getSupportFragmentManager();
-        mCurrentIndex = 0;
+        mSelectedBtnId = R.id.btn_home;
         initView();
         initListener();
 
@@ -81,20 +81,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        switch (mCurrentIndex) {
-            case 0:
-                clickButton(mBtnHome);
-                break;
-            case 1:
-                clickButton(mBtnArticle);
-                break;
-            case 2:
-                clickButton(mBtnQuestion);
-                break;
-            case 3:
-                clickButton(mBtnSettings);
-                break;
-        }
+        clickButton(findViewById(mSelectedBtnId));
     }
 
     @Override
@@ -167,19 +154,19 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putInt(KEY_CURRENT_INDEX, mCurrentIndex);
+        outState.putInt(KEY_SELECTED_BTN_ID, mSelectedBtnId);
         super.onSaveInstanceState(outState);
     }
 
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        if (savedInstanceState.containsKey(KEY_CURRENT_INDEX)) {
+        if (savedInstanceState.containsKey(KEY_SELECTED_BTN_ID)) {
             mHomeFragment = (HomeFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_HOME);
             mArticleFragment = (ArticleFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_ARTICLE);
             mQuestionFragment = (QuestionFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_QUESTION);
             mSettingsFragment = (SettingsFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_SETTINGS);
-            mCurrentIndex = savedInstanceState.getInt(KEY_CURRENT_INDEX);
+            mSelectedBtnId = savedInstanceState.getInt(KEY_SELECTED_BTN_ID);
         }
     }
 
@@ -199,8 +186,8 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
             if (mSettingsFragment != null) {
                 transaction.hide(mSettingsFragment);
             }
-            int id = v.getId();
-            switch (id) {
+            mSelectedBtnId = v.getId();
+            switch (mSelectedBtnId) {
                 case R.id.btn_home:
                     if (mHomeFragment == null) {
                         mHomeFragment = new HomeFragment();
@@ -208,8 +195,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
                     } else {
                         transaction.show(mHomeFragment);
                     }
-                    clickToolbar(id);
-                    mCurrentIndex = 0;
                     break;
 
                 case R.id.btn_article:
@@ -219,8 +204,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
                     } else {
                         transaction.show(mArticleFragment);
                     }
-                    clickToolbar(id);
-                    mCurrentIndex = 1;
                     break;
 
                 case R.id.btn_question:
@@ -230,8 +213,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
                     } else {
                         transaction.show(mQuestionFragment);
                     }
-                    clickToolbar(id);
-                    mCurrentIndex = 2;
                     break;
 
                 case R.id.btn_settings:
@@ -241,10 +222,9 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
                     } else {
                         transaction.show(mSettingsFragment);
                     }
-                    clickToolbar(id);
-                    mCurrentIndex = 3;
                     break;
             }
+            clickToolbar(mSelectedBtnId);
             transaction.commit();
         }
 
