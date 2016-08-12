@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     private TextView mBtnArticle;
     private TextView mBtnQuestion;
     private TextView mBtnSettings;
+    private View mLoadingProgress;
 
     private HomeFragment mHomeFragment;
     private ArticleFragment mArticleFragment;
@@ -55,9 +56,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
 
     private int mToolbarHeight;
     private boolean mIsToolbarHide;
-
-    private View mUserGuideContainer;
-    private TextView mUserGuideBtn;
 
     private HomeDao mHomeDao;
     private ArticleDao mArticleDao;
@@ -81,7 +79,22 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        clickButton(findViewById(mSelectedBtnId));
+        if (SharedPreferenceUtil.readBoolean(Constants.KEY_IS_FIRST_OPEN, true)) {
+            Calendar calendar = Calendar.getInstance();
+            Api.requestHomeData(calendar, mHomeDao, new Api.DataLoadingListener() {
+                @Override
+                public void onLoadDone(boolean isSuccess) {
+                    if (isSuccess) {
+                        SharedPreferenceUtil.writeBoolean(Constants.KEY_IS_FIRST_OPEN, false);
+                        clickButton(findViewById(mSelectedBtnId));
+                        mLoadingProgress.setVisibility(View.GONE);
+                    }
+                }
+            });
+        } else {
+            mLoadingProgress.setVisibility(View.GONE);
+            clickButton(findViewById(mSelectedBtnId));
+        }
     }
 
     @Override
@@ -96,11 +109,7 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnArticle = (TextView) findViewById(R.id.btn_article);
         mBtnQuestion = (TextView) findViewById(R.id.btn_question);
         mBtnSettings = (TextView) findViewById(R.id.btn_settings);
-        mUserGuideContainer = findViewById(R.id.user_guide);
-        mUserGuideBtn = (TextView) findViewById(R.id.user_guide_done);
-        if (!SharedPreferenceUtil.readBoolean(Constants.KEY_IS_FIRST_OPEN, true)) {
-            mUserGuideContainer.setVisibility(View.GONE);
-        }
+        mLoadingProgress = findViewById(R.id.loading_view);
         mToolbarHeight = getResources().getDimensionPixelSize(R.dimen.toolbar_height);
         mIsToolbarHide = false;
     }
@@ -110,13 +119,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnArticle.setOnClickListener(mClickListener);
         mBtnQuestion.setOnClickListener(mClickListener);
         mBtnSettings.setOnClickListener(mClickListener);
-        mUserGuideBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mUserGuideContainer.setVisibility(View.GONE);
-                SharedPreferenceUtil.writeBoolean(Constants.KEY_IS_FIRST_OPEN, false);
-            }
-        });
     }
 
     private void clickButton(View btn) {
@@ -230,23 +232,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
 
         @Override
         public void onDoubleClick(View v) {
-            int id = v.getId();
-            switch (id) {
-                case R.id.btn_home:
-                    mHomeFragment.setToFirstPage();
-                    MobclickAgent.onEvent(App.getInstance(), "double_click_home");
-                    break;
-
-                case R.id.btn_article:
-                    mArticleFragment.setToFirstPage();
-                    MobclickAgent.onEvent(App.getInstance(), "double_click_article");
-                    break;
-
-                case R.id.btn_question:
-                    mQuestionFragment.setToFirstPage();
-                    MobclickAgent.onEvent(App.getInstance(), "double_click_question");
-                    break;
-            }
         }
     };
 

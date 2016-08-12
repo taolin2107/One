@@ -48,12 +48,23 @@ public class Api {
         }
     }
 
+    public interface DataLoadingListener {
+        void onLoadDone(boolean isSuccess);
+    }
+
     public static void requestHomeData(final Calendar calendar, final HomeDao homeDao) {
+        requestHomeData(calendar, homeDao, null);
+    }
+
+    public static void requestHomeData(final Calendar calendar, final HomeDao homeDao, final DataLoadingListener listener) {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 final String date = getRequestDate(calendar);
                 if (null == date || null != homeDao.queryBuilder().where(HomeDao.Properties.Makettime.eq(date)).unique()) {
+                    if (listener != null) {
+                        listener.onLoadDone(true);
+                    }
                     return;
                 }
                 GsonRequest homeReq = new GsonRequest<>(Api.URL_HOME_LIST + date, HomeModel.class, null,
@@ -81,6 +92,13 @@ public class Api {
                                             // duplicated primary key, skip the error
                                         }
                                     }
+                                    if (listener != null) {
+                                        listener.onLoadDone(true);
+                                    }
+                                } else {
+                                    if (listener != null) {
+                                        listener.onLoadDone(false);
+                                    }
                                 }
                             }
                         },
@@ -88,6 +106,9 @@ public class Api {
                             @Override
                             public void onErrorResponse(VolleyError error) {
                                 Log.e("Taolin", error.getLocalizedMessage() + "");
+                                if (listener != null) {
+                                    listener.onLoadDone(false);
+                                }
                             }
                         });
                 VolleySingleton.getInstance().addToRequestQueue(homeReq);

@@ -64,44 +64,26 @@
         </LinearLayout>
     </FrameLayout>
 
-    <FrameLayout
-        android:id="@+id/user_guide"
+    <RelativeLayout
+        android:id="@+id/loading_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:focusableInTouchMode="true"
-        android:clickable="true"
-        android:background="#99ffffff">
+        android:gravity="center"
+        android:background="#ffffff">
+
+        <ProgressBar
+            android:id="@+id/loading_progressbar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large.Inverse"/>
 
         <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:layout_gravity="top"
-            android:gravity="center"
-            android:background="@drawable/bg_guide_text"
-            android:textSize="@dimen/second_text_size_normal"
-            android:textColor="@color/secondTextColorLight"
-            android:text="@string/user_guide_text_top"/>
-
-        <TextView
-            android:id="@+id/user_guide_done"
-            android:layout_width="150dp"
-            android:layout_height="@dimen/toolbar_height"
-            android:layout_gravity="bottom|center_horizontal"
-            android:layout_marginBottom="200dp"
-            android:gravity="center"
-            android:background="@drawable/bg_guide_text"
-            android:textSize="@dimen/second_text_size_normal"
-            android:textColor="@color/secondTextColorLight"
-            android:text="@string/user_guide_text_done"/>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/toolbar_height"
-            android:layout_gravity="bottom"
-            android:gravity="center"
-            android:background="@drawable/bg_guide_text"
-            android:textSize="@dimen/second_text_size_normal"
-            android:textColor="@color/secondTextColorLight"
-            android:text="@string/user_guide_text_bottom"/>
-    </FrameLayout>
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/loading_progressbar"
+            android:paddingStart="10dp"
+            android:paddingLeft="10dp"
+            android:textSize="18sp"
+            android:text="@string/loading_text"/>
+    </RelativeLayout>
 </FrameLayout>
