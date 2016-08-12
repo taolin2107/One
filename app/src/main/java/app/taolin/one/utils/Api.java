@@ -87,7 +87,7 @@ public class Api {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("Taolin", error.getLocalizedMessage());
+                                Log.e("Taolin", error.getLocalizedMessage() + "");
                             }
                         });
                 VolleySingleton.getInstance().addToRequestQueue(homeReq);
@@ -127,7 +127,7 @@ public class Api {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("Taolin", error.getLocalizedMessage());
+                                Log.e("Taolin", error.getLocalizedMessage() + "");
                             }
                         });
                 VolleySingleton.getInstance().addToRequestQueue(articleReq);
@@ -168,7 +168,7 @@ public class Api {
                         new Response.ErrorListener() {
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e("Taolin", error.getLocalizedMessage());
+                                Log.e("Taolin", error.getLocalizedMessage() + "");
                             }
                         });
                 VolleySingleton.getInstance().addToRequestQueue(questionReq);

@@ -72,12 +72,6 @@ android {
     productFlavors {
         wandoujia {}
         xiaomi {}
-        _360 {}
-        tencent {}
-        baidu {}
-        smartisan {}
-        meizu {}
-        huawei {}
     }
     productFlavors.all { flaver ->
         flaver.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
