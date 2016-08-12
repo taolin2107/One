@@ -14,6 +14,7 @@
     <attr name="dividerColor" format="color"/>
     <attr name="homeContentBg" format="reference"/>
     <attr name="bgBackBtn" format="reference"/>
+    <attr name="bgSettingsItem" format="reference"/>
 
     <declare-styleable name="SmoothSwitch">
         <attr name="drawableTrack" format="reference"/>

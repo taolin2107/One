@@ -8,7 +8,8 @@
 
     <string name="font_size_settings">字体大小</string>
     <string name="night_mode">夜间模式</string>
-    <string name="version_code">版本号</string>
+    <string name="clean_cache">清除缓存</string>
+    <string name="about">关于</string>
     <string name="copyright">版权声明</string>
     <string name="copyright_desc">复杂的世界，一个就够了。\n每天一张图片，一篇文章，一个问答，回到最初那个简洁的\"一个\"。\n本App是『ONE·一个』的非官方版本，内容属『ONE·一个』http://m.wufazhuce.com 官方所有。\n\n邮箱: taolin2107@163.com</string>
 

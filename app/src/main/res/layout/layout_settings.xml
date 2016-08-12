@@ -2,45 +2,51 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="20dp"
+    android:padding="10dp"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/font_size"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:background="?attr/bgSettingsItem">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:textColor="?attr/secondTextColor"
             android:textSize="?attr/contentTextSize"
+            android:layout_gravity="start|center_vertical"
             android:text="@string/font_size_settings"/>
 
-        <Spinner
-            android:id="@+id/font_size"
-            android:layout_width="60dp"
+        <ImageView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:background="@null"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+            android:layout_marginRight="15dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/right"/>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?attr/dividerColor"/>
 
-    <RelativeLayout
+    <FrameLayout
+        android:id="@+id/night_mode_layout"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?attr/bgSettingsItem">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="start|center_vertical"
             android:textColor="?attr/secondTextColor"
             android:textSize="?attr/contentTextSize"
             android:text="@string/night_mode"/>
@@ -49,40 +55,39 @@
             android:id="@+id/night_mode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="end|center_vertical"
             custom:drawableThumb="@drawable/switch_thumb"
             custom:drawableTrack="@drawable/switch_track_selector"/>
-    </RelativeLayout>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:background="?attr/dividerColor"/>
 
-    <RelativeLayout
+    <FrameLayout
         android:id="@+id/copyright"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?attr/bgSettingsItem">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="start|center_vertical"
             android:textColor="?attr/secondTextColor"
             android:textSize="?attr/contentTextSize"
             android:text="@string/copyright"/>
 
-        <TextView
+        <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:textColor="?attr/secondTextColor"
-            android:textSize="?attr/contentTextSize"/>
-    </RelativeLayout>
+            android:layout_marginRight="15dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/right"/>
+    </FrameLayout>
 
     <View
         android:layout_width="match_parent"
@@ -90,25 +95,66 @@
         android:background="?attr/dividerColor"/>
 
     <RelativeLayout
+        android:id="@+id/clean_cache"
         android:layout_width="match_parent"
-        android:layout_height="45dp">
+        android:layout_height="50dp"
+        android:background="?attr/bgSettingsItem">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
             android:layout_centerVertical="true"
             android:textColor="?attr/secondTextColor"
             android:textSize="?attr/contentTextSize"
-            android:text="@string/version_code"/>
+            android:text="@string/clean_cache"/>
 
-        <TextView
-            android:id="@+id/version_code"
+        <ImageView
+            android:id="@+id/cache_right_arrow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:layout_marginRight="15dp"
+            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
+            android:src="@drawable/right"/>
+
+        <TextView
+            android:id="@+id/cache_size"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
             android:layout_centerVertical="true"
             android:textColor="?attr/secondTextColor"
-            android:textSize="?attr/contentTextSize"/>
+            android:textSize="?attr/contentTextSize"
+            android:visibility="gone"
+            android:layout_toLeftOf="@id/cache_right_arrow"/>
     </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/dividerColor"/>
+
+    <FrameLayout
+        android:id="@+id/about"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="?attr/bgSettingsItem">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="start|center_vertical"
+            android:textColor="?attr/secondTextColor"
+            android:textSize="?attr/contentTextSize"
+            android:text="@string/about"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="end|center_vertical"
+            android:src="@drawable/right"/>
+    </FrameLayout>
 </LinearLayout>
