@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'AndResGuard'
 
 android {
     compileSdkVersion 23
@@ -63,6 +64,32 @@ android {
     }
     productFlavors.all { flaver ->
         flaver.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+    }
+}
+
+andResGuard {
+    mappingFile = file("../mapping/resource_mapping_app-release.txt")
+    if (!mappingFile.exists()) {
+        mappingFile = null
+    }
+    use7zip = true
+    useSign = true
+    keepRoot = false
+    // because the launcher will get the icon with his name
+    whiteList = [
+            "R.mipmap.ic_launcher",
+            "R.string.app_name"
+    ]
+    compressFilePattern = [
+            "*.png",
+            "*.jpg",
+            "*.jpeg",
+            "*.gif",
+            "resources.arsc"
+    ]
+    sevenzip {
+        artifact = 'com.tencent.mm:SevenZip:1.1.9'
+        //path = "/usr/local/bin/7za"
     }
 }
 
