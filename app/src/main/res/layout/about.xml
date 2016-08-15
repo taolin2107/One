@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:background="?attr/bgColor"
+    android:gravity="center_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/thirdTextColor"
+            android:alpha="0.2"/>
+
+        <ImageView
+            android:id="@+id/back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:alpha="0.4"
+            android:src="?attr/bgBackBtn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textStyle="bold"
+            android:textSize="?attr/secondTextSize"
+            android:textColor="?attr/contentTextColor"
+            android:text="@string/about"/>
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="7dp"
+        android:layout_marginTop="40dp"
+        android:textColor="?attr/contentTextColor"
+        android:textStyle="bold"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:id="@+id/author"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="7dp"
+        android:layout_marginTop="20dp"
+        android:textColor="?attr/contentTextColor"
+        android:textSize="16sp"
+        android:text="@string/about_author"/>
+
+    <TextView
+        android:id="@+id/email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lineSpacingExtra="7dp"
+        android:layout_marginTop="8dp"
+        android:autoLink="web|email"
+        android:linksClickable="true"
+        android:textColor="?attr/contentTextColor"
+        android:textColorLink="?attr/primaryColor"
+        android:textSize="16sp"
+        android:text="@string/about_email"/>
+</LinearLayout>

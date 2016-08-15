@@ -16,6 +16,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
+import app.taolin.one.AboutActivity;
 import app.taolin.one.CopyrightActivity;
 import app.taolin.one.FontSettingsDialog;
 import app.taolin.one.R;
@@ -111,6 +112,7 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
                 break;
 
             case R.id.about:
+                startActivity(new Intent(mContext, AboutActivity.class));
                 break;
         }
     }
