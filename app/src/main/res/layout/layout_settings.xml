@@ -126,7 +126,6 @@
             android:layout_centerVertical="true"
             android:textColor="?attr/secondTextColor"
             android:textSize="?attr/contentTextSize"
-            android:visibility="gone"
             android:layout_toLeftOf="@id/cache_right_arrow"/>
     </RelativeLayout>
 

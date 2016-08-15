@@ -45,18 +45,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             zipAlignEnabled true
             signingConfig signingConfigs.release
-
-            applicationVariants.all { variant ->
-                variant.outputs.each { output ->
-                    def outputFile = output.outputFile
-                    println outputFile
-                    if (outputFile != null && outputFile.name.endsWith('.apk')) {
-                        def fileName = "one_v${defaultConfig.versionName}_${releaseTime()}_${variant.productFlavors[0].name}.apk"
-                        println fileName
-                        output.outputFile = new File(outputFile.parent, fileName)
-                    }
-                }
-            }
         }
     }
     sourceSets {
@@ -76,10 +64,6 @@ android {
     productFlavors.all { flaver ->
         flaver.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
-}
-
-def releaseTime() {
-    return new Date().format("yyyy-MM-dd", TimeZone.getTimeZone("UTC"))
 }
 
 dependencies {
