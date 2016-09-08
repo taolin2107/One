@@ -65,6 +65,9 @@ android {
     productFlavors.all { flaver ->
         flaver.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 andResGuard {
@@ -100,4 +103,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.umeng.analytics:analytics:latest.integration'
     compile 'org.greenrobot:greendao:3.0.1'
+    compile 'com.squareup.retrofit2:retrofit:2.0.2'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.2'
 }

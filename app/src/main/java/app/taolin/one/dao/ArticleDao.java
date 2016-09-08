@@ -24,20 +24,16 @@ public class ArticleDao extends AbstractDao<Article, String> {
     public static class Properties {
         public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
-        public final static Property Subtitle = new Property(2, String.class, "subtitle", false, "SUBTITLE");
+        public final static Property SubTitle = new Property(2, String.class, "subTitle", false, "SUB_TITLE");
         public final static Property Author = new Property(3, String.class, "author", false, "AUTHOR");
-        public final static Property Authit = new Property(4, String.class, "authit", false, "AUTHIT");
-        public final static Property Authorintro = new Property(5, String.class, "authorintro", false, "AUTHORINTRO");
-        public final static Property Content = new Property(6, String.class, "content", false, "CONTENT");
-        public final static Property Makettime = new Property(7, String.class, "makettime", false, "MAKETTIME");
-        public final static Property Updatedate = new Property(8, String.class, "updatedate", false, "UPDATEDATE");
-        public final static Property Weburl = new Property(9, String.class, "weburl", false, "WEBURL");
-        public final static Property Guideword = new Property(10, String.class, "guideword", false, "GUIDEWORD");
-        public final static Property Audio = new Property(11, String.class, "audio", false, "AUDIO");
-        public final static Property Praisenum = new Property(12, Integer.class, "praisenum", false, "PRAISENUM");
-        public final static Property Sharenum = new Property(13, Integer.class, "sharenum", false, "SHARENUM");
-        public final static Property Commentnum = new Property(14, Integer.class, "commentnum", false, "COMMENTNUM");
-        public final static Property Isloaded = new Property(15, boolean.class, "isloaded", false, "ISLOADED");
+        public final static Property AuthorDesc = new Property(4, String.class, "authorDesc", false, "AUTHOR_DESC");
+        public final static Property Weibo = new Property(5, String.class, "weibo", false, "WEIBO");
+        public final static Property AuthorIntro = new Property(6, String.class, "authorIntro", false, "AUTHOR_INTRO");
+        public final static Property Content = new Property(7, String.class, "content", false, "CONTENT");
+        public final static Property WebLink = new Property(8, String.class, "webLink", false, "WEB_LINK");
+        public final static Property MakeTime = new Property(9, String.class, "makeTime", false, "MAKE_TIME");
+        public final static Property GuideWord = new Property(10, String.class, "guideWord", false, "GUIDE_WORD");
+        public final static Property Isloaded = new Property(11, boolean.class, "isloaded", false, "ISLOADED");
     };
 
 
@@ -55,20 +51,16 @@ public class ArticleDao extends AbstractDao<Article, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"ARTICLE\" (" + //
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"TITLE\" TEXT NOT NULL ," + // 1: title
-                "\"SUBTITLE\" TEXT," + // 2: subtitle
+                "\"SUB_TITLE\" TEXT," + // 2: subTitle
                 "\"AUTHOR\" TEXT," + // 3: author
-                "\"AUTHIT\" TEXT," + // 4: authit
-                "\"AUTHORINTRO\" TEXT," + // 5: authorintro
-                "\"CONTENT\" TEXT," + // 6: content
-                "\"MAKETTIME\" TEXT NOT NULL ," + // 7: makettime
-                "\"UPDATEDATE\" TEXT," + // 8: updatedate
-                "\"WEBURL\" TEXT," + // 9: weburl
-                "\"GUIDEWORD\" TEXT NOT NULL ," + // 10: guideword
-                "\"AUDIO\" TEXT," + // 11: audio
-                "\"PRAISENUM\" INTEGER," + // 12: praisenum
-                "\"SHARENUM\" INTEGER," + // 13: sharenum
-                "\"COMMENTNUM\" INTEGER," + // 14: commentnum
-                "\"ISLOADED\" INTEGER NOT NULL );"); // 15: isloaded
+                "\"AUTHOR_DESC\" TEXT," + // 4: authorDesc
+                "\"WEIBO\" TEXT," + // 5: weibo
+                "\"AUTHOR_INTRO\" TEXT," + // 6: authorIntro
+                "\"CONTENT\" TEXT," + // 7: content
+                "\"WEB_LINK\" TEXT," + // 8: webLink
+                "\"MAKE_TIME\" TEXT NOT NULL ," + // 9: makeTime
+                "\"GUIDE_WORD\" TEXT NOT NULL ," + // 10: guideWord
+                "\"ISLOADED\" INTEGER NOT NULL );"); // 11: isloaded
     }
 
     /** Drops the underlying database table. */
@@ -83,9 +75,9 @@ public class ArticleDao extends AbstractDao<Article, String> {
         stmt.bindString(1, entity.getId());
         stmt.bindString(2, entity.getTitle());
  
-        String subtitle = entity.getSubtitle();
-        if (subtitle != null) {
-            stmt.bindString(3, subtitle);
+        String subTitle = entity.getSubTitle();
+        if (subTitle != null) {
+            stmt.bindString(3, subTitle);
         }
  
         String author = entity.getAuthor();
@@ -93,53 +85,33 @@ public class ArticleDao extends AbstractDao<Article, String> {
             stmt.bindString(4, author);
         }
  
-        String authit = entity.getAuthit();
-        if (authit != null) {
-            stmt.bindString(5, authit);
+        String authorDesc = entity.getAuthorDesc();
+        if (authorDesc != null) {
+            stmt.bindString(5, authorDesc);
         }
  
-        String authorintro = entity.getAuthorintro();
-        if (authorintro != null) {
-            stmt.bindString(6, authorintro);
+        String weibo = entity.getWeibo();
+        if (weibo != null) {
+            stmt.bindString(6, weibo);
+        }
+ 
+        String authorIntro = entity.getAuthorIntro();
+        if (authorIntro != null) {
+            stmt.bindString(7, authorIntro);
         }
  
         String content = entity.getContent();
         if (content != null) {
-            stmt.bindString(7, content);
-        }
-        stmt.bindString(8, entity.getMakettime());
- 
-        String updatedate = entity.getUpdatedate();
-        if (updatedate != null) {
-            stmt.bindString(9, updatedate);
+            stmt.bindString(8, content);
         }
  
-        String weburl = entity.getWeburl();
-        if (weburl != null) {
-            stmt.bindString(10, weburl);
+        String webLink = entity.getWebLink();
+        if (webLink != null) {
+            stmt.bindString(9, webLink);
         }
-        stmt.bindString(11, entity.getGuideword());
- 
-        String audio = entity.getAudio();
-        if (audio != null) {
-            stmt.bindString(12, audio);
-        }
- 
-        Integer praisenum = entity.getPraisenum();
-        if (praisenum != null) {
-            stmt.bindLong(13, praisenum);
-        }
- 
-        Integer sharenum = entity.getSharenum();
-        if (sharenum != null) {
-            stmt.bindLong(14, sharenum);
-        }
- 
-        Integer commentnum = entity.getCommentnum();
-        if (commentnum != null) {
-            stmt.bindLong(15, commentnum);
-        }
-        stmt.bindLong(16, entity.getIsloaded() ? 1L: 0L);
+        stmt.bindString(10, entity.getMakeTime());
+        stmt.bindString(11, entity.getGuideWord());
+        stmt.bindLong(12, entity.getIsloaded() ? 1L: 0L);
     }
 
     @Override
@@ -148,9 +120,9 @@ public class ArticleDao extends AbstractDao<Article, String> {
         stmt.bindString(1, entity.getId());
         stmt.bindString(2, entity.getTitle());
  
-        String subtitle = entity.getSubtitle();
-        if (subtitle != null) {
-            stmt.bindString(3, subtitle);
+        String subTitle = entity.getSubTitle();
+        if (subTitle != null) {
+            stmt.bindString(3, subTitle);
         }
  
         String author = entity.getAuthor();
@@ -158,53 +130,33 @@ public class ArticleDao extends AbstractDao<Article, String> {
             stmt.bindString(4, author);
         }
  
-        String authit = entity.getAuthit();
-        if (authit != null) {
-            stmt.bindString(5, authit);
+        String authorDesc = entity.getAuthorDesc();
+        if (authorDesc != null) {
+            stmt.bindString(5, authorDesc);
         }
  
-        String authorintro = entity.getAuthorintro();
-        if (authorintro != null) {
-            stmt.bindString(6, authorintro);
+        String weibo = entity.getWeibo();
+        if (weibo != null) {
+            stmt.bindString(6, weibo);
+        }
+ 
+        String authorIntro = entity.getAuthorIntro();
+        if (authorIntro != null) {
+            stmt.bindString(7, authorIntro);
         }
  
         String content = entity.getContent();
         if (content != null) {
-            stmt.bindString(7, content);
-        }
-        stmt.bindString(8, entity.getMakettime());
- 
-        String updatedate = entity.getUpdatedate();
-        if (updatedate != null) {
-            stmt.bindString(9, updatedate);
+            stmt.bindString(8, content);
         }
  
-        String weburl = entity.getWeburl();
-        if (weburl != null) {
-            stmt.bindString(10, weburl);
+        String webLink = entity.getWebLink();
+        if (webLink != null) {
+            stmt.bindString(9, webLink);
         }
-        stmt.bindString(11, entity.getGuideword());
- 
-        String audio = entity.getAudio();
-        if (audio != null) {
-            stmt.bindString(12, audio);
-        }
- 
-        Integer praisenum = entity.getPraisenum();
-        if (praisenum != null) {
-            stmt.bindLong(13, praisenum);
-        }
- 
-        Integer sharenum = entity.getSharenum();
-        if (sharenum != null) {
-            stmt.bindLong(14, sharenum);
-        }
- 
-        Integer commentnum = entity.getCommentnum();
-        if (commentnum != null) {
-            stmt.bindLong(15, commentnum);
-        }
-        stmt.bindLong(16, entity.getIsloaded() ? 1L: 0L);
+        stmt.bindString(10, entity.getMakeTime());
+        stmt.bindString(11, entity.getGuideWord());
+        stmt.bindLong(12, entity.getIsloaded() ? 1L: 0L);
     }
 
     @Override
@@ -217,20 +169,16 @@ public class ArticleDao extends AbstractDao<Article, String> {
         Article entity = new Article( //
             cursor.getString(offset + 0), // id
             cursor.getString(offset + 1), // title
-            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // subtitle
+            cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // subTitle
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // author
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // authit
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // authorintro
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // content
-            cursor.getString(offset + 7), // makettime
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // updatedate
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // weburl
-            cursor.getString(offset + 10), // guideword
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // audio
-            cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12), // praisenum
-            cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13), // sharenum
-            cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14), // commentnum
-            cursor.getShort(offset + 15) != 0 // isloaded
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // authorDesc
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // weibo
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // authorIntro
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // content
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // webLink
+            cursor.getString(offset + 9), // makeTime
+            cursor.getString(offset + 10), // guideWord
+            cursor.getShort(offset + 11) != 0 // isloaded
         );
         return entity;
     }
@@ -239,20 +187,16 @@ public class ArticleDao extends AbstractDao<Article, String> {
     public void readEntity(Cursor cursor, Article entity, int offset) {
         entity.setId(cursor.getString(offset + 0));
         entity.setTitle(cursor.getString(offset + 1));
-        entity.setSubtitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
+        entity.setSubTitle(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setAuthor(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setAuthit(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setAuthorintro(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setContent(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setMakettime(cursor.getString(offset + 7));
-        entity.setUpdatedate(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setWeburl(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setGuideword(cursor.getString(offset + 10));
-        entity.setAudio(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setPraisenum(cursor.isNull(offset + 12) ? null : cursor.getInt(offset + 12));
-        entity.setSharenum(cursor.isNull(offset + 13) ? null : cursor.getInt(offset + 13));
-        entity.setCommentnum(cursor.isNull(offset + 14) ? null : cursor.getInt(offset + 14));
-        entity.setIsloaded(cursor.getShort(offset + 15) != 0);
+        entity.setAuthorDesc(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setWeibo(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setAuthorIntro(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setContent(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setWebLink(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setMakeTime(cursor.getString(offset + 9));
+        entity.setGuideWord(cursor.getString(offset + 10));
+        entity.setIsloaded(cursor.getShort(offset + 11) != 0);
      }
     
     @Override

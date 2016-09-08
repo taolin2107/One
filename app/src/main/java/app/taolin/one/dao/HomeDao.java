@@ -24,16 +24,12 @@ public class HomeDao extends AbstractDao<Home, String> {
     public static class Properties {
         public final static Property Id = new Property(0, String.class, "id", true, "ID");
         public final static Property Title = new Property(1, String.class, "title", false, "TITLE");
-        public final static Property Imgurl = new Property(2, String.class, "imgurl", false, "IMGURL");
+        public final static Property ImageUrl = new Property(2, String.class, "imageUrl", false, "IMAGE_URL");
         public final static Property Author = new Property(3, String.class, "author", false, "AUTHOR");
         public final static Property Content = new Property(4, String.class, "content", false, "CONTENT");
-        public final static Property Makettime = new Property(5, String.class, "makettime", false, "MAKETTIME");
-        public final static Property Updatedate = new Property(6, String.class, "updatedate", false, "UPDATEDATE");
-        public final static Property Weburl = new Property(7, String.class, "weburl", false, "WEBURL");
-        public final static Property Praisenum = new Property(8, int.class, "praisenum", false, "PRAISENUM");
-        public final static Property Sharenum = new Property(9, int.class, "sharenum", false, "SHARENUM");
-        public final static Property Commentnum = new Property(10, int.class, "commentnum", false, "COMMENTNUM");
-        public final static Property Isloaded = new Property(11, boolean.class, "isloaded", false, "ISLOADED");
+        public final static Property MakeTime = new Property(5, String.class, "makeTime", false, "MAKE_TIME");
+        public final static Property WebLink = new Property(6, String.class, "webLink", false, "WEB_LINK");
+        public final static Property Isloaded = new Property(7, boolean.class, "isloaded", false, "ISLOADED");
     };
 
 
@@ -51,16 +47,12 @@ public class HomeDao extends AbstractDao<Home, String> {
         db.execSQL("CREATE TABLE " + constraint + "\"HOME\" (" + //
                 "\"ID\" TEXT PRIMARY KEY NOT NULL ," + // 0: id
                 "\"TITLE\" TEXT NOT NULL ," + // 1: title
-                "\"IMGURL\" TEXT NOT NULL ," + // 2: imgurl
+                "\"IMAGE_URL\" TEXT NOT NULL ," + // 2: imageUrl
                 "\"AUTHOR\" TEXT NOT NULL ," + // 3: author
                 "\"CONTENT\" TEXT NOT NULL ," + // 4: content
-                "\"MAKETTIME\" TEXT NOT NULL ," + // 5: makettime
-                "\"UPDATEDATE\" TEXT NOT NULL ," + // 6: updatedate
-                "\"WEBURL\" TEXT NOT NULL ," + // 7: weburl
-                "\"PRAISENUM\" INTEGER NOT NULL ," + // 8: praisenum
-                "\"SHARENUM\" INTEGER NOT NULL ," + // 9: sharenum
-                "\"COMMENTNUM\" INTEGER NOT NULL ," + // 10: commentnum
-                "\"ISLOADED\" INTEGER NOT NULL );"); // 11: isloaded
+                "\"MAKE_TIME\" TEXT NOT NULL ," + // 5: makeTime
+                "\"WEB_LINK\" TEXT NOT NULL ," + // 6: webLink
+                "\"ISLOADED\" INTEGER NOT NULL );"); // 7: isloaded
     }
 
     /** Drops the underlying database table. */
@@ -74,16 +66,12 @@ public class HomeDao extends AbstractDao<Home, String> {
         stmt.clearBindings();
         stmt.bindString(1, entity.getId());
         stmt.bindString(2, entity.getTitle());
-        stmt.bindString(3, entity.getImgurl());
+        stmt.bindString(3, entity.getImageUrl());
         stmt.bindString(4, entity.getAuthor());
         stmt.bindString(5, entity.getContent());
-        stmt.bindString(6, entity.getMakettime());
-        stmt.bindString(7, entity.getUpdatedate());
-        stmt.bindString(8, entity.getWeburl());
-        stmt.bindLong(9, entity.getPraisenum());
-        stmt.bindLong(10, entity.getSharenum());
-        stmt.bindLong(11, entity.getCommentnum());
-        stmt.bindLong(12, entity.getIsloaded() ? 1L: 0L);
+        stmt.bindString(6, entity.getMakeTime());
+        stmt.bindString(7, entity.getWebLink());
+        stmt.bindLong(8, entity.getIsloaded() ? 1L: 0L);
     }
 
     @Override
@@ -91,16 +79,12 @@ public class HomeDao extends AbstractDao<Home, String> {
         stmt.clearBindings();
         stmt.bindString(1, entity.getId());
         stmt.bindString(2, entity.getTitle());
-        stmt.bindString(3, entity.getImgurl());
+        stmt.bindString(3, entity.getImageUrl());
         stmt.bindString(4, entity.getAuthor());
         stmt.bindString(5, entity.getContent());
-        stmt.bindString(6, entity.getMakettime());
-        stmt.bindString(7, entity.getUpdatedate());
-        stmt.bindString(8, entity.getWeburl());
-        stmt.bindLong(9, entity.getPraisenum());
-        stmt.bindLong(10, entity.getSharenum());
-        stmt.bindLong(11, entity.getCommentnum());
-        stmt.bindLong(12, entity.getIsloaded() ? 1L: 0L);
+        stmt.bindString(6, entity.getMakeTime());
+        stmt.bindString(7, entity.getWebLink());
+        stmt.bindLong(8, entity.getIsloaded() ? 1L: 0L);
     }
 
     @Override
@@ -113,16 +97,12 @@ public class HomeDao extends AbstractDao<Home, String> {
         Home entity = new Home( //
             cursor.getString(offset + 0), // id
             cursor.getString(offset + 1), // title
-            cursor.getString(offset + 2), // imgurl
+            cursor.getString(offset + 2), // imageUrl
             cursor.getString(offset + 3), // author
             cursor.getString(offset + 4), // content
-            cursor.getString(offset + 5), // makettime
-            cursor.getString(offset + 6), // updatedate
-            cursor.getString(offset + 7), // weburl
-            cursor.getInt(offset + 8), // praisenum
-            cursor.getInt(offset + 9), // sharenum
-            cursor.getInt(offset + 10), // commentnum
-            cursor.getShort(offset + 11) != 0 // isloaded
+            cursor.getString(offset + 5), // makeTime
+            cursor.getString(offset + 6), // webLink
+            cursor.getShort(offset + 7) != 0 // isloaded
         );
         return entity;
     }
@@ -131,16 +111,12 @@ public class HomeDao extends AbstractDao<Home, String> {
     public void readEntity(Cursor cursor, Home entity, int offset) {
         entity.setId(cursor.getString(offset + 0));
         entity.setTitle(cursor.getString(offset + 1));
-        entity.setImgurl(cursor.getString(offset + 2));
+        entity.setImageUrl(cursor.getString(offset + 2));
         entity.setAuthor(cursor.getString(offset + 3));
         entity.setContent(cursor.getString(offset + 4));
-        entity.setMakettime(cursor.getString(offset + 5));
-        entity.setUpdatedate(cursor.getString(offset + 6));
-        entity.setWeburl(cursor.getString(offset + 7));
-        entity.setPraisenum(cursor.getInt(offset + 8));
-        entity.setSharenum(cursor.getInt(offset + 9));
-        entity.setCommentnum(cursor.getInt(offset + 10));
-        entity.setIsloaded(cursor.getShort(offset + 11) != 0);
+        entity.setMakeTime(cursor.getString(offset + 5));
+        entity.setWebLink(cursor.getString(offset + 6));
+        entity.setIsloaded(cursor.getShort(offset + 7) != 0);
      }
     
     @Override

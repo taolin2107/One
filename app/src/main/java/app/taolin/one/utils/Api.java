@@ -13,9 +13,9 @@ import app.taolin.one.dao.Home;
 import app.taolin.one.dao.HomeDao;
 import app.taolin.one.dao.Question;
 import app.taolin.one.dao.QuestionDao;
-import app.taolin.one.models.ArticleModel;
-import app.taolin.one.models.HomeModel;
-import app.taolin.one.models.QuestionModel;
+import app.taolin.one.models.OldArticle;
+import app.taolin.one.models.OldHome;
+import app.taolin.one.models.OldQuestion;
 
 /**
  * Created by Taolin on 16/5/26.
@@ -61,30 +61,26 @@ public class Api {
             @Override
             public void run() {
                 final String date = getRequestDate(calendar);
-                if (null == date || null != homeDao.queryBuilder().where(HomeDao.Properties.Makettime.eq(date)).unique()) {
+                if (null == date || null != homeDao.queryBuilder().where(HomeDao.Properties.MakeTime.eq(date)).unique()) {
                     if (listener != null) {
                         listener.onLoadDone(true);
                     }
                     return;
                 }
-                GsonRequest homeReq = new GsonRequest<>(Api.URL_HOME_LIST + date, HomeModel.class, null,
-                        new Response.Listener<HomeModel>() {
+                GsonRequest homeReq = new GsonRequest<>(Api.URL_HOME_LIST + date, OldHome.class, null,
+                        new Response.Listener<OldHome>() {
                             @Override
-                            public void onResponse(HomeModel response) {
+                            public void onResponse(OldHome response) {
                                 if ("0".equals(response.res)) {
-                                    for (HomeModel.Data h: response.data) {
+                                    for (OldHome.Data h: response.data) {
                                         Home home = new Home();
-                                        home.setId(h.hpcontent_id);
-                                        home.setTitle(h.hp_title);
-                                        home.setImgurl(h.hp_img_original_url);
-                                        home.setAuthor(h.hp_author);
-                                        home.setContent(h.hp_content);
-                                        home.setMakettime(h.hp_makettime.substring(0, 10));
-                                        home.setUpdatedate(h.last_update_date);
-                                        home.setWeburl(h.web_url);
-                                        home.setPraisenum(h.praisenum);
-                                        home.setSharenum(h.sharenum);
-                                        home.setCommentnum(h.commentnum);
+                                        home.setId(h.getId());
+                                        home.setTitle(h.getTitle());
+                                        home.setImageUrl(h.getImageUrl());
+                                        home.setAuthor(h.getAuthor());
+                                        home.setContent(h.getContent());
+                                        home.setMakeTime(h.getMakeTime());
+                                        home.setWebLink(h.getWebLink());
                                         home.setIsloaded(true);
                                         try {
                                             homeDao.insert(home);
@@ -121,20 +117,20 @@ public class Api {
             @Override
             public void run() {
                 final String date = getRequestDate(calendar);
-                if (null == date || null != articleDao.queryBuilder().where(ArticleDao.Properties.Makettime.eq(date)).unique()) {
+                if (null == date || null != articleDao.queryBuilder().where(ArticleDao.Properties.MakeTime.eq(date)).unique()) {
                     return;
                 }
-                GsonRequest articleReq = new GsonRequest<>(Api.URL_ARTICLE_LIST + date, ArticleModel.class, null,
-                        new Response.Listener<ArticleModel>() {
+                GsonRequest articleReq = new GsonRequest<>(Api.URL_ARTICLE_LIST + date, OldArticle.class, null,
+                        new Response.Listener<OldArticle>() {
                             @Override
-                            public void onResponse(ArticleModel response) {
+                            public void onResponse(OldArticle response) {
                                 if ("0".equals(response.res)) {
-                                    for (ArticleModel.Data a : response.data) {
+                                    for (OldArticle.Data a : response.data) {
                                         Article article = new Article();
                                         article.setId(a.content_id);
                                         article.setTitle(a.hp_title);
-                                        article.setMakettime(a.hp_makettime.substring(0, 10));
-                                        article.setGuideword(a.guide_word);
+                                        article.setMakeTime(a.hp_makettime.substring(0, 10));
+                                        article.setGuideWord(a.guide_word);
                                         article.setIsloaded(false);
                                         try {
                                             articleDao.insert(article);
@@ -161,21 +157,21 @@ public class Api {
             @Override
             public void run() {
                 final String date = getRequestDate(calendar);
-                if (null == date || null != questionDao.queryBuilder().where(QuestionDao.Properties.Makettime.eq(date)).unique()) {
+                if (null == date || null != questionDao.queryBuilder().where(QuestionDao.Properties.MakeTime.eq(date)).unique()) {
                     return;
                 }
-                GsonRequest questionReq = new GsonRequest<>(Api.URL_QUESTION_LIST + date, QuestionModel.class, null,
-                        new Response.Listener<QuestionModel>() {
+                GsonRequest questionReq = new GsonRequest<>(Api.URL_QUESTION_LIST + date, OldQuestion.class, null,
+                        new Response.Listener<OldQuestion>() {
                             @Override
-                            public void onResponse(QuestionModel response) {
+                            public void onResponse(OldQuestion response) {
                                 if ("0".equals(response.res)) {
-                                    for (QuestionModel.Data q : response.data) {
+                                    for (OldQuestion.Data q : response.data) {
                                         Question question = new Question();
                                         question.setId(q.question_id);
-                                        question.setQuestiontitle(q.question_title);
-                                        question.setAnswertitle(q.answer_title);
-                                        question.setAnswercontent(q.answer_content);
-                                        question.setMakettime(q.question_makettime.substring(0, 10));
+                                        question.setQuestionTitle(q.question_title);
+                                        question.setAnswerTitle(q.answer_title);
+                                        question.setAnswerContent(q.answer_content);
+                                        question.setMakeTime(q.question_makettime.substring(0, 10));
                                         question.setIsloaded(false);
                                         try {
                                             questionDao.insert(question);

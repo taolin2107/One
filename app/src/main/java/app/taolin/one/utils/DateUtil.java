@@ -48,12 +48,22 @@ public class DateUtil {
         return new Date();
     }
 
-    public static String getDay(Date date) {
-        return dayFormat.format(date);
+    public static String getDay(String dateString) {
+        try {
+            return dayFormat.format(dateFormat.parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return displayDateFormat.format(new Date());
     }
 
-    public static String getMonthYear(Date date) {
-        return monthYearFormat.format(date);
+    public static String getMonthYear(String dateString) {
+        try {
+            return monthYearFormat.format(dateFormat.parse(dateString));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return displayDateFormat.format(new Date());
     }
 
     public static String getRequestDateString(Date date) {

@@ -2,12 +2,10 @@ package app.taolin.one.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -15,12 +13,12 @@ import com.android.volley.VolleyError;
 import java.util.Calendar;
 
 import app.taolin.one.R;
+import app.taolin.one.databinding.LayoutArticleBinding;
 import app.taolin.one.utils.Api;
 import app.taolin.one.dao.Article;
 import app.taolin.one.dao.ArticleDao;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.models.ArticleModel;
-import app.taolin.one.utils.DateUtil;
+import app.taolin.one.models.OldArticle;
 import app.taolin.one.utils.GsonRequest;
 import app.taolin.one.utils.VolleySingleton;
 import app.taolin.one.widgets.ScrollViewExt;
@@ -31,87 +29,58 @@ import app.taolin.one.widgets.ScrollViewExt;
 
 public class ArticleContentFragment extends BaseContentFragment {
 
-    private TextView mDate;
-    private TextView mTitle;
-    private TextView mAuthor;
-    private TextView mContent;
-    private TextView mEditor;
-    private TextView mAuthor2;
-    private TextView mAuthorIntro;
-
     public static ArticleContentFragment getInstance(int index) {
         ArticleContentFragment fragment = new ArticleContentFragment();
         fragment.setArguments(getArguments(index));
         return fragment;
     }
 
+    private LayoutArticleBinding mViewBinding;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View root = inflater.inflate(R.layout.layout_article, container, false);
-        mDate = (TextView) root.findViewById(R.id.date);
-        mTitle = (TextView) root.findViewById(R.id.title);
-        mAuthor = (TextView) root.findViewById(R.id.author);
-        mContent = (TextView) root.findViewById(R.id.content);
-        mEditor = (TextView) root.findViewById(R.id.editor);
-        mAuthor2 = (TextView) root.findViewById(R.id.author2);
-        mAuthorIntro = (TextView) root.findViewById(R.id.author_intro);
-        setDoubleClickListener(root);
+        mViewBinding = LayoutArticleBinding.inflate(inflater, container, false);
+        setDoubleClickListener(mViewBinding.rootView);
 
         // for scroll down to hide toolbar, scroll up to show toolbar
         setOnContentScrollListener((OnContentScrollListener) getActivity());
-        ScrollViewExt contentScroller = (ScrollViewExt) root.findViewById(R.id.scroll_view);
+        ScrollViewExt contentScroller = (ScrollViewExt) mViewBinding.rootView.findViewById(R.id.scroll_view);
         contentScroller.setOnScrollChangeListener(mScrollChangeListener);
-        return root;
-    }
-
-    private void updateViews(Article article) {
-        mDate.setText(DateUtil.getDisplayDate(article.getMakettime()));
-        mTitle.setText(article.getTitle());
-        mAuthor.setText(article.getAuthor());
-        mContent.setText(Html.fromHtml(article.getContent()));
-        mEditor.setText(article.getAuthorintro());
-        mAuthor2.setText(article.getAuthor());
-        mAuthorIntro.setText(article.getAuthit());
+        return mViewBinding.rootView;
     }
 
     @Override
     public void loadDate(final String date) {
         final ArticleDao articleDao = getDaoSession().getArticleDao();
-        Article article = articleDao.queryBuilder().where(ArticleDao.Properties.Makettime.eq(date)).unique();
+        Article article = articleDao.queryBuilder().where(ArticleDao.Properties.MakeTime.eq(date)).unique();
         if (article != null) {
             if (article.getIsloaded()) {
-                updateViews(article);
+                mViewBinding.setArticle(article);
             } else {
-                GsonRequest articleItemReq = new GsonRequest<>(Api.URL_ARTICLE + article.getId(), ArticleModel.ArticleItem.class, null,
-                        new Response.Listener<ArticleModel.ArticleItem>() {
+                GsonRequest articleItemReq = new GsonRequest<>(Api.URL_ARTICLE + article.getId(), OldArticle.ArticleItem.class, null,
+                        new Response.Listener<OldArticle.ArticleItem>() {
                             @Override
-                            public void onResponse(ArticleModel.ArticleItem response) {
+                            public void onResponse(OldArticle.ArticleItem response) {
                                 if ("0".equals(response.res)) {
-                                    ArticleModel.Data a = response.data;
                                     Article article = new Article();
-                                    article.setId(a.content_id);
-                                    article.setTitle(a.hp_title);
-                                    article.setSubtitle(a.sub_title);
-                                    article.setAuthor(a.hp_author);
-                                    article.setAuthit(a.auth_it);
-                                    article.setAuthorintro(a.hp_author_introduce);
-                                    article.setContent(a.hp_content);
-                                    article.setMakettime(a.hp_makettime.substring(0, 10));
-                                    article.setUpdatedate(a.last_update_date);
-                                    article.setWeburl(a.web_url);
-                                    article.setGuideword(a.guide_word);
-                                    article.setAudio(a.audio);
-                                    article.setPraisenum(a.praisenum);
-                                    article.setSharenum(a.sharenum);
-                                    article.setCommentnum(a.commentnum);
+                                    article.setId(response.getId());
+                                    article.setTitle(response.getTitle());
+                                    article.setSubTitle(response.getSubTitle());
+                                    article.setAuthor(response.getAuthor());
+                                    article.setAuthorDesc(response.getAuthorDesc());
+                                    article.setAuthorIntro(response.getAuthorIntro());
+                                    article.setContent(response.getContent());
+                                    article.setMakeTime(response.getMakeTime());
+                                    article.setWebLink(response.getWebLink());
+                                    article.setGuideWord(response.getGuideWord());
                                     article.setIsloaded(true);
                                     try {
                                         articleDao.insertOrReplace(article);
                                     } catch (Exception e) {
                                         e.printStackTrace();
                                     }
-                                    updateViews(article);
+                                    mViewBinding.setArticle(article);
                                 }
                             }
                         },

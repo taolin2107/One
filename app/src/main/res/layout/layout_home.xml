@@ -1,104 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ScrollView
-        android:id="@+id/scroll_view"
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="app.taolin.one.utils.DateUtil" />
+        <variable name="home" type="app.taolin.one.models.BaseHome" />
+    </data>
+    <FrameLayout
+        android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:padding="10dp"
+        <ScrollView
+            android:id="@+id/scroll_view"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:maxLines="1"
-                android:textSize="?attr/contentTextSize"
-                android:textColor="?attr/secondTextColor"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="5dp"
-                android:background="?attr/dividerColor"/>
-
-            <com.android.volley.toolbox.NetworkImageView
-                android:id="@+id/photo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="?attr/toolbarAlpha"
-                android:layout_marginTop="10dp"/>
-
-            <TextView
-                android:id="@+id/author"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:lineSpacingExtra="6dp"
-                android:gravity="end"
-                android:maxLines="2"
-                android:textSize="?attr/contentTextSize"
-                android:textColor="?attr/secondTextColor"/>
+            android:layout_height="match_parent">
 
             <LinearLayout
-                android:id="@+id/date_content"
+                android:orientation="vertical"
+                android:padding="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/toolbar_height"
-                android:layout_marginTop="15dp">
-
-                <LinearLayout
-                    android:id="@+id/date"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/day"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="7dp"
-                        android:maxLines="1"
-                        android:textStyle="bold"
-                        android:textSize="40sp"
-                        android:textColor="?attr/primaryColor"/>
-
-                    <TextView
-                        android:id="@+id/month_year"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:alpha="?attr/toolbarAlpha"
-                        android:maxLines="1"
-                        android:textSize="?attr/contentTextSize"
-                        android:textColor="?attr/thirdTextColor"/>
-                </LinearLayout>
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:id="@+id/content"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:maxLines="1"
+                    android:text="@{home.title}"
+                    android:textSize="?attr/contentTextSize"
+                    android:textColor="?attr/secondTextColor"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="?attr/dividerColor"/>
+
+                <com.android.volley.toolbox.NetworkImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:lineSpacingExtra="7dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_marginStart="5dp"
-                    android:background="?attr/homeContentBg"
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/quoteTextColor"/>
-            </LinearLayout>
-        </LinearLayout>
-    </ScrollView>
+                    android:alpha="?attr/toolbarAlpha"
+                    android:src="@{home.imageUrl}"
+                    android:layout_marginTop="10dp"/>
 
-    <View
-        android:id="@+id/double_click_area"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"/>
-</FrameLayout>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:lineSpacingExtra="6dp"
+                    android:gravity="end"
+                    android:maxLines="2"
+                    android:text="@{home.author}"
+                    android:textSize="?attr/contentTextSize"
+                    android:textColor="?attr/secondTextColor"/>
+
+                <LinearLayout
+                    android:id="@+id/date_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/toolbar_height"
+                    android:layout_marginTop="15dp">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="7dp"
+                            android:maxLines="1"
+                            android:textStyle="bold"
+                            android:textSize="40sp"
+                            android:text='@{home.makeTime == null? "": DateUtil.getDay(home.makeTime)}'
+                            android:textColor="?attr/primaryColor"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:alpha="?attr/toolbarAlpha"
+                            android:maxLines="1"
+                            android:text='@{home.makeTime == null ? "": DateUtil.getMonthYear(home.makeTime)}'
+                            android:textSize="?attr/contentTextSize"
+                            android:textColor="?attr/thirdTextColor"/>
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:lineSpacingExtra="7dp"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginStart="5dp"
+                        android:text="@{home.content}"
+                        android:background="?attr/homeContentBg"
+                        android:textSize="?attr/contentTextSize"
+                        android:textColor="?attr/quoteTextColor"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+
+        <View
+            android:id="@+id/double_click_area"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"/>
+    </FrameLayout>
+</layout>

@@ -7,7 +7,7 @@ import org.greenrobot.greendao.generator.Schema;
 public class DatabaseGenerator {
 
     public static void main(String[] args) {
-        Schema schema = new Schema(1, "app.taolin.one.dao");
+        Schema schema = new Schema(2, "app.taolin.one.dao");
         addHome(schema);
         addArticle(schema);
         addQuestion(schema);
@@ -23,15 +23,11 @@ public class DatabaseGenerator {
         listItem.setHasKeepSections(true);
         listItem.addStringProperty("id").primaryKey().notNull();
         listItem.addStringProperty("title").notNull();
-        listItem.addStringProperty("imgurl").notNull();
+        listItem.addStringProperty("imageUrl").notNull();
         listItem.addStringProperty("author").notNull();
         listItem.addStringProperty("content").notNull();
-        listItem.addStringProperty("makettime").notNull();
-        listItem.addStringProperty("updatedate").notNull();
-        listItem.addStringProperty("weburl").notNull();
-        listItem.addIntProperty("praisenum").notNull();
-        listItem.addIntProperty("sharenum").notNull();
-        listItem.addIntProperty("commentnum").notNull();
+        listItem.addStringProperty("makeTime").notNull();
+        listItem.addStringProperty("webLink").notNull();
         listItem.addBooleanProperty("isloaded").notNull();
     }
 
@@ -40,19 +36,15 @@ public class DatabaseGenerator {
         listItem.setHasKeepSections(true);
         listItem.addStringProperty("id").primaryKey().notNull();
         listItem.addStringProperty("title").notNull();
-        listItem.addStringProperty("subtitle");
+        listItem.addStringProperty("subTitle");
         listItem.addStringProperty("author");
-        listItem.addStringProperty("authit");
-        listItem.addStringProperty("authorintro");
+        listItem.addStringProperty("authorDesc");
+        listItem.addStringProperty("weibo");
+        listItem.addStringProperty("authorIntro");
         listItem.addStringProperty("content");
-        listItem.addStringProperty("makettime").notNull();
-        listItem.addStringProperty("updatedate");
-        listItem.addStringProperty("weburl");
-        listItem.addStringProperty("guideword").notNull();
-        listItem.addStringProperty("audio");
-        listItem.addIntProperty("praisenum");
-        listItem.addIntProperty("sharenum");
-        listItem.addIntProperty("commentnum");
+        listItem.addStringProperty("webLink");
+        listItem.addStringProperty("makeTime").notNull();
+        listItem.addStringProperty("guideWord").notNull();
         listItem.addBooleanProperty("isloaded").notNull();
     }
 
@@ -60,19 +52,13 @@ public class DatabaseGenerator {
         Entity listItem = schema.addEntity("Question");
         listItem.setHasKeepSections(true);
         listItem.addStringProperty("id").primaryKey().notNull();
-        listItem.addStringProperty("questiontitle").notNull();
-        listItem.addStringProperty("questioncontent");
-        listItem.addStringProperty("answertitle").notNull();
-        listItem.addStringProperty("answercontent").notNull();
-        listItem.addStringProperty("makettime").notNull();
+        listItem.addStringProperty("questionTitle").notNull();
+        listItem.addStringProperty("questionContent");
+        listItem.addStringProperty("answerTitle").notNull();
+        listItem.addStringProperty("answerContent").notNull();
         listItem.addStringProperty("editor");
-        listItem.addStringProperty("updatedate");
-        listItem.addStringProperty("weburl");
-        listItem.addIntProperty("readnum");
-        listItem.addStringProperty("guideword");
-        listItem.addIntProperty("praisenum");
-        listItem.addIntProperty("sharenum");
-        listItem.addIntProperty("commentnum");
+        listItem.addStringProperty("webLink");
+        listItem.addStringProperty("makeTime").notNull();
         listItem.addBooleanProperty("isloaded");
     }
 }
