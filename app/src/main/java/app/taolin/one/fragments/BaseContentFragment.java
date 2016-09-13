@@ -8,8 +8,6 @@ import android.widget.ScrollView;
 
 import com.umeng.analytics.MobclickAgent;
 
-import java.util.Calendar;
-
 import app.taolin.one.App;
 import app.taolin.one.R;
 import app.taolin.one.dao.DaoMaster;
@@ -36,12 +34,16 @@ abstract class BaseContentFragment extends Fragment {
         initData();
         Bundle bundle = getArguments();
         String date = bundle.getString(Constants.PARAMS_DATE);
-        loadDate(date);
+        int index = bundle.getInt(Constants.PARAMS_INDEX);
+        int ms = bundle.getInt(Constants.PARAMS_MS);
+        loadDate(date, index, ms);
     }
 
     static Bundle getArguments(int index) {
         Bundle bundle = new Bundle();
         bundle.putString(Constants.PARAMS_DATE, DateUtil.getDateString(index));
+        bundle.putInt(Constants.PARAMS_INDEX, index + 1);   //index从1开始
+        bundle.putInt(Constants.PARAMS_MS, 0);
         return bundle;
     }
 
@@ -50,24 +52,6 @@ abstract class BaseContentFragment extends Fragment {
         SQLiteDatabase database = helper.getWritableDatabase();
         DaoMaster daoMaster = new DaoMaster(database);
         return daoMaster.newSession();
-    }
-
-    /**
-     * indicate month will changed soon
-     * @param date format must be yyyy-MM-dd
-     */
-    Calendar getPreloadDate(String date) {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateUtil.getDate(date));
-        int day = calendar.get(Calendar.DATE);
-        if (day == 3) {
-            calendar.add(Calendar.MONTH, -1);
-            return calendar;
-        } else if (day == 26) {
-            calendar.add(Calendar.MONTH, 1);
-            return calendar;
-        }
-        return null;
     }
 
     private void initData() {
@@ -113,5 +97,5 @@ abstract class BaseContentFragment extends Fragment {
         }
     };
 
-    public abstract void loadDate(String date);
+    public abstract void loadDate(String date, int row, int ms);
 }

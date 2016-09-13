@@ -7,21 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-
-import java.util.Calendar;
-
 import app.taolin.one.R;
 import app.taolin.one.databinding.LayoutArticleBinding;
-import app.taolin.one.utils.Api;
+import app.taolin.one.models.LatestArticle;
 import app.taolin.one.dao.Article;
 import app.taolin.one.dao.ArticleDao;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.models.OldArticle;
-import app.taolin.one.utils.GsonRequest;
-import app.taolin.one.utils.VolleySingleton;
+import app.taolin.one.utils.OneServiceSingleton;
 import app.taolin.one.widgets.ScrollViewExt;
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * Created by Taolin on 16/5/28.
@@ -51,51 +46,45 @@ public class ArticleContentFragment extends BaseContentFragment {
     }
 
     @Override
-    public void loadDate(final String date) {
+    public void loadDate(final String date, final int row, final int ms) {
         final ArticleDao articleDao = getDaoSession().getArticleDao();
         Article article = articleDao.queryBuilder().where(ArticleDao.Properties.MakeTime.eq(date)).unique();
         if (article != null) {
-            if (article.getIsloaded()) {
-                mViewBinding.setArticle(article);
-            } else {
-                GsonRequest articleItemReq = new GsonRequest<>(Api.URL_ARTICLE + article.getId(), OldArticle.ArticleItem.class, null,
-                        new Response.Listener<OldArticle.ArticleItem>() {
-                            @Override
-                            public void onResponse(OldArticle.ArticleItem response) {
-                                if ("0".equals(response.res)) {
-                                    Article article = new Article();
-                                    article.setId(response.getId());
-                                    article.setTitle(response.getTitle());
-                                    article.setSubTitle(response.getSubTitle());
-                                    article.setAuthor(response.getAuthor());
-                                    article.setAuthorDesc(response.getAuthorDesc());
-                                    article.setAuthorIntro(response.getAuthorIntro());
-                                    article.setContent(response.getContent());
-                                    article.setMakeTime(response.getMakeTime());
-                                    article.setWebLink(response.getWebLink());
-                                    article.setGuideWord(response.getGuideWord());
-                                    article.setIsloaded(true);
-                                    try {
-                                        articleDao.insertOrReplace(article);
-                                    } catch (Exception e) {
-                                        e.printStackTrace();
-                                    }
-                                    mViewBinding.setArticle(article);
-                                }
-                            }
-                        },
-                        new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e("Taolin", error.getLocalizedMessage());
-                            }
-                        });
-                VolleySingleton.getInstance().addToRequestQueue(articleItemReq);
+            mViewBinding.setArticle(article);
+            return;
+        }
+        //这个api只和row有关,date没用
+        Call<LatestArticle> getArticle = OneServiceSingleton.getInstance().mOneService.getArticle(date, row, ms);
+        getArticle.enqueue(new Callback<LatestArticle>() {
+            @Override
+            public void onResponse(Call<LatestArticle> call, retrofit2.Response<LatestArticle> response) {
+                LatestArticle latestArticle = response.body();
+                if ("SUCCESS".equals(latestArticle.result)) {
+                    Article article = new Article();
+                    article.setId(latestArticle.getId());
+                    article.setTitle(latestArticle.getTitle());
+                    article.setSubTitle(latestArticle.getSubTitle());
+                    article.setAuthor(latestArticle.getAuthor());
+                    article.setAuthorDesc(latestArticle.getAuthorDesc());
+                    article.setAuthorIntro(latestArticle.getAuthorIntro());
+                    article.setContent(latestArticle.getContent());
+                    article.setMakeTime(latestArticle.getMakeTime());
+                    article.setWebLink(latestArticle.getWebLink());
+                    article.setGuideWord(latestArticle.getGuideWord());
+                    article.setIsloaded(true);
+                    try {
+                        articleDao.insertOrReplace(article);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mViewBinding.setArticle(article);
+                }
             }
-        }
-        final Calendar preloadDate = getPreloadDate(date);
-        if (preloadDate != null) {
-            Api.requestArticleData(preloadDate, articleDao);
-        }
+
+            @Override
+            public void onFailure(Call<LatestArticle> call, Throwable t) {
+                Log.e("ArticleContentFragment", t + "");
+            }
+        });
     }
 }

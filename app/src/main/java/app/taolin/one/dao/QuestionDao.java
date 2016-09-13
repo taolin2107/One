@@ -53,7 +53,7 @@ public class QuestionDao extends AbstractDao<Question, String> {
                 "\"ANSWER_CONTENT\" TEXT NOT NULL ," + // 4: answerContent
                 "\"EDITOR\" TEXT," + // 5: editor
                 "\"WEB_LINK\" TEXT," + // 6: webLink
-                "\"MAKE_TIME\" TEXT NOT NULL ," + // 7: makeTime
+                "\"MAKE_TIME\" TEXT NOT NULL UNIQUE ," + // 7: makeTime
                 "\"ISLOADED\" INTEGER);"); // 8: isloaded
     }
 

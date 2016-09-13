@@ -22,12 +22,16 @@ public class DateUtil {
     private static final long DAY = 24 * 3600 * 1000;
 
     public static String getDateString(int diffDays) {
-        Date current = new Date();
-        if (shortTime.format(current).compareTo(UPDATE_TIME_EVERYDAY) < 0) {
-            diffDays += 1;
-        }
-        final long milliseconds = current.getTime() - diffDays * DAY;
+//        Date current = new Date();
+//        if (shortTime.format(current).compareTo(UPDATE_TIME_EVERYDAY) < 0) {
+//            diffDays += 1;
+//        }
+        final long milliseconds = System.currentTimeMillis() - diffDays * DAY;
         return dateFormat.format(new Date(milliseconds));
+    }
+
+    public static String getDateString() {
+        return dateFormat.format(new Date());
     }
 
     public static String getDisplayDate(String dateString) {

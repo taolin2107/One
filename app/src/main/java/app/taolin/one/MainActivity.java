@@ -1,6 +1,5 @@
 package app.taolin.one;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Build;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -11,22 +10,12 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
-import java.util.Calendar;
-
-import app.taolin.one.utils.Api;
-import app.taolin.one.utils.Constants;
-import app.taolin.one.dao.ArticleDao;
-import app.taolin.one.dao.DaoMaster;
-import app.taolin.one.dao.DaoSession;
-import app.taolin.one.dao.HomeDao;
-import app.taolin.one.dao.QuestionDao;
 import app.taolin.one.fragments.ArticleFragment;
 import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
 import app.taolin.one.fragments.SettingsFragment;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.ViewClickListener;
-import app.taolin.one.utils.SharedPreferenceUtil;
 import app.taolin.one.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements OnContentScrollListener {
@@ -57,10 +46,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     private int mToolbarHeight;
     private boolean mIsToolbarHide;
 
-    private HomeDao mHomeDao;
-    private ArticleDao mArticleDao;
-    private QuestionDao mQuestionDao;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,31 +55,13 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mSelectedBtnId = R.id.btn_home;
         initView();
         initListener();
-
-        initDatabase();
-        requestData();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         MobclickAgent.onResume(this);
-        if (SharedPreferenceUtil.readBoolean(Constants.KEY_IS_FIRST_OPEN, true)) {
-            Calendar calendar = Calendar.getInstance();
-            Api.requestHomeData(calendar, mHomeDao, new Api.DataLoadingListener() {
-                @Override
-                public void onLoadDone(boolean isSuccess) {
-                    if (isSuccess) {
-                        SharedPreferenceUtil.writeBoolean(Constants.KEY_IS_FIRST_OPEN, false);
-                        clickButton(findViewById(mSelectedBtnId));
-                        mLoadingProgress.setVisibility(View.GONE);
-                    }
-                }
-            });
-        } else {
-            mLoadingProgress.setVisibility(View.GONE);
-            clickButton(findViewById(mSelectedBtnId));
-        }
+        clickButton(findViewById(mSelectedBtnId));
     }
 
     @Override
@@ -110,6 +77,23 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnQuestion = (TextView) findViewById(R.id.btn_question);
         mBtnSettings = (TextView) findViewById(R.id.btn_settings);
         mLoadingProgress = findViewById(R.id.loading_view);
+        mLoadingProgress.setVisibility(View.GONE);
+
+        FragmentTransaction transaction = mFragmentManager.beginTransaction();
+        mHomeFragment = new HomeFragment();
+        transaction.add(R.id.container, mHomeFragment, TAG_FRAGMENT_HOME);
+        transaction.hide(mHomeFragment);
+        mArticleFragment = new ArticleFragment();
+        transaction.add(R.id.container, mArticleFragment, TAG_FRAGMENT_ARTICLE);
+        transaction.hide(mArticleFragment);
+        mQuestionFragment = new QuestionFragment();
+        transaction.add(R.id.container, mQuestionFragment, TAG_FRAGMENT_QUESTION);
+        transaction.hide(mQuestionFragment);
+        mSettingsFragment = new SettingsFragment();
+        transaction.add(R.id.container, mSettingsFragment, TAG_FRAGMENT_SETTINGS);
+        transaction.hide(mSettingsFragment);
+        transaction.commit();
+
         mToolbarHeight = getResources().getDimensionPixelSize(R.dimen.toolbar_height);
         mIsToolbarHide = false;
     }
@@ -129,29 +113,12 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         }
     }
 
-    private void clickToolbar(int id) {
+    private void selectToolbarBtn(int id) {
         mBtnHome.setSelected(false);
         mBtnArticle.setSelected(false);
         mBtnQuestion.setSelected(false);
         mBtnSettings.setSelected(false);
         findViewById(id).setSelected(true);
-    }
-
-    private void initDatabase() {
-        DaoMaster.DevOpenHelper helper = new DaoMaster.DevOpenHelper(this, Constants.DATABASE_NAME, null);
-        SQLiteDatabase database = helper.getWritableDatabase();
-        DaoMaster daoMaster = new DaoMaster(database);
-        DaoSession daoSession = daoMaster.newSession();
-        mHomeDao = daoSession.getHomeDao();
-        mArticleDao = daoSession.getArticleDao();
-        mQuestionDao = daoSession.getQuestionDao();
-    }
-
-    private void requestData() {
-        Calendar calendar = Calendar.getInstance();
-        Api.requestHomeData(calendar, mHomeDao);
-        Api.requestArticleData(calendar, mArticleDao);
-        Api.requestQuestionData(calendar, mQuestionDao);
     }
 
     @Override
@@ -176,62 +143,50 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         @Override
         public void onSingleClick(View v) {
             FragmentTransaction transaction = mFragmentManager.beginTransaction();
-            if (mHomeFragment != null) {
-                transaction.hide(mHomeFragment);
-            }
-            if (mArticleFragment != null) {
-                transaction.hide(mArticleFragment);
-            }
-            if (mQuestionFragment != null) {
-                transaction.hide(mQuestionFragment);
-            }
-            if (mSettingsFragment != null) {
-                transaction.hide(mSettingsFragment);
-            }
+            transaction.hide(mHomeFragment);
+            transaction.hide(mArticleFragment);
+            transaction.hide(mQuestionFragment);
+            transaction.hide(mSettingsFragment);
             mSelectedBtnId = v.getId();
             switch (mSelectedBtnId) {
                 case R.id.btn_home:
-                    if (mHomeFragment == null) {
-                        mHomeFragment = new HomeFragment();
-                        transaction.add(R.id.container, mHomeFragment, TAG_FRAGMENT_HOME);
-                    } else {
-                        transaction.show(mHomeFragment);
-                    }
+                    transaction.show(mHomeFragment);
                     break;
 
                 case R.id.btn_article:
-                    if (mArticleFragment == null) {
-                        mArticleFragment = new ArticleFragment();
-                        transaction.add(R.id.container, mArticleFragment, TAG_FRAGMENT_ARTICLE);
-                    } else {
-                        transaction.show(mArticleFragment);
-                    }
+                    transaction.show(mArticleFragment);
                     break;
 
                 case R.id.btn_question:
-                    if (mQuestionFragment == null) {
-                        mQuestionFragment = new QuestionFragment();
-                        transaction.add(R.id.container, mQuestionFragment, TAG_FRAGMENT_QUESTION);
-                    } else {
-                        transaction.show(mQuestionFragment);
-                    }
+                    transaction.show(mQuestionFragment);
                     break;
 
                 case R.id.btn_settings:
-                    if (mSettingsFragment == null) {
-                        mSettingsFragment = new SettingsFragment();
-                        transaction.add(R.id.container, mSettingsFragment, TAG_FRAGMENT_SETTINGS);
-                    } else {
-                        transaction.show(mSettingsFragment);
-                    }
+                    transaction.show(mSettingsFragment);
                     break;
             }
-            clickToolbar(mSelectedBtnId);
+            selectToolbarBtn(mSelectedBtnId);
             transaction.commit();
         }
 
         @Override
         public void onDoubleClick(View v) {
+            switch (v.getId()) {
+                case R.id.btn_home:
+                    mHomeFragment.setToFirstPage();
+                    MobclickAgent.onEvent(App.getInstance(), "double_click_home");
+                    break;
+
+                case R.id.btn_article:
+                    mArticleFragment.setToFirstPage();
+                    MobclickAgent.onEvent(App.getInstance(), "double_click_article");
+                    break;
+
+                case R.id.btn_question:
+                    mQuestionFragment.setToFirstPage();
+                    MobclickAgent.onEvent(App.getInstance(), "double_click_question");
+                    break;
+            }
         }
     };
 

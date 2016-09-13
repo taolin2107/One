@@ -58,7 +58,7 @@ public class ArticleDao extends AbstractDao<Article, String> {
                 "\"AUTHOR_INTRO\" TEXT," + // 6: authorIntro
                 "\"CONTENT\" TEXT," + // 7: content
                 "\"WEB_LINK\" TEXT," + // 8: webLink
-                "\"MAKE_TIME\" TEXT NOT NULL ," + // 9: makeTime
+                "\"MAKE_TIME\" TEXT NOT NULL UNIQUE ," + // 9: makeTime
                 "\"GUIDE_WORD\" TEXT NOT NULL ," + // 10: guideWord
                 "\"ISLOADED\" INTEGER NOT NULL );"); // 11: isloaded
     }

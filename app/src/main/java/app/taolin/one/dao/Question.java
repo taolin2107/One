@@ -31,6 +31,7 @@ public class Question implements BaseQuestion {
     private String webLink;
 
     @NotNull
+    @Unique
     private String makeTime;
     private Boolean isloaded;
 

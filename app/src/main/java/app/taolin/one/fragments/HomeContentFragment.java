@@ -2,16 +2,19 @@ package app.taolin.one.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.Calendar;
-
 import app.taolin.one.databinding.LayoutHomeBinding;
-import app.taolin.one.utils.Api;
+import app.taolin.one.models.LatestHome;
 import app.taolin.one.dao.Home;
 import app.taolin.one.dao.HomeDao;
+import app.taolin.one.utils.OneServiceSingleton;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * Created by Taolin on 16/5/27.
@@ -36,15 +39,42 @@ public class HomeContentFragment extends BaseContentFragment {
     }
 
     @Override
-    public void loadDate(final String date) {
+    public void loadDate(final String date, final int row, final int ms) {
         final HomeDao homeDao = getDaoSession().getHomeDao();
         Home home = homeDao.queryBuilder().where(HomeDao.Properties.MakeTime.eq(date)).unique();
         if (home != null) {
             mViewBinding.setHome(home);
+            return;
         }
-        final Calendar preloadDate = getPreloadDate(date);
-        if (preloadDate != null) {
-            Api.requestHomeData(preloadDate, homeDao);
-        }
+        //这个api的参数date和index都有效,下面把index固定,只变化date
+        Call<LatestHome> getHome = OneServiceSingleton.getInstance().mOneService.getHome(date, 1);
+        getHome.enqueue(new Callback<LatestHome>() {
+            @Override
+            public void onResponse(Call<LatestHome> call, Response<LatestHome> response) {
+                LatestHome latestHome = response.body();
+                if ("SUCCESS".equals(latestHome.result)) {
+                    Home home = new Home();
+                    home.setId(latestHome.getId());
+                    home.setImageUrl(latestHome.getImageUrl());
+                    home.setContent(latestHome.getContent());
+                    home.setWebLink(latestHome.getWebLink());
+                    home.setAuthor(latestHome.getAuthor());
+                    home.setMakeTime(latestHome.getMakeTime());
+                    home.setTitle(latestHome.getTitle());
+                    home.setIsloaded(true);
+                    try {
+                        homeDao.insertOrReplace(home);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    mViewBinding.setHome(home);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<LatestHome> call, Throwable t) {
+                Log.e("HomeContentFragment", t + "");
+            }
+        });
     }
 }

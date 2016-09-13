@@ -26,7 +26,7 @@ public class DatabaseGenerator {
         listItem.addStringProperty("imageUrl").notNull();
         listItem.addStringProperty("author").notNull();
         listItem.addStringProperty("content").notNull();
-        listItem.addStringProperty("makeTime").notNull();
+        listItem.addStringProperty("makeTime").unique().notNull();
         listItem.addStringProperty("webLink").notNull();
         listItem.addBooleanProperty("isloaded").notNull();
     }
@@ -43,7 +43,7 @@ public class DatabaseGenerator {
         listItem.addStringProperty("authorIntro");
         listItem.addStringProperty("content");
         listItem.addStringProperty("webLink");
-        listItem.addStringProperty("makeTime").notNull();
+        listItem.addStringProperty("makeTime").unique().notNull();
         listItem.addStringProperty("guideWord").notNull();
         listItem.addBooleanProperty("isloaded").notNull();
     }
@@ -58,7 +58,7 @@ public class DatabaseGenerator {
         listItem.addStringProperty("answerContent").notNull();
         listItem.addStringProperty("editor");
         listItem.addStringProperty("webLink");
-        listItem.addStringProperty("makeTime").notNull();
+        listItem.addStringProperty("makeTime").unique().notNull();
         listItem.addBooleanProperty("isloaded");
     }
 }

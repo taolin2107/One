@@ -29,6 +29,7 @@ public class Article implements BaseArticle {
     private String webLink;
 
     @NotNull
+    @Unique
     private String makeTime;
 
     @NotNull

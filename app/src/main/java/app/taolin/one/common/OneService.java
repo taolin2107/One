@@ -18,7 +18,7 @@ public interface OneService {
 
     @FormUrlEncoded
     @POST("getHp_N")
-    Call<LatestHome> getPhoto(@Field("strDate") String date, @Field("strRow") int row);
+    Call<LatestHome> getHome(@Field("strDate") String date, @Field("strRow") int row);
 
     @FormUrlEncoded
     @POST("getC_N")

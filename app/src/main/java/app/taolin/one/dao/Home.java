@@ -31,6 +31,7 @@ public class Home implements BaseHome {
     private String content;
 
     @NotNull
+    @Unique
     private String makeTime;
 
     @NotNull

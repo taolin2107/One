@@ -50,7 +50,7 @@ public class HomeDao extends AbstractDao<Home, String> {
                 "\"IMAGE_URL\" TEXT NOT NULL ," + // 2: imageUrl
                 "\"AUTHOR\" TEXT NOT NULL ," + // 3: author
                 "\"CONTENT\" TEXT NOT NULL ," + // 4: content
-                "\"MAKE_TIME\" TEXT NOT NULL ," + // 5: makeTime
+                "\"MAKE_TIME\" TEXT NOT NULL UNIQUE ," + // 5: makeTime
                 "\"WEB_LINK\" TEXT NOT NULL ," + // 6: webLink
                 "\"ISLOADED\" INTEGER NOT NULL );"); // 7: isloaded
     }
