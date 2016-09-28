@@ -49,7 +49,7 @@ public class ArticleContentFragment extends BaseContentFragment {
     public void loadDate(final String date, final int row, final int ms) {
         final ArticleDao articleDao = getDaoSession().getArticleDao();
         Article article = articleDao.queryBuilder().where(ArticleDao.Properties.MakeTime.eq(date)).unique();
-        if (article != null) {
+        if (article != null && article.getIsloaded()) {
             mViewBinding.setArticle(article);
             return;
         }

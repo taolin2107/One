@@ -89,3 +89,15 @@
 
 -dontwarn org.greenrobot.greendao.**
 -keepnames class org.greenrobot.greendao.** { *; }
+
+-dontwarn android.databinding.**
+-keepnames class android.databinding.** { *; }
+
+-dontwarn com.android.volley.**
+-keepnames class com.android.volley.** { *; }
+
+-dontwarn com.google.gson.**
+-keepnames class com.google.gson.** { *; }
+
+-dontwarn retrofit2.**
+-keepnames class retrofit2.** { *; }

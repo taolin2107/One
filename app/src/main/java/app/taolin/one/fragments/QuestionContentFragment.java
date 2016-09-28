@@ -46,7 +46,7 @@ public class QuestionContentFragment extends BaseContentFragment {
     public void loadDate(final String date, final int row, final int ms) {
         final QuestionDao questionDao = getDaoSession().getQuestionDao();
         Question question = questionDao.queryBuilder().where(QuestionDao.Properties.MakeTime.eq(date)).unique();
-        if (question != null) {
+        if (question != null && question.getIsloaded()) {
             mViewBinding.setQuestion(question);
             return;
         }
