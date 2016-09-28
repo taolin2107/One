@@ -111,12 +111,14 @@ public class MoreContentListActivity extends Activity {
         if (Constants.TYPE_ARTICLE == mContentType) {
             final ArticleDao articleDao = mDaoSession.getArticleDao();
             List<Article> articleList = articleDao.queryBuilder().where(ArticleDao.Properties.MakeTime
-                    .like(mContentDate + "%")).orderAsc(ArticleDao.Properties.MakeTime).list();
+                    .like(mContentDate + "%")).orderDesc(ArticleDao.Properties.MakeTime).list();
+            int size = articleList.size();
+
             if (isOffline    //没有网络时从数据库加载
-                || articleList.size() == days
-                || (articleList.size() == (days - 1)   //修正老文章日期问题
+                || size == days
+                || (size == (days - 1)   //修正老文章日期问题
                     && days > 1
-                    && articleList.get(0).getMakeTime().endsWith("02"))) {
+                    && articleList.get(size - 1).getMakeTime().endsWith("02"))) {
                 MoreListModel listModel;
                 for (Article article : articleList) {
                     listModel = new MoreListModel(article.getId(), article.getTitle(),
@@ -131,12 +133,14 @@ public class MoreContentListActivity extends Activity {
         } else if (Constants.TYPE_QUESTION == mContentType) {
             final QuestionDao questionDao = mDaoSession.getQuestionDao();
             List<Question> questionList = questionDao.queryBuilder().where(QuestionDao.Properties.MakeTime
-                    .like(mContentDate + "%")).orderAsc(QuestionDao.Properties.MakeTime).list();
+                    .like(mContentDate + "%")).orderDesc(QuestionDao.Properties.MakeTime).list();
+            int size = questionList.size();
+
             if (isOffline    //没有网络时从数据库加载
-                    || questionList.size() == days
-                    || (questionList.size() == (days - 1)  //修正老文章日期问题
+                    || size == days
+                    || (size == (days - 1)  //修正老文章日期问题
                         && days > 1
-                        && questionList.get(0).getMakeTime().endsWith("02"))) {
+                        && questionList.get(size - 1).getMakeTime().endsWith("02"))) {
                 MoreListModel listModel;
                 for (Question question : questionList) {
                     listModel = new MoreListModel(question.getId(), question.getQuestionTitle(), question.getAnswerTitle());

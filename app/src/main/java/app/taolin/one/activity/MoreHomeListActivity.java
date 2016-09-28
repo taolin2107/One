@@ -98,13 +98,14 @@ public class MoreHomeListActivity extends Activity {
         }
 
         List<Home> homeList = mHomeDao.queryBuilder().where(HomeDao.Properties.MakeTime
-                .like(mContentDate + "%")).orderAsc(HomeDao.Properties.MakeTime).list();
+                .like(mContentDate + "%")).orderDesc(HomeDao.Properties.MakeTime).list();
+        int size = homeList.size();
 
         if (isOffline    //没有网络时从数据库加载
-                || homeList.size() == days
-                || (homeList.size() == (days - 1)   //修正老文章日期问题
+                || size == days
+                || (size == (days - 1)   //修正老文章日期问题
                     && days > 1
-                    && homeList.get(0).getMakeTime().endsWith("02"))) {
+                    && homeList.get(size - 1).getMakeTime().endsWith("02"))) {
             MoreListModel listModel;
             for (Home home : homeList) {
                 listModel = new MoreListModel(home.getId(), home.getTitle(), home.getContent(),
