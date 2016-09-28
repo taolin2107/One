@@ -67,6 +67,11 @@ public class LatestQuestion implements BaseQuestion {
     }
 
     @Override
+    public String getGuideWord() {
+        return questionAdEntity.strAnswerContent.substring(0, 20);
+    }
+
+    @Override
     public String getWebLink() {
         return questionAdEntity.sWebLk;
     }

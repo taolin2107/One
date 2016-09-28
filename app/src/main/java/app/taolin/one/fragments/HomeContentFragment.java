@@ -11,7 +11,7 @@ import app.taolin.one.databinding.LayoutHomeBinding;
 import app.taolin.one.models.LatestHome;
 import app.taolin.one.dao.Home;
 import app.taolin.one.dao.HomeDao;
-import app.taolin.one.utils.OneServiceSingleton;
+import app.taolin.one.api.OneServiceSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

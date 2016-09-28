@@ -1,8 +1,10 @@
-package app.taolin.one.utils;
+package app.taolin.one.adapter;
 
 import android.databinding.BindingAdapter;
 
 import com.android.volley.toolbox.NetworkImageView;
+
+import app.taolin.one.utils.VolleySingleton;
 
 /**
  * @author taolin

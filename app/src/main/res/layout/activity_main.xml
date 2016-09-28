@@ -2,7 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor">
+    android:background="@color/bg_color">
 
     <FrameLayout
         android:id="@+id/container"
@@ -13,12 +13,11 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
-        android:background="?attr/bgColor"
+        android:background="@color/bg_color"
         android:layout_gravity="bottom">
 
         <LinearLayout
-            android:alpha="?attr/toolbarAlpha"
-            android:background="?attr/toolbarBg"
+            android:background="@drawable/toolbar_bg"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -28,9 +27,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="?attr/secondTextSize"
-                android:textColor="?attr/toolbarTextColor"
-                android:text="@string/toolbar_btn_home"/>
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/toolbar_text_color"
+                android:text="@string/text_home"/>
 
             <TextView
                 android:id="@+id/btn_article"
@@ -38,9 +37,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="?attr/secondTextSize"
-                android:textColor="?attr/toolbarTextColor"
-                android:text="@string/toolbar_btn_article"/>
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/toolbar_text_color"
+                android:text="@string/text_article"/>
 
             <TextView
                 android:id="@+id/btn_question"
@@ -48,9 +47,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="?attr/secondTextSize"
-                android:textColor="?attr/toolbarTextColor"
-                android:text="@string/toolbar_btn_question"/>
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/toolbar_text_color"
+                android:text="@string/text_question"/>
 
             <TextView
                 android:id="@+id/btn_settings"
@@ -58,32 +57,9 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:textSize="?attr/secondTextSize"
-                android:textColor="?attr/toolbarTextColor"
-                android:text="@string/toolbar_btn_settings"/>
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/toolbar_text_color"
+                android:text="@string/text_settings"/>
         </LinearLayout>
     </FrameLayout>
-
-    <RelativeLayout
-        android:id="@+id/loading_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:background="#ffffff">
-
-        <ProgressBar
-            android:id="@+id/loading_progressbar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large.Inverse"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/loading_progressbar"
-            android:paddingStart="10dp"
-            android:paddingLeft="10dp"
-            android:textSize="18sp"
-            android:text="@string/loading_text"/>
-    </RelativeLayout>
 </FrameLayout>

@@ -2,6 +2,8 @@ package app.taolin.one.models;
 
 import java.util.List;
 
+import app.taolin.one.utils.DateUtil;
+
 /**
  * Created by Taolin on 16/5/26.
  *
@@ -13,68 +15,12 @@ public class OldArticle {
     public String res;
     public List<Data> data;
 
-    public class ArticleItem implements BaseArticle {
+    public class ArticleItem {
         public String res;
         public Data data;
-
-        @Override
-        public String getId() {
-            return data.content_id;
-        }
-
-        @Override
-        public String getTitle() {
-            return data.hp_title;
-        }
-
-        @Override
-        public String getSubTitle() {
-            return data.sub_title;
-        }
-
-        @Override
-        public String getAuthor() {
-            return data.hp_author;
-        }
-
-        @Override
-        public String getAuthorDesc() {
-            return data.auth_it;
-        }
-
-        @Override
-        public String getWeibo() {
-            return data.author.get(0).wb_name;
-        }
-
-        @Override
-        public String getAuthorIntro() {
-            return data.hp_author_introduce;
-        }
-
-        @Override
-        public String getContent() {
-            return data.hp_content;
-        }
-
-        @Override
-        public String getWebLink() {
-            return data.web_url;
-        }
-
-        @Override
-        public String getGuideWord() {
-            return data.guide_word;
-        }
-
-        @Override
-        public String getMakeTime() {
-            final String date = data.hp_makettime;
-            return date.length() > 10? date.substring(0, 10): date;
-        }
     }
 
-    public class Data {
+    public class Data implements BaseArticle {
         public String content_id;
         public String hp_title;
         public String sub_title;
@@ -93,6 +39,62 @@ public class OldArticle {
         public int praisenum;
         public int sharenum;
         public int commentnum;
+
+        @Override
+        public String getId() {
+            return content_id;
+        }
+
+        @Override
+        public String getTitle() {
+            return hp_title;
+        }
+
+        @Override
+        public String getSubTitle() {
+            return sub_title;
+        }
+
+        @Override
+        public String getAuthor() {
+            return author.get(0).user_name;
+        }
+
+        @Override
+        public String getAuthorDesc() {
+            return auth_it;
+        }
+
+        @Override
+        public String getWeibo() {
+            return author.get(0).wb_name;
+        }
+
+        @Override
+        public String getAuthorIntro() {
+            return hp_author_introduce;
+        }
+
+        @Override
+        public String getContent() {
+            return hp_content;
+        }
+
+        @Override
+        public String getWebLink() {
+            return web_url;
+        }
+
+        @Override
+        public String getGuideWord() {
+            return guide_word;
+        }
+
+        @Override
+        public String getMakeTime() {
+            final String date = hp_makettime;
+            return DateUtil.getOldFormatDate(date);
+        }
     }
 
     public class Author {

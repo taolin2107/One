@@ -13,19 +13,27 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:name=".App"
-        android:theme="@style/LightNormalTextTheme">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
 
-        <activity android:name=".CopyrightActivity"
-            android:theme="@style/LightNormalTextTheme"/>
+        <activity android:name=".activity.CopyrightActivity"/>
 
-        <activity android:name=".AboutActivity"
-            android:theme="@style/LightNormalTextTheme"/>
+        <activity android:name=".activity.AboutActivity"/>
+
+        <activity android:name=".activity.MoreHomeListActivity"/>
+
+        <activity android:name=".activity.MoreContentListActivity"/>
+
+        <activity android:name=".activity.ArticleActivity" />
+
+        <activity android:name=".activity.QuestionActivity" />
+
+        <activity android:name=".activity.HomeActivity" />
 
         <meta-data android:name="UMENG_APPKEY" android:value="57679c71e0f55a5b0d00002c"/>
         <meta-data android:name="UMENG_CHANNEL" android:value="${UMENG_CHANNEL_VALUE}"/>

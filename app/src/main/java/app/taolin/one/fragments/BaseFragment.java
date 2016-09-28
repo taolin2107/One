@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import app.taolin.one.R;
 import app.taolin.one.adapter.ViewPagerAdapter;
+import app.taolin.one.utils.Constants;
 
 /**
  * @author taolin
@@ -21,7 +22,7 @@ import app.taolin.one.adapter.ViewPagerAdapter;
 public class BaseFragment extends Fragment {
 
     private ViewPager mViewPager;
-    int mAdapterType = ViewPagerAdapter.TYPE_HOME;
+    int mAdapterType = Constants.TYPE_HOME;
 
     @Nullable
     @Override

@@ -33,6 +33,9 @@ public class Question implements BaseQuestion {
     @NotNull
     @Unique
     private String makeTime;
+
+    @NotNull
+    private String guideWord;
     private Boolean isloaded;
 
     // KEEP FIELDS - put your custom fields here
@@ -47,7 +50,7 @@ public class Question implements BaseQuestion {
     }
 
     @Generated
-    public Question(String id, String questionTitle, String questionContent, String answerTitle, String answerContent, String editor, String webLink, String makeTime, Boolean isloaded) {
+    public Question(String id, String questionTitle, String questionContent, String answerTitle, String answerContent, String editor, String webLink, String makeTime, String guideWord, Boolean isloaded) {
         this.id = id;
         this.questionTitle = questionTitle;
         this.questionContent = questionContent;
@@ -56,6 +59,7 @@ public class Question implements BaseQuestion {
         this.editor = editor;
         this.webLink = webLink;
         this.makeTime = makeTime;
+        this.guideWord = guideWord;
         this.isloaded = isloaded;
     }
 
@@ -131,6 +135,16 @@ public class Question implements BaseQuestion {
     /** Not-null value; ensure this value is available before it is saved to the database. */
     public void setMakeTime(@NotNull String makeTime) {
         this.makeTime = makeTime;
+    }
+
+    @NotNull
+    public String getGuideWord() {
+        return guideWord;
+    }
+
+    /** Not-null value; ensure this value is available before it is saved to the database. */
+    public void setGuideWord(@NotNull String guideWord) {
+        this.guideWord = guideWord;
     }
 
     public Boolean getIsloaded() {

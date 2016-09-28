@@ -23,6 +23,8 @@ public interface BaseQuestion {
     String getEditor();
     //web链接
     String getWebLink();
+    //引导语
+    String getGuideWord();
     //创建日期
     String getMakeTime();
 }

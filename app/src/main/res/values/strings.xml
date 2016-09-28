@@ -1,19 +1,20 @@
 <resources>
     <string name="app_name">一个</string>
 
-    <string name="toolbar_btn_home">首页</string>
-    <string name="toolbar_btn_article">文章</string>
-    <string name="toolbar_btn_question">问题</string>
-    <string name="toolbar_btn_settings">设置</string>
+    <string name="text_home">首页</string>
+    <string name="text_article">文章</string>
+    <string name="text_question">问题</string>
+    <string name="text_settings">设置</string>
+    <string name="text_image">图片</string>
 
-    <string name="font_size_settings">字体大小</string>
-    <string name="night_mode">夜间模式</string>
+    <string name="more_content_date_list">往期列表</string>
+    <string name="dot">\u2022</string>
+
     <string name="clean_cache">清除缓存</string>
     <string name="about">关于</string>
     <string name="copyright">版权声明</string>
     <string name="copyright_desc">复杂的世界，一个就够了。\n每天一张图片，一篇文章，一个问答，回到最初那个简洁的\"一个\"。\n本App是『ONE·一个』的非官方版本，内容属『ONE·一个』http://m.wufazhuce.com 官方所有。</string>
 
-    <string name="loading_text">加载中&#8230;</string>
     <string name="clean_cache_success">缓存清理成功</string>
 
     <string name="about_content">ONE&#160;%s</string>

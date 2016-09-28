@@ -16,6 +16,7 @@ public class DateUtil {
     private static final DateFormat displayDateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.US);
     private static final DateFormat dayFormat = new SimpleDateFormat("dd", Locale.US);
     private static final DateFormat monthYearFormat = new SimpleDateFormat("MMM, yyyy", Locale.US);
+    private static final DateFormat oldDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US);
 
     private static final DateFormat shortTime = new SimpleDateFormat("HH:mm", Locale.US);
     private static final String UPDATE_TIME_EVERYDAY = "21:30";  //每天 21:30更新当天的内容
@@ -30,7 +31,13 @@ public class DateUtil {
         return dateFormat.format(new Date(milliseconds));
     }
 
-    public static String getDateString() {
+    //修正老的文章日期差一天的问题
+    public static String getOldFormatDate(String dateString) {
+        try {
+            return dateFormat.format(oldDateFormat.parse(dateString).getTime() + DAY);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
         return dateFormat.format(new Date());
     }
 
@@ -41,15 +48,6 @@ public class DateUtil {
             e.printStackTrace();
         }
         return displayDateFormat.format(new Date());
-    }
-
-    public static Date getDate(String dateString) {
-        try {
-            return dateFormat.parse(dateString);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return new Date();
     }
 
     public static String getDay(String dateString) {

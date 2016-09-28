@@ -3,7 +3,10 @@
     <data>
         <import type="app.taolin.one.utils.DateUtil" />
         <import type="android.text.Html" />
+        <import type="android.view.View" />
         <variable name="article" type="app.taolin.one.models.BaseArticle" />
+        <variable name="hastoolbar" type="boolean" />
+        <variable name="handlers" type="app.taolin.one.adapter.EventHandlers" />
     </data>
     <FrameLayout
         android:id="@+id/root_view"
@@ -21,20 +24,25 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:visibility="@{hastoolbar? View.VISIBLE: View.GONE}"
+                    android:layout_height="@dimen/titlebar_height" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:maxLines="1"
                     android:text='@{article.makeTime == null? "": DateUtil.getDisplayDate(article.makeTime)}'
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/second_text_color"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="?attr/dividerColor"/>
+                    android:background="@color/divider_color"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -42,16 +50,16 @@
                     android:layout_marginTop="15dp"
                     android:textStyle="bold"
                     android:text="@{article.title}"
-                    android:textSize="?attr/secondTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/title_text_size"
+                    android:textColor="@color/second_text_color"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:text="@{article.author}"
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/thirdTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/third_text_color"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -59,30 +67,30 @@
                     android:lineSpacingExtra="8dp"
                     android:layout_marginTop="15dp"
                     android:text='@{article.content == null? "": Html.fromHtml(article.content)}'
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/contentTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/content_text_color"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@{article.authorIntro}"
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/second_text_color"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="15dp"
-                    android:background="?attr/dividerColor"/>
+                    android:background="@color/divider_color"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="15dp"
                     android:text="@{article.author}"
-                    android:textSize="?attr/secondTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/title_text_size"
+                    android:textColor="@color/second_text_color"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -91,14 +99,47 @@
                     android:layout_marginBottom="@dimen/toolbar_height"
                     android:lineSpacingExtra="8dp"
                     android:text="@{article.getAuthorDesc}"
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/second_text_color"/>
             </LinearLayout>
         </app.taolin.one.widgets.ScrollViewExt>
 
         <View
             android:id="@+id/double_click_area"
             android:layout_width="match_parent"
-            android:layout_height="40dp"/>
+            android:visibility="@{hastoolbar? View.GONE: View.VISIBLE}"
+            android:layout_height="40dp" />
+
+        <FrameLayout
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:visibility="@{hastoolbar? View.VISIBLE: View.GONE}"
+            android:background="#ffffff"
+            android:layout_height="@dimen/titlebar_height">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/second_text_color"
+                android:text="@string/text_article"/>
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:onClick="@{handlers::onBackClick}"
+                android:alpha="0.4"
+                android:src="@drawable/ic_arrow_left"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color"/>
+        </FrameLayout>
     </FrameLayout>
 </layout>

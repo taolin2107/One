@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/bgColor"
+    android:background="@color/bg_color"
     android:orientation="vertical">
 
     <FrameLayout
@@ -12,7 +12,7 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="?attr/thirdTextColor"
+            android:background="@color/third_text_color"
             android:alpha="0.2"/>
 
         <ImageView
@@ -21,15 +21,15 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:alpha="0.4"
-            android:src="?attr/bgBackBtn"/>
+            android:src="@drawable/ic_arrow_left"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:textStyle="bold"
-            android:textSize="?attr/secondTextSize"
-            android:textColor="?attr/contentTextColor"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/content_text_color"
             android:text="@string/copyright"/>
     </FrameLayout>
 
@@ -45,9 +45,9 @@
         android:paddingTop="35dp"
         android:autoLink="web|email"
         android:linksClickable="true"
-        android:textColorLink="?attr/primaryColor"
-        android:textSize="?attr/contentTextSize"
-        android:textColor="?attr/contentTextColor"
+        android:textColorLink="@color/primary_color"
+        android:textSize="@dimen/content_text_size"
+        android:textColor="@color/content_text_color"
         android:text="@string/copyright_desc"/>
 </LinearLayout>
 

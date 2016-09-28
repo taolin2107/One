@@ -1,8 +1,13 @@
 package app.taolin.one.utils;
 
-import android.app.Activity;
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Environment;
 
-import app.taolin.one.R;
+import java.io.File;
+
+import app.taolin.one.api.Api;
 
 /**
  * @author taolin
@@ -12,40 +17,6 @@ import app.taolin.one.R;
  */
 
 public class Utils {
-
-    public static void setTheme(Activity activity) {
-        if (SharedPreferenceUtil.readBoolean(Constants.KEY_NIGHT_MODE)) {
-            switch (SharedPreferenceUtil.readInt(Constants.KEY_FONT_SIZE, 1)) {
-                case 0:
-                    activity.setTheme(R.style.NightSmallTextTheme);
-                    break;
-                case 1:
-                    activity.setTheme(R.style.NightNormalTextTheme);
-                    break;
-                case 2:
-                    activity.setTheme(R.style.NightLargeTextTheme);
-                    break;
-                case 3:
-                    activity.setTheme(R.style.NightExtraTextTheme);
-                    break;
-            }
-        } else {
-            switch (SharedPreferenceUtil.readInt(Constants.KEY_FONT_SIZE, 1)) {
-                case 0:
-                    activity.setTheme(R.style.LightSmallTextTheme);
-                    break;
-                case 1:
-                    activity.setTheme(R.style.LightNormalTextTheme);
-                    break;
-                case 2:
-                    activity.setTheme(R.style.LightLargeTextTheme);
-                    break;
-                case 3:
-                    activity.setTheme(R.style.LightExtraTextTheme);
-                    break;
-            }
-        }
-    }
 
     // 简单的字符串加密,在每个字符上面加上p
     public static String encryto(String s, int p) {
@@ -64,5 +35,49 @@ public class Utils {
             sb.append(s.charAt(i));
         }
         return sb.toString();
+    }
+
+    public static File getDiskCacheDir(Context context) {
+        String cachePath;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            cachePath = context.getExternalCacheDir().getPath();
+        } else {
+            cachePath = context.getCacheDir().getPath();
+        }
+        return new File(cachePath + File.separator + Constants.CACHE_DIR);
+    }
+
+    public static int getAppVersion(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return info.versionCode;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return 1;
+    }
+
+    public static String getAppVersionName(Context context) {
+        try {
+            PackageInfo info = context.getPackageManager().getPackageInfo(context.getPackageName(), 0);
+            return info.versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return "1.0";
+    }
+
+    public static void main(String[] args) {
+        System.out.println(Api.URL_BASE);
+        String ss = encryto(reverse(Api.URL_BASE), -6);
+        System.out.println(ss);
+        System.out.println(encryto(reverse(ss), 6));
+
+
+        System.out.println(Api.URL_MORE_BASE);
+        String s = encryto(reverse(Api.URL_MORE_BASE), 9);
+        System.out.println(s);
+        System.out.println(encryto(reverse(s), -9));
     }
 }

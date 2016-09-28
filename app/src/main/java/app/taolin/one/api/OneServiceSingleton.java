@@ -1,7 +1,6 @@
-package app.taolin.one.utils;
+package app.taolin.one.api;
 
-import app.taolin.one.common.Api;
-import app.taolin.one.common.OneService;
+import app.taolin.one.utils.Utils;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 

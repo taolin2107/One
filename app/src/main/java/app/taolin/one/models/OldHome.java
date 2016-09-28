@@ -2,6 +2,8 @@ package app.taolin.one.models;
 
 import java.util.List;
 
+import app.taolin.one.utils.DateUtil;
+
 /**
  * Created by Taolin on 16/5/26.
  *
@@ -64,7 +66,7 @@ public class OldHome {
         @Override
         public String getMakeTime() {
             final String date = hp_makettime;
-            return date.length() > 10? date.substring(0, 10): date;
+            return DateUtil.getOldFormatDate(date);
         }
     }
 }

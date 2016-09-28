@@ -13,7 +13,7 @@ import app.taolin.one.models.LatestArticle;
 import app.taolin.one.dao.Article;
 import app.taolin.one.dao.ArticleDao;
 import app.taolin.one.listener.OnContentScrollListener;
-import app.taolin.one.utils.OneServiceSingleton;
+import app.taolin.one.api.OneServiceSingleton;
 import app.taolin.one.widgets.ScrollViewExt;
 import retrofit2.Call;
 import retrofit2.Callback;

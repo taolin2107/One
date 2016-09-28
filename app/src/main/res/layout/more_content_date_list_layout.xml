@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/toolbar_height">
+
+    <RelativeLayout
+        android:id="@+id/titlebar"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <TextView
+            android:id="@+id/title_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/second_text_color"
+            android:text="@string/more_content_date_list"/>
+
+        <TextView
+            android:id="@+id/title_divider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/title_date"
+            android:layout_toEndOf="@id/title_date"
+            android:paddingLeft="3dp"
+            android:paddingRight="3dp"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/second_text_color"
+            android:text="@string/dot"/>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/title_divider"
+            android:layout_toEndOf="@id/title_divider"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/second_text_color"/>
+
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:background="@color/divider_color"/>
+
+    <ListView
+        android:id="@+id/date_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginStart="12dp"/>
+</LinearLayout>

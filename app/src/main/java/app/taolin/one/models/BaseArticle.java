@@ -10,15 +10,15 @@ package app.taolin.one.models;
 public interface BaseArticle {
 
     //文章ID
-    public String getId();
+    String getId();
     //文章标题
-    public String getTitle();
+    String getTitle();
     //文章副标题
-    public String getSubTitle();
+    String getSubTitle();
     //文章作者
-    public String getAuthor();
+    String getAuthor();
     //作者简介
-    public String getAuthorDesc();
+    String getAuthorDesc();
     //作者微博
     String getWeibo();
     //责任编辑

@@ -1,4 +1,4 @@
-package app.taolin.one;
+package app.taolin.one.activity;
 
 import android.os.Build;
 import android.support.v4.app.FragmentManager;
@@ -10,13 +10,14 @@ import android.widget.TextView;
 
 import com.umeng.analytics.MobclickAgent;
 
+import app.taolin.one.App;
+import app.taolin.one.R;
 import app.taolin.one.fragments.ArticleFragment;
 import app.taolin.one.fragments.HomeFragment;
 import app.taolin.one.fragments.QuestionFragment;
 import app.taolin.one.fragments.SettingsFragment;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.listener.ViewClickListener;
-import app.taolin.one.utils.Utils;
 
 public class MainActivity extends AppCompatActivity implements OnContentScrollListener {
 
@@ -33,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     private TextView mBtnArticle;
     private TextView mBtnQuestion;
     private TextView mBtnSettings;
-    private View mLoadingProgress;
 
     private HomeFragment mHomeFragment;
     private ArticleFragment mArticleFragment;
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Utils.setTheme(this);
         setContentView(R.layout.activity_main);
         mFragmentManager = getSupportFragmentManager();
         mSelectedBtnId = R.id.btn_home;
@@ -76,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnArticle = (TextView) findViewById(R.id.btn_article);
         mBtnQuestion = (TextView) findViewById(R.id.btn_question);
         mBtnSettings = (TextView) findViewById(R.id.btn_settings);
-        mLoadingProgress = findViewById(R.id.loading_view);
-        mLoadingProgress.setVisibility(View.GONE);
 
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
         mHomeFragment = new HomeFragment();

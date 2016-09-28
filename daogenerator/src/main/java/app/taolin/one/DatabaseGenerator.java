@@ -59,6 +59,7 @@ public class DatabaseGenerator {
         listItem.addStringProperty("editor");
         listItem.addStringProperty("webLink");
         listItem.addStringProperty("makeTime").unique().notNull();
+        listItem.addStringProperty("guideWord").notNull();
         listItem.addBooleanProperty("isloaded");
     }
 }

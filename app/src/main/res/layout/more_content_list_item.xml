@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <import type="android.view.View" />
+        <variable name="listModel" type="app.taolin.one.models.MoreListModel" />
+    </data>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_settings_item"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/title_text_size"
+            android:textColor="@color/second_text_color"
+            android:text="@{listModel.title}"/>
+
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="@{listModel.author == null ? View.GONE : View.VISIBLE}"
+            android:layout_marginTop="8dp"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/second_text_color"
+            android:text='@{listModel.author ?? ""}'/>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/second_text_color"
+            android:text="@{listModel.contentDesc}"/>
+
+    </LinearLayout>
+</layout>

@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,15 +15,12 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Locale;
 
-import app.taolin.one.AboutActivity;
-import app.taolin.one.CopyrightActivity;
-import app.taolin.one.FontSettingsDialog;
+import app.taolin.one.activity.AboutActivity;
+import app.taolin.one.activity.CopyrightActivity;
 import app.taolin.one.R;
-import app.taolin.one.utils.CommonUtil;
 import app.taolin.one.utils.Constants;
 import app.taolin.one.utils.DiskLruCache;
-import app.taolin.one.utils.SharedPreferenceUtil;
-import app.taolin.one.widgets.SmoothSwitch;
+import app.taolin.one.utils.Utils;
 
 /**
  * @author taolin
@@ -35,7 +31,6 @@ import app.taolin.one.widgets.SmoothSwitch;
 
 public class SettingsFragment extends Fragment implements View.OnClickListener {
 
-    private SmoothSwitch mNightMode;
     private TextView mCacheSizeText;
     private Context mContext;
     private DiskLruCache mDiskCache;
@@ -50,13 +45,9 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.layout_settings, container, false);
-        root.findViewById(R.id.font_size).setOnClickListener(this);
         root.findViewById(R.id.copyright).setOnClickListener(this);
-        root.findViewById(R.id.night_mode_layout).setOnClickListener(this);
         root.findViewById(R.id.clean_cache).setOnClickListener(this);
         root.findViewById(R.id.about).setOnClickListener(this);
-        mNightMode = (SmoothSwitch) root.findViewById(R.id.night_mode);
-        mNightMode.setChecked(SharedPreferenceUtil.readBoolean(Constants.KEY_NIGHT_MODE));
         mCacheSizeText = (TextView) root.findViewById(R.id.cache_size);
         return root;
     }
@@ -64,13 +55,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        mNightMode.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                SharedPreferenceUtil.writeBoolean(Constants.KEY_NIGHT_MODE, isChecked);
-                getActivity().recreate();
-            }
-        });
         initCache();
         refreshCacheSize();
     }
@@ -88,14 +72,6 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.font_size:
-                new FontSettingsDialog().show(getFragmentManager(), "font_settings");
-                break;
-
-            case R.id.night_mode_layout:
-                mNightMode.setChecked(!mNightMode.isChecked());
-                break;
-
             case R.id.copyright:
                 startActivity(new Intent(mContext, CopyrightActivity.class));
                 break;
@@ -129,11 +105,11 @@ public class SettingsFragment extends Fragment implements View.OnClickListener {
 
     private void initCache() {
         try {
-            File cacheDir = CommonUtil.getDiskCacheDir(mContext);
+            File cacheDir = Utils.getDiskCacheDir(mContext);
             if (!cacheDir.exists()) {
                 cacheDir.mkdirs();
             }
-            mDiskCache = DiskLruCache.open(cacheDir, CommonUtil.getAppVersion(mContext), 1, Constants.MAX_CACHE_SIZE);
+            mDiskCache = DiskLruCache.open(cacheDir, Utils.getAppVersion(mContext), 1, Constants.MAX_CACHE_SIZE);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable name="listModel" type="app.taolin.one.models.MoreListModel" />
+    </data>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bg_shadow">
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/home_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@{listModel.imgUrl}"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#55000000"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:layout_alignBottom="@id/home_img">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/third_text_color"
+                android:text="@{listModel.title}"/>
+
+            <TextView
+                android:id="@+id/make_time"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="12sp"
+                android:textColor="@color/third_text_color"
+                android:layout_gravity="end"
+                android:text="@{listModel.makeTime}"/>
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="5dp"
+            android:paddingEnd="5dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="10dp"
+            android:textSize="@dimen/small_text_size"
+            android:textColor="@color/second_text_color"
+            android:layout_below="@id/home_img"
+            android:maxLines="2"
+            android:text="@{listModel.contentDesc}"/>
+
+    </RelativeLayout>
+</layout>

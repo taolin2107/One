@@ -2,14 +2,17 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="app.taolin.one.utils.DateUtil" />
+        <import type="android.view.View" />
         <variable name="home" type="app.taolin.one.models.BaseHome" />
+        <variable name="hastoolbar" type="boolean" />
+        <variable name="handlers" type="app.taolin.one.adapter.EventHandlers" />
     </data>
     <FrameLayout
         android:id="@+id/root_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ScrollView
+        <app.taolin.one.widgets.ScrollViewExt
             android:id="@+id/scroll_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -20,25 +23,29 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <View
+                    android:layout_width="match_parent"
+                    android:visibility="@{hastoolbar? View.VISIBLE: View.GONE}"
+                    android:layout_height="@dimen/titlebar_height" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
                     android:maxLines="1"
                     android:text="@{home.title}"
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/second_text_color"/>
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_marginTop="5dp"
-                    android:background="?attr/dividerColor"/>
+                    android:background="@color/divider_color"/>
 
                 <com.android.volley.toolbox.NetworkImageView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:alpha="?attr/toolbarAlpha"
                     android:src="@{home.imageUrl}"
                     android:layout_marginTop="10dp"/>
 
@@ -50,8 +57,8 @@
                     android:gravity="end"
                     android:maxLines="2"
                     android:text="@{home.author}"
-                    android:textSize="?attr/contentTextSize"
-                    android:textColor="?attr/secondTextColor"/>
+                    android:textSize="@dimen/content_text_size"
+                    android:textColor="@color/second_text_color"/>
 
                 <LinearLayout
                     android:id="@+id/date_content"
@@ -75,17 +82,16 @@
                             android:textStyle="bold"
                             android:textSize="40sp"
                             android:text='@{home.makeTime == null? "": DateUtil.getDay(home.makeTime)}'
-                            android:textColor="?attr/primaryColor"/>
+                            android:textColor="@color/primary_color"/>
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="5dp"
-                            android:alpha="?attr/toolbarAlpha"
                             android:maxLines="1"
                             android:text='@{home.makeTime == null ? "": DateUtil.getMonthYear(home.makeTime)}'
-                            android:textSize="?attr/contentTextSize"
-                            android:textColor="?attr/thirdTextColor"/>
+                            android:textSize="@dimen/content_text_size"
+                            android:textColor="@color/third_text_color"/>
                     </LinearLayout>
 
                     <TextView
@@ -95,16 +101,49 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginStart="5dp"
                         android:text="@{home.content}"
-                        android:background="?attr/homeContentBg"
-                        android:textSize="?attr/contentTextSize"
-                        android:textColor="?attr/quoteTextColor"/>
+                        android:background="@drawable/bg_home_content"
+                        android:textSize="@dimen/content_text_size"
+                        android:textColor="@color/quote_text_color"/>
                 </LinearLayout>
             </LinearLayout>
-        </ScrollView>
+        </app.taolin.one.widgets.ScrollViewExt>
 
         <View
             android:id="@+id/double_click_area"
             android:layout_width="match_parent"
+            android:visibility="@{hastoolbar? View.GONE: View.VISIBLE}"
             android:layout_height="40dp"/>
+
+        <FrameLayout
+            android:id="@+id/titlebar"
+            android:layout_width="match_parent"
+            android:visibility="@{hastoolbar? View.VISIBLE: View.GONE}"
+            android:background="#ffffff"
+            android:layout_height="@dimen/titlebar_height">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:textSize="@dimen/title_text_size"
+                android:textColor="@color/second_text_color"
+                android:text="@string/text_image"/>
+
+            <ImageView
+                android:id="@+id/back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:onClick="@{handlers::onBackClick}"
+                android:alpha="0.4"
+                android:src="@drawable/ic_arrow_left"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_gravity="bottom"
+                android:background="@color/divider_color"/>
+        </FrameLayout>
     </FrameLayout>
 </layout>

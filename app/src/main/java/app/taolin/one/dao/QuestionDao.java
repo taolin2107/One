@@ -30,7 +30,8 @@ public class QuestionDao extends AbstractDao<Question, String> {
         public final static Property Editor = new Property(5, String.class, "editor", false, "EDITOR");
         public final static Property WebLink = new Property(6, String.class, "webLink", false, "WEB_LINK");
         public final static Property MakeTime = new Property(7, String.class, "makeTime", false, "MAKE_TIME");
-        public final static Property Isloaded = new Property(8, Boolean.class, "isloaded", false, "ISLOADED");
+        public final static Property GuideWord = new Property(8, String.class, "guideWord", false, "GUIDE_WORD");
+        public final static Property Isloaded = new Property(9, Boolean.class, "isloaded", false, "ISLOADED");
     };
 
 
@@ -54,7 +55,8 @@ public class QuestionDao extends AbstractDao<Question, String> {
                 "\"EDITOR\" TEXT," + // 5: editor
                 "\"WEB_LINK\" TEXT," + // 6: webLink
                 "\"MAKE_TIME\" TEXT NOT NULL UNIQUE ," + // 7: makeTime
-                "\"ISLOADED\" INTEGER);"); // 8: isloaded
+                "\"GUIDE_WORD\" TEXT NOT NULL ," + // 8: guideWord
+                "\"ISLOADED\" INTEGER);"); // 9: isloaded
     }
 
     /** Drops the underlying database table. */
@@ -86,10 +88,11 @@ public class QuestionDao extends AbstractDao<Question, String> {
             stmt.bindString(7, webLink);
         }
         stmt.bindString(8, entity.getMakeTime());
+        stmt.bindString(9, entity.getGuideWord());
  
         Boolean isloaded = entity.getIsloaded();
         if (isloaded != null) {
-            stmt.bindLong(9, isloaded ? 1L: 0L);
+            stmt.bindLong(10, isloaded ? 1L: 0L);
         }
     }
 
@@ -116,10 +119,11 @@ public class QuestionDao extends AbstractDao<Question, String> {
             stmt.bindString(7, webLink);
         }
         stmt.bindString(8, entity.getMakeTime());
+        stmt.bindString(9, entity.getGuideWord());
  
         Boolean isloaded = entity.getIsloaded();
         if (isloaded != null) {
-            stmt.bindLong(9, isloaded ? 1L: 0L);
+            stmt.bindLong(10, isloaded ? 1L: 0L);
         }
     }
 
@@ -139,7 +143,8 @@ public class QuestionDao extends AbstractDao<Question, String> {
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // editor
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // webLink
             cursor.getString(offset + 7), // makeTime
-            cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0 // isloaded
+            cursor.getString(offset + 8), // guideWord
+            cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0 // isloaded
         );
         return entity;
     }
@@ -154,7 +159,8 @@ public class QuestionDao extends AbstractDao<Question, String> {
         entity.setEditor(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setWebLink(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setMakeTime(cursor.getString(offset + 7));
-        entity.setIsloaded(cursor.isNull(offset + 8) ? null : cursor.getShort(offset + 8) != 0);
+        entity.setGuideWord(cursor.getString(offset + 8));
+        entity.setIsloaded(cursor.isNull(offset + 9) ? null : cursor.getShort(offset + 9) != 0);
      }
     
     @Override

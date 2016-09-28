@@ -12,7 +12,7 @@ import app.taolin.one.dao.QuestionDao;
 import app.taolin.one.databinding.LayoutQuestionBinding;
 import app.taolin.one.listener.OnContentScrollListener;
 import app.taolin.one.models.LatestQuestion;
-import app.taolin.one.utils.OneServiceSingleton;
+import app.taolin.one.api.OneServiceSingleton;
 import retrofit2.Call;
 import retrofit2.Callback;
 
@@ -66,6 +66,7 @@ public class QuestionContentFragment extends BaseContentFragment {
                     question.setMakeTime(latestQuestion.getMakeTime());
                     question.setEditor(latestQuestion.getEditor());
                     question.setWebLink(latestQuestion.getWebLink());
+                    question.setGuideWord(latestQuestion.getGuideWord());
                     question.setIsloaded(true);
                     try {
                         questionDao.insertOrReplace(question);

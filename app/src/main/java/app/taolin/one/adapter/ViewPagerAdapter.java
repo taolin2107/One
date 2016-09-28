@@ -4,6 +4,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import app.taolin.one.fragments.MoreContentFragment;
 import app.taolin.one.utils.Constants;
 import app.taolin.one.fragments.ArticleContentFragment;
 import app.taolin.one.fragments.HomeContentFragment;
@@ -14,10 +15,6 @@ import app.taolin.one.fragments.QuestionContentFragment;
  */
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
-
-    public static final int TYPE_HOME = 1;
-    public static final int TYPE_ARTICLE = 2;
-    public static final int TYPE_QUESTION = 3;
 
     private int mAdapterType;
 
@@ -37,14 +34,17 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public Fragment getItem(int position) {
+        if (position == Constants.MAX_PAGE_NUM - 1) {
+            return MoreContentFragment.getInstance(mAdapterType);
+        }
         switch (mAdapterType) {
-            case TYPE_HOME:
+            case Constants.TYPE_HOME:
                 return HomeContentFragment.getInstance(position);
 
-            case TYPE_ARTICLE:
+            case Constants.TYPE_ARTICLE:
                 return ArticleContentFragment.getInstance(position);
 
-            case TYPE_QUESTION:
+            case Constants.TYPE_QUESTION:
                 return QuestionContentFragment.getInstance(position);
         }
         return HomeContentFragment.getInstance(position);

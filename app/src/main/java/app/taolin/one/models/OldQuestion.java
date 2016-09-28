@@ -2,6 +2,8 @@ package app.taolin.one.models;
 
 import java.util.List;
 
+import app.taolin.one.utils.DateUtil;
+
 /**
  * Created by Taolin on 16/5/26.
  *
@@ -13,53 +15,12 @@ public class OldQuestion {
     public String res;
     public List<Data> data;
 
-    public class QuestionItem implements BaseQuestion {
+    public class QuestionItem {
         public String res;
         public Data data;
-
-        @Override
-        public String getId() {
-            return data.question_id;
-        }
-
-        @Override
-        public String getQuestionTitle() {
-            return data.question_title;
-        }
-
-        @Override
-        public String getQuestionContent() {
-            return data.question_content;
-        }
-
-        @Override
-        public String getAnswerTitle() {
-            return data.answer_title;
-        }
-
-        @Override
-        public String getAnswerContent() {
-            return data.answer_content;
-        }
-
-        @Override
-        public String getEditor() {
-            return data.charge_edt;
-        }
-
-        @Override
-        public String getWebLink() {
-            return data.web_url;
-        }
-
-        @Override
-        public String getMakeTime() {
-            final String date = data.question_makettime;
-            return date.length() > 10? date.substring(0, 10): date;
-        }
     }
 
-    public class Data {
+    public class Data implements BaseQuestion {
         public String question_id;
         public String question_title;
         public String question_content;
@@ -75,5 +36,51 @@ public class OldQuestion {
         public int praisenum;
         public int sharenum;
         public int commentnum;
+
+        @Override
+        public String getId() {
+            return question_id;
+        }
+
+        @Override
+        public String getQuestionTitle() {
+            return question_title;
+        }
+
+        @Override
+        public String getQuestionContent() {
+            return question_content;
+        }
+
+        @Override
+        public String getAnswerTitle() {
+            return answer_title;
+        }
+
+        @Override
+        public String getAnswerContent() {
+            return answer_content;
+        }
+
+        @Override
+        public String getEditor() {
+            return charge_edt;
+        }
+
+        @Override
+        public String getWebLink() {
+            return web_url;
+        }
+
+        @Override
+        public String getGuideWord() {
+            return guide_word;
+        }
+
+        @Override
+        public String getMakeTime() {
+            final String date = question_makettime;
+            return DateUtil.getOldFormatDate(date);
+        }
     }
 }
