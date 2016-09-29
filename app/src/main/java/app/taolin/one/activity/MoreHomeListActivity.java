@@ -5,9 +5,9 @@ import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -51,13 +51,16 @@ public class MoreHomeListActivity extends Activity {
 
         MoreHomeListLayoutBinding layoutBinding = DataBindingUtil.setContentView(this, R.layout.more_home_list_layout);
         layoutBinding.setHandlers(new EventHandlers());
+        layoutBinding.list.setHasFixedSize(true);
+        layoutBinding.list.setLayoutManager(new GridLayoutManager(this, 2));
+
         List<MoreListModel> dataList = new ArrayList<>();
         mListAdapter = new MoreHomeListAdapter(dataList);
         layoutBinding.list.setAdapter(mListAdapter);
 
-        layoutBinding.list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListAdapter.setOnItemClickListener(new MoreHomeListAdapter.ItemClickListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onClick(View v, int position) {
                 Intent intent = new Intent(MoreHomeListActivity.this, HomeActivity.class);
                 final String contentId = mListAdapter.getItem(position).id;
                 intent.putExtra(Constants.PARAMS_ID, contentId);

@@ -38,14 +38,10 @@
             android:layout_height="1px"
             android:background="@color/divider_color"/>
 
-        <GridView
+        <android.support.v7.widget.RecyclerView
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:horizontalSpacing="10dp"
-            android:verticalSpacing="10dp"
-            android:padding="5dp"
-            android:background="#aadddddd"
-            android:numColumns="2"/>
+            android:background="#aadddddd" />
     </LinearLayout>
 </layout>
