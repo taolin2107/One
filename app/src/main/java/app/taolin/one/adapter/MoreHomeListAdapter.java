@@ -75,6 +75,7 @@ public class MoreHomeListAdapter extends RecyclerView.Adapter<MoreHomeListAdapte
 
         void bindData(MoreListModel model) {
             layoutBinding.setListModel(model);
+            layoutBinding.executePendingBindings();
         }
     }
 
