@@ -76,19 +76,32 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
         mBtnQuestion = (TextView) findViewById(R.id.btn_question);
         mBtnSettings = (TextView) findViewById(R.id.btn_settings);
 
+        mHomeFragment = (HomeFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_HOME);
+        mArticleFragment = (ArticleFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_ARTICLE);
+        mQuestionFragment = (QuestionFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_QUESTION);
+        mSettingsFragment = (SettingsFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_SETTINGS);
+
         FragmentTransaction transaction = mFragmentManager.beginTransaction();
-        mHomeFragment = new HomeFragment();
-        transaction.add(R.id.container, mHomeFragment, TAG_FRAGMENT_HOME);
-        transaction.hide(mHomeFragment);
-        mArticleFragment = new ArticleFragment();
-        transaction.add(R.id.container, mArticleFragment, TAG_FRAGMENT_ARTICLE);
-        transaction.hide(mArticleFragment);
-        mQuestionFragment = new QuestionFragment();
-        transaction.add(R.id.container, mQuestionFragment, TAG_FRAGMENT_QUESTION);
-        transaction.hide(mQuestionFragment);
-        mSettingsFragment = new SettingsFragment();
-        transaction.add(R.id.container, mSettingsFragment, TAG_FRAGMENT_SETTINGS);
-        transaction.hide(mSettingsFragment);
+        if (mHomeFragment == null) {
+            mHomeFragment = new HomeFragment();
+            transaction.add(R.id.container, mHomeFragment, TAG_FRAGMENT_HOME);
+            transaction.hide(mHomeFragment);
+        }
+        if (mArticleFragment == null) {
+            mArticleFragment = new ArticleFragment();
+            transaction.add(R.id.container, mArticleFragment, TAG_FRAGMENT_ARTICLE);
+            transaction.hide(mArticleFragment);
+        }
+        if (mQuestionFragment == null) {
+            mQuestionFragment = new QuestionFragment();
+            transaction.add(R.id.container, mQuestionFragment, TAG_FRAGMENT_QUESTION);
+            transaction.hide(mQuestionFragment);
+        }
+        if (mSettingsFragment == null) {
+            mSettingsFragment = new SettingsFragment();
+            transaction.add(R.id.container, mSettingsFragment, TAG_FRAGMENT_SETTINGS);
+            transaction.hide(mSettingsFragment);
+        }
         transaction.commit();
 
         mToolbarHeight = getResources().getDimensionPixelSize(R.dimen.toolbar_height);
@@ -128,10 +141,6 @@ public class MainActivity extends AppCompatActivity implements OnContentScrollLi
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
         if (savedInstanceState.containsKey(KEY_SELECTED_BTN_ID)) {
-            mHomeFragment = (HomeFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_HOME);
-            mArticleFragment = (ArticleFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_ARTICLE);
-            mQuestionFragment = (QuestionFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_QUESTION);
-            mSettingsFragment = (SettingsFragment) mFragmentManager.findFragmentByTag(TAG_FRAGMENT_SETTINGS);
             mSelectedBtnId = savedInstanceState.getInt(KEY_SELECTED_BTN_ID);
         }
     }
